@@ -28,8 +28,7 @@ class FlatsTableSeeder extends Seeder
             $newFlat->latitude = $faker->numberBetween(1000, 5000);
             $newFlat->longitude = $faker->numberBetween(1000, 5000);
             $newFlat->visible = $faker->numberBetween(0, 1);
-            $slug = strval($newFlat->rooms);
-            $newFlat->slug = Str::slug($newFlat->name . $slug);
+            $newFlat->slug = Str::slug($newFlat->name . $user->id);
             $newFlat->user_id = $user->id;
             $newFlat->save();
         }
