@@ -16,12 +16,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=0; $i < 12; $i++) { 
+        $usersData = config('usersSeeder');
+
+        foreach ($usersData as $user) {
+            # code...
             $faker = Faker::create("it_IT");
             $newUser = new User();
-            $newUser->name = $faker->firstName();
-            $newUser->surname = $faker->lastName();
-            $newUser->email = $faker->email();
+            $newUser->name = $user["name"];
+            $newUser->surname = $user["surname"];
+            $newUser->email = $user["email"];
             $newUser->password = $faker->password();
             $newUser->date_of_birth = $faker->dateTimeInInterval("-50 years", "-18 years");
             $newUser->save();
