@@ -11,7 +11,11 @@ use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
-    public function index() {}
+    public function index()
+    {
+        $flatsArray = Flat::all();
+        return view("admin.flats.index", compact("flatsArray"));
+    }
 
     public function create()
     {
@@ -38,7 +42,9 @@ class FlatController extends Controller
 
     }
 
-    public function show(string $slug) {}
+    public function show(Flat $flat) {
+        return view("admin.flats.show", compact('flat'));
+    }
 
     public function edit() {}
 
