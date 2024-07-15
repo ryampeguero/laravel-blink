@@ -1,6 +1,6 @@
+
 @use "./partials/_variables" as *;
 @use "./partials/fonts" as *;
-@use "./partials/queries" as *;
 @import "~bootstrap/scss/bootstrap";
 
 // ALL
@@ -11,6 +11,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.stats {
+    display: flex;
 }
 
 // GENERAL
@@ -103,3 +107,4 @@ a {
     border-radius: 0.5rem;
 }
 
+@import "./partials/queries";
