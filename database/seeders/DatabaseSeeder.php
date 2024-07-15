@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             FlatsTableSeeder::class,
             ServicesTableSeeder::class,
-            FlatServiceTableSeeder::class
+            FlatServiceTableSeeder::class,
+            PlansTableSeeder::class,
         ]);
     }
 }
