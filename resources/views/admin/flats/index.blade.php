@@ -2,20 +2,28 @@
 
 @section('content')
     <div class="ms_shadow mt-4 container ms_border p-4">
+        <div class=" mb-5 d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Appartamenti</h1>
+            </div>
+            <div>
+                <a class="ms_button" href="">&plus; Aggiungi</a>
+            </div>
+        </div>
         <div class="d-flex justify-content-between mb-3 gap-3">
-            <div class="card container-fluid ms_border p-4">
-                <h1>stats</h1>
-                <h3>Number</h3>
+            <div class="container-fluid ms_border_inner p-4 ms_shadow">
+                <h4>Stats</h4>
+                <h1>5264</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             </div>
-            <div class="card container-fluid ms_border p-4" >
-                <h1>stats</h1>
-                <h3>Number</h3>
+            <div class="container-fluid ms_border_inner p-4 ms_shadow" >
+                <h4>Stats</h4>
+                <h1>1820</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             </div>
-            <div class="card container-fluid ms_border p-4">
-                <h1>stats</h1>
-                <h3>Number</h3>
+            <div class=" container-fluid ms_border_inner p-4 ms_shadow">
+                <h4>Stats</h4>
+                <h1>3212</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             </div>
         </div>
@@ -33,7 +41,7 @@
             </thead>
             <tbody>
                 @foreach ($flatsArray as $item)
-                    <tr>
+                    <tr class="ms_shadow2">
                         <th scope="row">{{ $item->id }}</th>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->rooms }}</td>
