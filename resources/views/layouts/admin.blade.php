@@ -26,7 +26,7 @@
 <body>
   <div id="app">
 
-    <header class="navbar ms_backC_primary sticky-top bg-dark flex-md-nowrap p-2 shadow">
+    <header class="navbar ms_backC_primary d-md-none sticky-top bg-dark flex-md-nowrap p-2 shadow">
       <div class="row justify-content-between">
         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/"><img class="h-100" src="{{ asset("Icons/blink-logo-white.svg") }}" alt=""></a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
