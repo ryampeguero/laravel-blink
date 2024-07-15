@@ -19,7 +19,7 @@ class FlatController extends Controller
     public function store(Request $request) {}
 
     public function show(Flat $flat) {
-        return view("admin.flats.show");
+        return view("admin.flats.show", compact('flat'));
     }
 
     public function edit() {}
