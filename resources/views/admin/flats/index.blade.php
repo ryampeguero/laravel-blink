@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="ms_shadow mt-4 container ms_border p-4">
-        <div class=" mb-5 d-flex justify-content-between align-items-center">
+    <div class="ms_shadow mt-4 container ms_border p-4 ">
+        <div class=" mb-5 d-flex justify-content-between align-items-center ">
             <div>
                 <h1>Appartamenti</h1>
             </div>
@@ -10,7 +10,7 @@
                 <a class="ms_button" href="">&plus; Aggiungi</a>
             </div>
         </div>
-        <div class="d-flex justify-content-between mb-3 gap-3">
+        <div class="d-flex justify-content-between mb-3 gap-3 ">
             <div class="container-fluid ms_border_inner p-4 ms_shadow">
                 <h4>Stats</h4>
                 <h1>5264</h1>
