@@ -1,1 +1,105 @@
+@use "./partials/_variables" as *;
+@use "./partials/fonts" as *;
+@use "./partials/queries" as *;
 @import "~bootstrap/scss/bootstrap";
+
+// ALL
+* {
+    font-family: BlauerNue;
+    font-variant: normal;
+    font-weight: 100;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// GENERAL
+h1 {
+    font-family: BlauerNue;
+    font-variant: normal;
+    font-weight: bolder;
+}
+a {
+    text-decoration: none;
+}
+
+// TABLES
+.ms_table {
+    border-radius: 0.5rem;
+    border-collapse: separate;
+    overflow: hidden;
+    border-spacing: 0;
+    width: 100%;
+    box-shadow: $shadow;
+    thead {
+        background-color: $primary-color;
+        color: white;
+        th {
+            font-family: BlauerNue;
+            font-variant: normal;
+            font-weight: bolder;
+            padding: 10px;
+        }
+    }
+
+    tbody {
+        th {
+            padding: 1rem;
+            font-family: BlauerNue;
+            font-variant: normal;
+            font-weight: bolder;
+        }
+        tr {
+            border-bottom: 1px solid $primary-color;
+        }
+        td {
+            padding: 1rem;
+        }
+    }
+}
+
+// BACKGROUND-COLOR
+.ms_backC_primary {
+    background-color: $primary-color !important;
+}
+
+.ms_backC_secondary {
+    background-color: $secondary-color  !important;
+}
+
+// COLOR-TEXT
+.ms_t-white {
+    color: white;
+}
+
+.ms_t-black {
+    color: #212529;
+}
+
+
+// BUTTONS
+.ms_button {
+    background-color: $secondary-color;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 0.5rem;
+    box-shadow: $shadow2;
+}
+
+// SHADOW
+.ms_shadow {
+    box-shadow: $shadow;
+}
+.ms_shadow2 {
+    box-shadow: $shadow2;
+}
+
+// BORDER
+.ms_border {
+    border-radius: 1.5rem;
+}
+
+.ms_border_inner {
+    border-radius: 0.5rem;
+}
+
