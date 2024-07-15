@@ -9,14 +9,11 @@ class Flat extends Model
 {
     use HasFactory;
 
-
     protected $fillable = ['id', 'user_id', 'name', 'slug', 'rooms', 'bathrooms', 'beds', 'square_meters', 'address', 'latitude', 'longitude', 'img_path', 'visible'];
 
     public function views()
     {
 
-    public function views () {
-        
         return $this->hasMany(View::class);
     }
 
