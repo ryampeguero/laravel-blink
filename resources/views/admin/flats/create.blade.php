@@ -2,17 +2,6 @@
 
 @section('content')
     <div class="container">
-        <div id="map" class="map"></div>
-        <!-- Replace version in the URL with desired library version -->
-        <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps-web.min.js"></script>
-        <script>
-            tt.setProductInfo("<your-product-name>", "<your-product-version>")
-            tt.map({
-                key: "bKZHQIbuOQ0b5IXmQXQ2FTUOUR3u0a26",
-                container: "map",
-            })
-        </script>
-
         <h1>Aggiungi un nuovo appartamento</h1>
         <form action="{{ route('admin.flats.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
