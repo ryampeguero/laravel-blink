@@ -55,6 +55,9 @@ a {
         }
         tr {
             border-bottom: 1px solid $primary-color;
+            &:hover{
+                background-color: $primary-color-shade;
+            }
         }
         td {
             padding: 1rem;

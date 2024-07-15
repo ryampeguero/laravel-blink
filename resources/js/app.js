@@ -26,7 +26,7 @@ function setAddEventListenerTable(){
     
             document.location.href = `${urlShow}${curValue}`
         })
-        console.log(curItem);
+        // console.log(curItem);
     })
     
 }
