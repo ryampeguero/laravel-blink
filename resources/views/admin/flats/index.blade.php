@@ -7,7 +7,7 @@
                 <h1>Appartamenti</h1>
             </div>
             <div>
-                <a class="ms_button" href="">&plus; Aggiungi</a>
+                <a class="ms_button" href="{{route('admin.flats.create')}}">&plus; Aggiungi</a>
             </div>
         </div>
         <div class="justify-content-between mb-3 gap-3 stats">
