@@ -11,6 +11,7 @@ class Flat extends Model
     use HasFactory;
 
     public function views () {
+        
         return $this->hasMany(View::class);
     }
     public function messages () {
