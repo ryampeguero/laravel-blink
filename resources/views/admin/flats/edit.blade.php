@@ -4,15 +4,7 @@
     <div class="container mt-3">
 
         {{-- errors --}}
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('partials.errors')
 
         <h2>Modifica Appartamento</h2>
 
@@ -25,49 +17,72 @@
                 {{-- name --}}
                 <div class="my-3 col-12">
                     <label class="form-label" for="name">Nome Appartamento</label>
-                    <input type="text" name="name" id="name" class="form-control">
+                    <input value="{{ old('name') ?? $flat->name }}" type="text" name="name" id="name"
+                        class="form-control">
                 </div>
 
                 {{-- slug --}}
                 <div class="my-3 col-12">
                     <label for="slug" class="form-label">Slug</label>
-                    <input class="form-control" type="text" name="slug" id="slug">
+                    <input value="{{ old('slug') ?? $flat->slug }}" class="form-control" type="text" name="slug"
+                        id="slug">
                 </div>
 
                 {{-- rooms --}}
                 <div class="my-3 col-12">
                     <label class="form-label" for="rooms">Stanze</label>
-                    <input type="number" name="rooms" id="rooms" class="form-control">
+                    <input value="{{ old('slug') ?? $flat->rooms }}" type="number" name="rooms" id="rooms"
+                        class="form-control">
                 </div>
 
                 {{-- bathrooms --}}
                 <div class="my-3 col-12">
                     <label class="form-label" for="bathrooms">Bagni</label>
-                    <input class="form-control" type="number" name="bathrooms" id="bathrooms">
+                    <input value="{{ old('bathrooms') ?? $flat->bathrooms }}" class="form-control" type="number"
+                        name="bathrooms" id="bathrooms">
                 </div>
 
                 {{-- beds --}}
                 <div class="my-3 col-12">
                     <label class="form-label" for="beds">Letti</label>
-                    <input class="form-control" type="number" name="beds" id="beds">
+                    <input value="{{ old('beds') ?? $flat->beds }}" class="form-control" type="number" name="beds"
+                        id="beds">
                 </div>
 
                 {{-- square_meters --}}
                 <div class="my-3 col-12">
                     <label class="form-label" for="square_meters">Metri Quadrati</label>
-                    <input class="form-control" type="number" name="square_meters" id="square_meters">
+                    <input value="{{ old('square_meters') ?? $flat->square_meters }}" class="form-control" type="number"
+                        name="square_meters" id="square_meters">
                 </div>
 
                 {{-- address --}}
                 <div class="my-3 col-12">
                     <label class="form-label" for="address">Indirizzo</label>
-                    <input class="form-control" type="text" name="address" id="address">
+                    <input value="{{ old('address') ?? $flat->address }}" class="form-control" type="text" name="address"
+                        id="address">
                 </div>
 
                 {{-- image --}}
                 <div class="my-3 col-12">
                     <label class="form-label" for="img_path">Poster</label>
-                    <input class="form-control" type="file" name="img_path" id="img_path">
+                    <input value="{{ old('img_path') ?? $flat->img_path }}" class="form-control" type="file"
+                        name="img_path" id="img_path">
+                </div>
+
+                {{-- services --}}
+                <div class="my-3 col-12">
+                    {{-- <p>Seleziona Servizi</p> --}}
+                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                        @foreach ($services as $service)
+                            @if (old('services') != null)
+                            <input  @checked(in_array($service->id, old('services', [] ))) value="{{ $service->id }}" class="btn-check" type="checkbox" name="services[]" id="{{ $service->id }}">
+                            @else
+                                <input value="{{ $service->id }}"  class="btn-check" type="checkbox" name="services[]" id="{{ $service->id }}">
+                            @endif
+                            <label class="form-label btn btn-outline-primary" for="{{ $service->id }}">{{ $service?->name }}</label>
+                        @endforeach
+                    </div>
                 </div>
 
                 {{-- visible --}}
@@ -75,8 +90,8 @@
                     <label class="form-label" for="visible">Visibile</label>
                     <select class="form-select" name="visible" id="visible">
                         <option value="">Seleziona</option>
-                        <option value="">Si</option>
-                        <option value="">No</option>
+                        <option @selected(old('visible', $flat->visible) == $flat->visible) value="1">Si</option>
+                        <option @selected(old('visible', $flat->visible) == $flat->visible) value="0">No</option>
                     </select>
                 </div>
 
