@@ -39,9 +39,9 @@
             <input type="file" id="img_path" name="img_path"><br>
 
             <br> <label for="address">Vuoi mettere in vendita subito il tuo appartamento</label><br>
-            <input type="radio" id="true" name="visible" value="true">
+            <input type="radio" id="true" name="visible" value="1">
             <label for="true">Si, voglio inserirlo ora</label><br>
-            <input type="radio" id="false" name="visible" value="false">
+            <input type="radio" id="false" name="visible" value="0">
             <label for="false">No, provvedrò dopo</label><br>
 
 
