@@ -26,7 +26,7 @@ Route::middleware('auth')
     ->name('admin.') // inizio di ogni nome delle rotte del gruppo
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::resource('flats', FlatController::class)->except(['destroy']);
+        Route::resource('flats', FlatController::class)->except(['destroy'])->parameters(['flats' => 'flat:slug']);
     });
 
 
