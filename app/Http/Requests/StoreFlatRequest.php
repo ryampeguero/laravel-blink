@@ -11,7 +11,7 @@ class StoreFlatRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,11 +22,11 @@ class StoreFlatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:255 ',
+            'name' => ['required', 'string', 'min:3', 'max:255 '],
             'rooms' => 'required|integer|not_in:0|gt:-1 ',
             'bathrooms' => 'required|integer|not_in:0|gt:-1 ',
             'beds' => 'required|integer|not_in:0|gt:-1 ',
-            'square_meter' => 'required|integer|not_in:0|gt:-1  ',
+            'square_meters' => 'required|integer|not_in:0|gt:-1',
             'address' => 'required|string|min:3|max:255',
             'latitude' => ' nullable',
             'longitude' => 'nullable ',
@@ -54,10 +54,10 @@ class StoreFlatRequest extends FormRequest
             'bathrooms.integer' => 'Il numero di bagni deve esseere un numero intero',
             'bathrooms.not_in' => 'Il numero di bagni non può essere 0',
             'bathrooms.gt' => 'Il numero di bagni non può essere negativo',
-            'square_meter.required' => 'I metri quadri è obligatorio',
-            'square_meter.integer' => 'I metri quadri deve esseere un numero intero',
-            'square_meter.not_in' => 'I metri quadri non può essere 0',
-            'square_meter.gt' => 'I metri quadri non può essere negativo',
+            'square_meters.required' => 'I metri quadri è obligatorio',
+            'square_meters.integer' => 'I metri quadri deve esseere un numero intero',
+            'square_meters.not_in' => 'I metri quadri non può essere 0',
+            'square_meters.gt' => 'I metri quadri non può essere negativo',
             'address.required' => 'L\'indirizzo è obbligatorio',
             'address.string' => 'L\'indirizzo deve essre composto da una stringa',
             'address.min' => 'L\'indirizzo deve avere almeno 3 caratteri',
