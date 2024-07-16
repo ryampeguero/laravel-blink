@@ -1,4 +1,5 @@
 import "./bootstrap";
+import "./validateedit"
 import "~resources/scss/app.scss";
 import.meta.glob(["../img/**"]);
 import * as bootstrap from "bootstrap";
@@ -17,12 +18,12 @@ if (document.getElementById('lat')) {
 
 if (document.getElementById('form-create')) {
     const formSelect = document.getElementById('form-create');
-    
+
     formSelect.addEventListener('submit', (e)=>{
         e.preventDefault();
         const streetName = document.getElementById('streetNumber').value;
 
-        console.log(streetName);    
+        console.log(streetName);
 
         // formSelect.submit();
     });
@@ -106,6 +107,7 @@ function getLocation(addressParam) {
     return data.results[0].position;
 }
 
+
 // autocomplete search-box
 
 const apiKey = 'bKZHQIbuOQ0b5IXmQXQ2FTUOUR3u0a26';
@@ -138,6 +140,7 @@ document.getElementById('address').addEventListener('keyup' , function() {
                 document.getElementById('suggestions').innerHTML = '';
             }
 });
+
 
 
 

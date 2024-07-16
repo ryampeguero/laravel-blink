@@ -10,20 +10,20 @@
 
         {{-- form --}}
         <div class="row">
-            <form action="{{ route('admin.flats.update', $flat) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.flats.update', $flat) }}" method="POST" id="form-edit" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 {{-- name --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="name">Nome Appartamento</label>
+                    <label class="form-label" for="name">Nome Appartamento*</label>
                     <input value="{{ old('name') ?? $flat->name }}" type="text" name="name" id="name"
                         class="form-control">
                 </div>
 
                 {{-- slug --}}
                 <div class="my-3 col-12">
-                    <label for="slug" class="form-label">Slug</label>
+                    <label for="slug" class="form-label">Slug*</label>
                     <input value="{{ old('slug') ?? $flat->slug }}" class="form-control" type="text" name="slug"
                         id="slug">
                 </div>
@@ -43,28 +43,28 @@
 
                 {{-- rooms --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="rooms">Stanze</label>
+                    <label class="form-label" for="rooms">Stanze*</label>
                     <input value="{{ old('slug') ?? $flat->rooms }}" type="number" name="rooms" id="rooms"
                         class="form-control">
                 </div>
 
                 {{-- bathrooms --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="bathrooms">Bagni</label>
+                    <label class="form-label" for="bathrooms">Bagni*</label>
                     <input value="{{ old('bathrooms') ?? $flat->bathrooms }}" class="form-control" type="number"
                         name="bathrooms" id="bathrooms">
                 </div>
 
                 {{-- beds --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="beds">Letti</label>
+                    <label class="form-label" for="beds">Letti*</label>
                     <input value="{{ old('beds') ?? $flat->beds }}" class="form-control" type="number" name="beds"
                         id="beds">
                 </div>
 
                 {{-- square_meters --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="square_meters">Metri Quadrati</label>
+                    <label class="form-label" for="square_meters">Metri Quadrati*</label>
                     <input value="{{ old('square_meters') ?? $flat->square_meters }}" class="form-control" type="number"
                         name="square_meters" id="square_meters">
                 </div>
@@ -97,7 +97,7 @@
 
                 {{-- visible --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="visible">Visibile</label>
+                    <label class="form-label" for="visible">Visibile*</label>
                     <select class="form-select" name="visible" id="visible">
                         <option value="">Seleziona</option>
                         <option @selected(old('visible', $flat->visible) == $flat->visible) value="1">Si</option>

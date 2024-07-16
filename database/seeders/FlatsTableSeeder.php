@@ -62,6 +62,5 @@ class FlatsTableSeeder extends Seeder
         $data = $response->json();
         // dd($data['results'][0]['position']);
         return $data['results'][0]['position']; //Coordinates
-
     }
 }
