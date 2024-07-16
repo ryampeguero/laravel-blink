@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Aggiungi un nuovo appartamento</h1>
-        <form action="{{ route('admin.flats.store') }}" method="POST" enctype="multipart/form-data">
+        <form id='form-create' action="{{ route('admin.flats.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <label for="name">Nome</label><br>
@@ -55,32 +55,48 @@
             @enderror
             <br>
 
-            <label for="latitude">latitude</label><br>
-            <input type="text" id="latitude" name="latitude"class="form-control @error('latitude') is-invalid @enderror"
-                value="{{ old('latitude') }}">
-            @error('latitude')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-            <br>
+            <div class="container" style="height: 400px">
+                <div class="row h-100">
+                    <div class="col-6">
+                        <div class="">
+                            <label for="address">Numero Civico</label><br>
+                            <input type="number" id="streetNumber"
+                            name="streetNumber"class="form-control @error('streetNumber') is-invalid @enderror"
+                            value="{{ old('municipality') }}">
+                        </div>
+                        <div class="">
+                            <label for="address">Comune</label><br>
+                            <input type="text" id="municipality"
+                            name="municipality"class="form-control @error('municipality') is-invalid @enderror"
+                            value="{{ old('address') }}">
+                        </div>
+                        <div class="">
+                            <label for="address">Codice Postale</label><br>
+                            <input type="text" id="postalCode"
+                            name="address"class="form-control @error('municipality') is-invalid @enderror"
+                            value="{{ old('municipality') }}">
+                        </div>
+                    </div>
+                    <div id="map-create" class="col-6" >
+                        <div id="map" class="map"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary">Mostra preview</button>
+                </div>
+            </div>
 
-            <label for="longitude">longitude</label><br>
-            <input type="text" id="longitude"
-                name="longitude"class="form-control @error('longitude') is-invalid @enderror"
-                value="{{ old('longitude') }}">
-            @error('longitude')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-            <br>
-
-            <h6>Seleziona i servizi disponibili</h6>
-            @foreach ($service as $service)
+            <div class="mt-5">
+                <h6>Seleziona i servizi disponibili</h6>
+                @foreach ($service as $service)
                 <input type="checkbox" id="service_{{ $service->id }}" name="services[]" value="{{ $service->id }}">
                 <label for="services[]"> {{ $service->name }}</label>
-            @endforeach
-            <br> <label for="img_path">Imagine</label><br>
-            <input type="file" id="img_path" name="img_path"><br>
-
-            <br> <label for="address">Vuoi mettere in vendita subito il tuo appartamento</label><br>
+                @endforeach
+                <br> <label for="img_path">Imagine</label><br>
+                <input type="file" id="img_path" name="img_path"><br>
+            </div>
+                
+                <br> <label for="address">Vuoi mettere in vendita subito il tuo appartamento</label><br>
             <input type="radio" id="true" name="visible" value="1">
             <label for="true">Si, voglio inserirlo ora</label><br>
             <input type="radio" id="false" name="visible" value="0">
