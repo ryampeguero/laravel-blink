@@ -28,6 +28,19 @@
                         id="slug">
                 </div>
 
+                {{-- search-box for address --}}
+                <div class="my-3 col-12">
+                    <label class="fomr-label" for="address">Cerca Indirizzo</label>
+                    <input value="{{ old('address') ?? $flat->address }}" name="address" class="form-control" type="text" id="address">
+
+                    {{-- input hidden latitudine and longitude --}}
+                    <input type="hidden" name="latitude" id="latitude" value="{{ $flat->latitude }}">
+                    <input type="hidden" name="longitude" id="longitude" value="{{ $flat->longitude }}">
+
+                    {{-- list suggestion  --}}
+                    <ul id="suggestions"></ul>
+                </div>
+
                 {{-- rooms --}}
                 <div class="my-3 col-12">
                     <label class="form-label" for="rooms">Stanze</label>
@@ -56,12 +69,6 @@
                         name="square_meters" id="square_meters">
                 </div>
 
-                {{-- address --}}
-                <div class="my-3 col-12">
-                    <label class="form-label" for="address">Indirizzo</label>
-                    <input value="{{ old('address') ?? $flat->address }}" class="form-control" type="text" name="address"
-                        id="address">
-                </div>
 
                 {{-- image --}}
                 <div class="my-3 col-12">
@@ -76,11 +83,14 @@
                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                         @foreach ($services as $service)
                             @if (old('services') != null)
-                            <input  @checked(in_array($service->id, old('services', [] ))) value="{{ $service->id }}" class="btn-check" type="checkbox" name="services[]" id="{{ $service->id }}">
+                                <input @checked(in_array($service->id, old('services', []))) value="{{ $service->id }}" class="btn-check"
+                                    type="checkbox" name="services[]" id="{{ $service->id }}">
                             @else
-                                <input value="{{ $service->id }}"  class="btn-check" type="checkbox" name="services[]" id="{{ $service->id }}">
+                                <input value="{{ $service->id }}" class="btn-check" type="checkbox" name="services[]"
+                                    id="{{ $service->id }}">
                             @endif
-                            <label class="form-label btn btn-outline-primary" for="{{ $service->id }}">{{ $service?->name }}</label>
+                            <label class="form-label btn btn-outline-primary"
+                                for="{{ $service->id }}">{{ $service?->name }}</label>
                         @endforeach
                     </div>
                 </div>

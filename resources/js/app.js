@@ -105,3 +105,39 @@ function getLocation(addressParam) {
 
     return data.results[0].position;
 }
+
+// autocomplete search-box
+
+const apiKey = 'bKZHQIbuOQ0b5IXmQXQ2FTUOUR3u0a26';
+
+document.getElementById('address').addEventListener('keyup' , function() {
+    const query = this.value;
+            if (query.length > 2) {
+                fetch(`https://api.tomtom.com/search/2/search/${query}.json?key=${apiKey}&typeahead=true&limit=5`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const suggestions = document.getElementById('suggestions');
+                        suggestions.innerHTML = '';
+                        data.results.forEach(result => {
+                            const li = document.createElement('li');
+                            li.textContent = result.address.freeformAddress;
+
+                            // console.log(result.position);
+
+                            li.addEventListener('click', () => {
+                                document.getElementById('address').value = result.address.freeformAddress;
+                                document.getElementById('latitude').value = result.position.lat;
+                                document.getElementById('longitude').value = result.position.lon;
+                                suggestions.innerHTML = '';
+                            });
+                            suggestions.appendChild(li);
+                        });
+                    })
+                    .catch(error => console.error('Errore:', error));
+            } else {
+                document.getElementById('suggestions').innerHTML = '';
+            }
+});
+
+
+
