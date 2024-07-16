@@ -1,4 +1,5 @@
 import "./bootstrap";
+import "./validateedit"
 import "~resources/scss/app.scss";
 import.meta.glob(["../img/**"]);
 import * as bootstrap from "bootstrap";
@@ -17,12 +18,12 @@ if (document.getElementById('lat')) {
 
 if (document.getElementById('form-create')) {
     const formSelect = document.getElementById('form-create');
-    
+
     formSelect.addEventListener('submit', (e)=>{
         e.preventDefault();
         const streetName = document.getElementById('streetNumber').value;
 
-        console.log(streetName);    
+        console.log(streetName);
 
         // formSelect.submit();
     });
