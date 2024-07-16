@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateFlatRequest;
 use App\Models\Flat;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -16,8 +17,9 @@ class FlatController extends Controller
 {
     public function index()
     {
-        $flatsArray = Flat::all();
-
+        $user_id = Auth::id();
+        $flatsArray = Flat::where('user_id',$user_id)->get();
+        // dd($flatsArray);
         return view('admin.flats.index', compact('flatsArray'));
     }
 
