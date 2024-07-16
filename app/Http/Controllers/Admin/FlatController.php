@@ -26,9 +26,9 @@ class FlatController extends Controller
     public function create()
     {
         $flat = Flat::all();
-        $service = Service::all();
+        $services = Service::all();
 
-        return view(' admin.flats.create', compact('flat', 'service'));
+        return view(' admin.flats.create', compact('flat', 'services'));
     }
 
     public function store(StoreFlatRequest $request)
