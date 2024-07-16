@@ -42,24 +42,26 @@
 
         <header class="navbar ms_backC_primary d-md-none sticky-top bg-dark flex-md-nowrap p-2 shadow">
             <div class="row justify-content-between">
-                <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/"><img class="h-100"
-                        src="{{ asset('Icons/blink-logo-white.svg') }}" alt=""></a>
-                <button class="navbar-toggler position-absolute d-md-none collapsed" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-            <div class="navbar-nav">
-                <div class="nav-item text-nowrap ms-2 ">
-                    <a class="nav-link ms_t-white" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                <div class="col-8">
+                    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/"><img class="h-100"
+                            src="{{ asset('Icons/blink-logo-white.svg') }}" alt=""></a>
+                    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="navbar-nav col-4">
+                    <div class="nav-item text-nowrap ms-2 ">
+                        <a class="nav-link ms_t-white" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
                 </div>
             </div>
         </header>
@@ -71,6 +73,7 @@
         -->
                 <nav id="sidebarMenu"
                     class="col-md-3 col-lg-2 d-md-block bg-dark navbar-dark sidebar collapse ms_backC_primary">
+
                     <div class="position-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
