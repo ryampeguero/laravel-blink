@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Flat;
 use App\Models\User;
+use Faker\Provider\sv_SE\Municipality;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -17,24 +18,20 @@ class FlatsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $addressArray = [
-            'streetName' => '',
-            'streetNumber' => '',
-        ];
+        $addressArray = config('flatsSeeder');
         $usersArray = User::all();
-        foreach ($usersArray as $user) {
-
+        
+        foreach ($usersArray as $key=>$user) {
+            $currAddress = $addressArray[$key];
             $faker = Faker::create("it_IT");
             $newFlat = new Flat();
             $newFlat->name = $faker->word();
             $newFlat->rooms = $faker->numberBetween(1, 20);
             $newFlat->bathrooms = $faker->numberBetween(1, 20);
             $newFlat->beds = $faker->numberBetween(1, 20);
-            $newFlat->address = $faker->streetAddress();
+            $newFlat->address = $currAddress['streetName'];
             //Getting Coordinates from API
-            $addressArray['streetName'] = $newFlat->address;
-            $addressArray['streetNumber'] = $faker->numberBetween(1, 30);
-            $coords = $this->getCoord($addressArray);
+            $coords = $this->getCoord($currAddress);
             //Setting random addresses coordinates
 
             $newFlat->latitude = $coords['lat'];
@@ -57,6 +54,7 @@ class FlatsTableSeeder extends Seeder
             'key' => $apiKey,
             'streetName' => $address['streetName'],
             'streetNumber' => $address['streetNumber'],
+            'municipality' => $address['municipality'],
             'countryCode' => 'IT',
             'limit' => '1',
             'verify' => false
