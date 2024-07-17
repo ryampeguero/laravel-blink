@@ -47,6 +47,20 @@ h1 {
     font-weight: bolder;
 }
 
+h4 {
+    font-family: BlauerNue;
+    font-variant: normal;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+p {
+    font-family: BlauerNue;
+    font-variant: normal;
+    font-weight: 200;
+    font-size: 0.8rem;
+}
+
 label {
     font-family: BlauerNue;
     font-variant: normal;
@@ -54,7 +68,11 @@ label {
     font-size: 1.4rem;
 }
 
-
+.ms_img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
 
 .mt-auto {
     margin-top: auto;
@@ -266,3 +284,4 @@ nav {
 
 @import "./create.scss";
 
+@import "./edit.scss";

@@ -115,7 +115,10 @@ function getLocation(addressParam) {
 
 const apiKey = 'bKZHQIbuOQ0b5IXmQXQ2FTUOUR3u0a26';
 
-document.getElementById('address').addEventListener('keyup', function () {
+let selectedIndex = -1;
+
+document.getElementById('address').addEventListener('input', function() {
+
     const query = this.value;
     if (query.length > 2) {
         fetch(`https://api.tomtom.com/search/2/search/${query}.json?key=${apiKey}&typeahead=true&limit=5`)
@@ -123,12 +126,14 @@ document.getElementById('address').addEventListener('keyup', function () {
             .then(data => {
                 const suggestions = document.getElementById('suggestions');
                 suggestions.innerHTML = '';
+          
+                selectedIndex = -1;
                 data.results.forEach(result => {
                     const li = document.createElement('li');
                     li.textContent = result.address.freeformAddress;
-
-                    // console.log(result.position);
-
+                    li.dataset.lat = result.position.lat;
+                    li.dataset.lon = result.position.lon;
+                  
                     li.addEventListener('click', () => {
                         document.getElementById('address').value = result.address.freeformAddress;
                         document.getElementById('latitude').value = result.position.lat;
@@ -144,6 +149,33 @@ document.getElementById('address').addEventListener('keyup', function () {
     }
 });
 
+document.getElementById('address').addEventListener('keydown', function(event) {
+    const suggestions = document.getElementById('suggestions');
+    const items = suggestions.getElementsByTagName('li');
+    if (items.length > 0) {
+        if (event.key === 'ArrowDown') {
+            selectedIndex = (selectedIndex + 1) % items.length;
+            updateSelection(items);
+            event.preventDefault(); // Previene lo scrolling della pagina
+        } else if (event.key === 'ArrowUp') {
+            selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+            updateSelection(items);
+            event.preventDefault(); // Previene lo scrolling della pagina
+        } else if (event.key === 'Enter' && selectedIndex > -1) {
+            event.preventDefault(); // Previene il submit del form
+            items[selectedIndex].click();
+        }
+    }
+});
+
+function updateSelection(items) {
+    for (let i = 0; i < items.length; i++) {
+        items[i].classList.remove('selected');
+    }
+    if (selectedIndex > -1) {
+        items[selectedIndex].classList.add('selected');
+    }
+}
 
 
 
