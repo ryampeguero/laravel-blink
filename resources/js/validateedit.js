@@ -1,18 +1,22 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const formSelect = document.getElementById("form-edit");
-    if (formSelect) {
-        formSelect.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (validateFormEdit(formSelect)) {
-                formSelect.submit();
-            }
-        });
-    }
-});
+export { formToValidate };
+function formToValidate(formSelect) {
+    document.addEventListener('DOMContentLoaded', function () {
+        if (formSelect) {
+            formSelect.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateFormEdit(formSelect)) {
+                    formSelect.submit();
+                }
+            });
+        }
+    });
+}
+
 function validateFormEdit(form) {
     let valid = true;
 
     function addInvalidFeedback(field, message) {
+        // console.log(field.classList);
         field.classList.add('is-invalid');
         if (!field.parentElement.querySelector('.invalid-feedback')) {
             field.parentElement.innerHTML += `<div class="invalid-feedback">${message}</div>`;
@@ -20,6 +24,7 @@ function validateFormEdit(form) {
     }
 
     function removeInvalidFeedback(field) {
+        // console.log("remove class", field);
         field.classList.remove('is-invalid');
         if (field.parentElement.querySelector('.invalid-feedback')) {
             field.parentElement.querySelector('.invalid-feedback').remove();
@@ -27,19 +32,22 @@ function validateFormEdit(form) {
     }
 
     let nameField = form['name'];
+    console.log(nameField.classList);
     if (!nameField.value) {
         addInvalidFeedback(nameField, 'Il campo nome non può essere vuoto!');
         valid = false;
-    }else {
+    } else {
         removeInvalidFeedback(nameField);
     }
 
-    let slugField = form['slug'];
-    if (!slugField.value) {
-        addInvalidFeedback(slugField, 'Il campo slug non può essere vuoto!');
-        valid = false;
-    } else {
-        removeInvalidFeedback(slugField);
+    if (form['slug']) {
+        let slugField = form['slug'];
+        if (!slugField.value) {
+            addInvalidFeedback(slugField, 'Il campo slug non può essere vuoto!');
+            valid = false;
+        } else {
+            removeInvalidFeedback(slugField);
+        }
     }
 
     let roomsField = form['rooms'];
