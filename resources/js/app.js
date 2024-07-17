@@ -1,4 +1,5 @@
 import "./bootstrap";
+import "./validateedit"
 import "~resources/scss/app.scss";
 import.meta.glob(["../img/**"]);
 import * as bootstrap from "bootstrap";
@@ -9,7 +10,23 @@ if (document.getElementsByClassName('ms_table')) {
 
 
 if (document.getElementById('lat')) {
-    setMap();
+    const latCoord = parseFloat(document.getElementById('lat').getAttribute('php-var'));
+    const lonCoord = parseFloat(document.getElementById('lon').getAttribute('php-var'));
+
+    setMap(latCoord, lonCoord);
+}
+
+if (document.getElementById('form-create')) {
+    const formSelect = document.getElementById('form-create');
+
+    formSelect.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const streetName = document.getElementById('streetNumber').value;
+
+        console.log(streetName);
+
+        // formSelect.submit();
+    });
 }
 
 if (document.getElementById('form-create')) {
@@ -90,10 +107,8 @@ function setAddEventListenerTable() {
 
 // Functions for TomTomAPI
 
-function setMap() {
 
-    const latCoord = parseFloat(document.getElementById('lat').getAttribute('php-var'));
-    const lonCoord = parseFloat(document.getElementById('lon').getAttribute('php-var'));
+function setMap(latCoord, lonCoord) {
 
     const position = {
         lat: latCoord,
@@ -111,7 +126,8 @@ function setMap() {
     return map;
 }
 
-function getLocation() {
+
+function getLocation(addressParam) {
 
     var url = new URL('https://api.tomtom.com/search/2/structuredGeocode.json')
 
@@ -145,4 +161,44 @@ function getLocation() {
     };
     xhttp.open("GET", url, true); //Launch request
     xhttp.send();
+
+    return data.results[0].position;
 }
+
+
+// autocomplete search-box
+
+const apiKey = 'bKZHQIbuOQ0b5IXmQXQ2FTUOUR3u0a26';
+
+document.getElementById('address').addEventListener('keyup' , function() {
+    const query = this.value;
+            if (query.length > 2) {
+                fetch(`https://api.tomtom.com/search/2/search/${query}.json?key=${apiKey}&typeahead=true&limit=5`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const suggestions = document.getElementById('suggestions');
+                        suggestions.innerHTML = '';
+                        data.results.forEach(result => {
+                            const li = document.createElement('li');
+                            li.textContent = result.address.freeformAddress;
+
+                            // console.log(result.position);
+
+                            li.addEventListener('click', () => {
+                                document.getElementById('address').value = result.address.freeformAddress;
+                                document.getElementById('latitude').value = result.position.lat;
+                                document.getElementById('longitude').value = result.position.lon;
+                                suggestions.innerHTML = '';
+                            });
+                            suggestions.appendChild(li);
+                        });
+                    })
+                    .catch(error => console.error('Errore:', error));
+            } else {
+                document.getElementById('suggestions').innerHTML = '';
+            }
+});
+
+
+
+
