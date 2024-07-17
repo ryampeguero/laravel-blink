@@ -30,10 +30,7 @@ function validateFormEdit(form) {
     if (!nameField.value) {
         addInvalidFeedback(nameField, 'Il campo nome non può essere vuoto!');
         valid = false;
-    } else if (nameField.value.includes('a') || nameField.value.includes('e')) {
-        addInvalidFeedback(nameField, 'Il campo nome non può contenere i caratteri "a" e "e"!');
-        valid = false;
-    } else {
+    }else {
         removeInvalidFeedback(nameField);
     }
 
