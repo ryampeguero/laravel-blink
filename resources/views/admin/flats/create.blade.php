@@ -1,14 +1,13 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container p-5">
+    <div class="container p-5 ms_shadow mt-4 ms_border p-4">
         <h1>Aggiungi un nuovo appartamento</h1>
-        <div class="container ms_shadow mt-4 container ms_border p-4">
             <div class="row">
                 <div class="col-6">
                     <form id='form-create' action="{{ route('admin.flats.store') }}" method="POST"
                         enctype="multipart/form-data">
-                        <div class="container">
+                        <div class="container p-0 m-0">
                             @csrf
                             <div class="row mb-3">
                                 <div class="col ">
@@ -152,7 +151,8 @@
                         </div>
                     </form>
                 </div>
+                
             </div>
-        </div>
+        
     </div>
 @endsection
