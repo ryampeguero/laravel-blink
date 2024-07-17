@@ -83,6 +83,7 @@ class FlatController extends Controller
             $data['img_path'] = $image_path;
         }
 
+        //services
         if ($request->has('services')) {
             $flat->services()->sync($data['services']);
         }
