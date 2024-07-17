@@ -1,0 +1,16 @@
+#suggestions {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    position: absolute;
+    background-color: #fff;
+    overflow-y: auto;
+    z-index: 1000;
+}
+#suggestions li {
+    padding: 10px;
+    cursor: pointer;
+}
+#suggestions li:hover, #suggestions li.selected {
+    background-color: #f0f0f0;
+}
