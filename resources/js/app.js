@@ -17,7 +17,8 @@ if (document.getElementById('lat')) {
 }
 
 function setAddEventListenerTable() {
-    const test = document.querySelectorAll(".test");
+    const test = document.querySelectorAll(".flat");
+    console.log(test);
     const urlShow = "http://127.0.0.1:8000/admin/flats/"
     let curValue = "";
 
@@ -25,8 +26,6 @@ function setAddEventListenerTable() {
 
         curItem.addEventListener("click", () => {
             curValue = curItem.firstElementChild.value;
-            // console.log(curItem);
-
             document.location.href = `${urlShow}${curValue}`
         })
         // console.log(curItem);
