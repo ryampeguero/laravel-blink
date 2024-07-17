@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 @foreach ($flatsArray as $item)
-                    <tr class="ms_shadow2 test" data-href="{{ route('admin.flats.show', ['flat' => $item->slug]) }}">
+                    <tr class="ms_shadow2" data-href="{{ route('admin.flats.show', ['flat' => $item->slug]) }}">
                         <input type="hidden" value="{{ $item->slug }}">
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->rooms }}</td>

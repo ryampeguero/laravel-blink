@@ -1,17 +1,16 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container p-5 ms_shadow mt-4 ms_border p-4">
+    <div class="container p-5 ms_shadow mt-4 ms_border p-4 mb-5">
         <h1>Aggiungi un nuovo appartamento</h1>
             <div class="row">
-                <div class="col-6">
-                    <form id='form-create' action="{{ route('admin.flats.store') }}" method="POST"
+                <div class="col-6 mt-5">
+                    <form class="px-4" id='form-create' action="{{ route('admin.flats.store') }}" method="POST"
                         enctype="multipart/form-data">
-                        <div class="container p-0 m-0">
+                        <div class="container-fluid p-0 m-0">
                             @csrf
                             <div class="row mb-3">
                                 <div class="col ">
-                                    <div class="">
                                         <label for="name">Nome</label>
                                         <input type="text" id="name" name="name"
                                             class="form-control @error('name') is-invalid @enderror"
@@ -19,10 +18,9 @@
                                         @error('name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                    </div>
                                 </div>
+
                                 <div class="col">
-                                    <div class="">
                                         <label for="rooms">Numero di stanze</label>
                                         <input type="number" id="rooms" name="rooms"
                                             class="form-control @error('rooms') is-invalid @enderror"
@@ -31,7 +29,6 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-6">
@@ -70,11 +67,6 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
                                     <div class="">
                                         <label for="address">Indirizzo</label>
                                         <input type="text" id="address"
@@ -85,17 +77,21 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div id="map-create" class="col-6">
+                            </div>
+
+                            <div class="row">
+                                <div id="map-create" class="col-12">
                                     <div id="map" class="map"></div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
+                                    <h4>Filtra gli optional della tua stanza</h4>
                                     <div class="btn-group" role="group">
-                                        <div class="container">
-                                            <div class="row">
+                                        <div class="">
+                                            <div class="d-flex flex-wrap gap-2 ">
                                                 @foreach ($services as $service)
-                                                    <div class="col-3">
+                                                    <div class="p-1">
 
                                                             
                                                             @if (old('services') != null)
@@ -126,32 +122,35 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col prova">
+                                <div class="col prova ms_card_shade p-4">
                                     <div class="">
 
-                                        <label for="address">Vuoi mettere in vendita subito il tuo
-                                            appartamento</label><br>
+                                        <label for="address"><h4>Vuoi mettere in vendita subito il tuo appartamento?</h4>
+                                        </label><br>
 
-                                        <label for="true">Si, voglio inserirlo ora</label>
-                                        <input type="radio" id="true" name="visible" value="1">
+                                            <input type="radio" id="true" name="visible" value="1">
+                                        <label for="true"><p>Si, voglio inserirlo ora</p></label>
                                     </div>
                                     <div class="">
-                                        <label for="false">No, provvedrò dopo</label>
                                         <input type="radio" id="false" name="visible" value="0">
+                                        <label for="false"><p>No, provvedrò dopo</p></label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col">
-                                    <button class="btn btn-primary" type="submit">Aggiungi appartamento</button>
-                                    <a class="btn btn-danger" href="{{ route('admin.dashboard') }}">Annulla</a>
+                                <div class="col d-flex justify-content-between">
+                                    <a class="ms_button_secondary" href="{{ route('admin.dashboard') }}">Annulla</a>
+                                    <button class="ms_button" type="submit">Aggiungi appartamento</button>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
                 
+                <div class="col-6 mt-5 ms_border_inner">
+                        <img class="ms_img ms_border_inner" src="{{ asset('img/placeholder_img_fit.png') }}" alt="">
+                </div>
             </div>
         
     </div>
