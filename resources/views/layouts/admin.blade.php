@@ -128,7 +128,7 @@
                                 <a class="text-navbar" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
                                     <img class="icon me-3" src="{{ asset('Icons/exit.svg') }}" alt="">
-                                    Esci
+                                    Logout
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
