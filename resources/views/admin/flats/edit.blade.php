@@ -10,58 +10,65 @@
 
         {{-- form --}}
         <div class="row">
-            <form action="{{ route('admin.flats.update', $flat) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.flats.update', $flat) }}" method="POST" id="form-edit" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 {{-- name --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="name">Nome Appartamento</label>
+                    <label class="form-label" for="name">Nome Appartamento*</label>
                     <input value="{{ old('name') ?? $flat->name }}" type="text" name="name" id="name"
                         class="form-control">
                 </div>
 
                 {{-- slug --}}
                 <div class="my-3 col-12">
-                    <label for="slug" class="form-label">Slug</label>
+                    <label for="slug" class="form-label">Slug*</label>
                     <input value="{{ old('slug') ?? $flat->slug }}" class="form-control" type="text" name="slug"
                         id="slug">
                 </div>
 
+                {{-- search-box for address --}}
+                <div class="my-3 col-12">
+                    <label class="fomr-label" for="address">Cerca Indirizzo</label>
+                    <input value="{{ old('address') ?? $flat->address }}" name="address" class="form-control" type="text" id="address">
+
+                    {{-- input hidden latitudine and longitude --}}
+                    <input type="hidden" name="latitude" id="latitude" value="{{ $flat->latitude }}">
+                    <input type="hidden" name="longitude" id="longitude" value="{{ $flat->longitude }}">
+
+                    {{-- list suggestion  --}}
+                    <ul id="suggestions"></ul>
+                </div>
+
                 {{-- rooms --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="rooms">Stanze</label>
+                    <label class="form-label" for="rooms">Stanze*</label>
                     <input value="{{ old('slug') ?? $flat->rooms }}" type="number" name="rooms" id="rooms"
                         class="form-control">
                 </div>
 
                 {{-- bathrooms --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="bathrooms">Bagni</label>
+                    <label class="form-label" for="bathrooms">Bagni*</label>
                     <input value="{{ old('bathrooms') ?? $flat->bathrooms }}" class="form-control" type="number"
                         name="bathrooms" id="bathrooms">
                 </div>
 
                 {{-- beds --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="beds">Letti</label>
+                    <label class="form-label" for="beds">Letti*</label>
                     <input value="{{ old('beds') ?? $flat->beds }}" class="form-control" type="number" name="beds"
                         id="beds">
                 </div>
 
                 {{-- square_meters --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="square_meters">Metri Quadrati</label>
+                    <label class="form-label" for="square_meters">Metri Quadrati*</label>
                     <input value="{{ old('square_meters') ?? $flat->square_meters }}" class="form-control" type="number"
                         name="square_meters" id="square_meters">
                 </div>
 
-                {{-- address --}}
-                <div class="my-3 col-12">
-                    <label class="form-label" for="address">Indirizzo</label>
-                    <input value="{{ old('address') ?? $flat->address }}" class="form-control" type="text" name="address"
-                        id="address">
-                </div>
 
                 {{-- image --}}
                 <div class="my-3 col-12">
@@ -76,18 +83,21 @@
                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                         @foreach ($services as $service)
                             @if (old('services') != null)
-                            <input  @checked(in_array($service->id, old('services', [] ))) value="{{ $service->id }}" class="btn-check" type="checkbox" name="services[]" id="{{ $service->id }}">
+                                <input @checked(in_array($service->id, old('services', []))) value="{{ $service->id }}" class="btn-check"
+                                    type="checkbox" name="services[]" id="{{ $service->id }}">
                             @else
-                                <input value="{{ $service->id }}"  class="btn-check" type="checkbox" name="services[]" id="{{ $service->id }}">
+                                <input value="{{ $service->id }}" class="btn-check" type="checkbox" name="services[]"
+                                    id="{{ $service->id }}">
                             @endif
-                            <label class="form-label btn btn-outline-primary" for="{{ $service->id }}">{{ $service?->name }}</label>
+                            <label class="form-label btn btn-outline-primary"
+                                for="{{ $service->id }}">{{ $service?->name }}</label>
                         @endforeach
                     </div>
                 </div>
 
                 {{-- visible --}}
                 <div class="my-3 col-12">
-                    <label class="form-label" for="visible">Visibile</label>
+                    <label class="form-label" for="visible">Visibile*</label>
                     <select class="form-select" name="visible" id="visible">
                         <option value="">Seleziona</option>
                         <option @selected(old('visible', $flat->visible) == $flat->visible) value="1">Si</option>

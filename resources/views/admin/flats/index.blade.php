@@ -2,7 +2,7 @@
 
 @section('content')
 {{-- @dd(Route::currentRouteName()) --}}
-    <div class="ms_shadow mt-4 container ms_border p-4 ">
+    <div class="ms_shadow mt-4 container ms_border p-4">
         <div class=" mb-5 d-flex justify-content-between align-items-center">
             <div>
                 <h1>Appartamenti</h1>
