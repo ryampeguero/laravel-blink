@@ -31,7 +31,7 @@
                 {{-- search-box for address --}}
                 <div class="my-3 col-12">
                     <label class="fomr-label" for="address">Cerca Indirizzo</label>
-                    <input value="{{ old('address') ?? $flat->address }}" name="address" class="form-control" type="text" id="address">
+                    <input value="{{ old('address') ?? $flat->address }}" name="address" class="form-control" type="text" id="address" autocomplete="off">
                     
                      {{-- list suggestion  --}}
                      <ul id="suggestions"></ul>
