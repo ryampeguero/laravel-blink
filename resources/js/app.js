@@ -29,7 +29,64 @@ if (document.getElementById('form-create')) {
     });
 }
 
+if (document.getElementById('form-create')) {
+    const formSelect = document.getElementById('form-create');
+
+
+    formSelect.addEventListener('submit', (e) => {
+        console.log(formSelect['name'].parentElement);
+        e.preventDefault();
+        if (validateForm(formSelect)) {
+            formSelect.submit();
+        }
+
+
+    });
+}
+
+
 //Normal functions
+function validateForm(formSelect) {
+
+
+    checkString(formSelect['name']);
+    checkString(formSelect['address']);
+
+
+    if (!formSelect['rooms'].value) {
+        console.log('eccomi');
+        formSelect['rooms'].classList.add('is-invalid');
+        formSelect['rooms'].parentElement.innerHTML += `<div class="invalid-feedback">Il campo non può essere vuoto!</div>`;
+    }
+
+
+    return false;
+}
+
+
+function checkString(inputCheck) {
+
+    console.log(!inputCheck.value);
+    if (!inputCheck.value) {
+        // console.log(inputCheck.classList.contains('is-invalid'));
+        if (!inputCheck.classList.contains('is-invalid')){
+            inputCheck.classList.add('is-invalid')
+        }
+        if (!inputCheck.parentElement.querySelector('.invalid-feedback')) {
+            inputCheck.parentElement.innerHTML += `<div class="invalid-feedback">Il campo non può essere vuoto!</div>`;
+        } else {
+            inputCheck.parentElement.querySelector('.invalid-feedback').remove();
+        }
+    } else {
+        // console.log("Non è più vuoto", !isNaN(inputCheck.value));
+        inputCheck.classList.remove('is-invalid');
+        const prova = inputCheck.parentElement.querySelector('.invalid-feedback');
+        // console.log(prova);
+    }
+
+
+}
+
 function setAddEventListenerTable() {
     const test = document.querySelectorAll(".test");
     const urlShow = "http://127.0.0.1:8000/admin/flats/"
@@ -50,8 +107,8 @@ function setAddEventListenerTable() {
 
 // Functions for TomTomAPI
 
-function setMap(latCoord, lonCoord) {
 
+function setMap(latCoord, lonCoord) {
 
     const position = {
         lat: latCoord,
@@ -68,6 +125,7 @@ function setMap(latCoord, lonCoord) {
     var marker = new tt.Marker().setLngLat(position).addTo(map)
     return map;
 }
+
 
 function getLocation(addressParam) {
 

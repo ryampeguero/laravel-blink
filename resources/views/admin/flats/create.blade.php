@@ -97,11 +97,20 @@
                                             <div class="row">
                                                 @foreach ($services as $service)
                                                     <div class="col-3">
-                                                        <input value="{{ $service->id }}" class="btn-check"
+
+                                                            
+                                                            @if (old('services') != null)
+                                                            <input @checked(in_array($service->id, old('services', []))) value="{{ $service->id }}"
+                                                            class="btn-check" type="checkbox" name="services[]"
+                                                            id="{{ $service->id }}">
+                                                            @else
+                                                            <input value="{{ $service->id }}" class="btn-check"
                                                             type="checkbox" name="services[]" id="{{ $service->id }}">
-                                                        <label style="font-size: 0.8rem"
-                                                            class="form-label btn btn-outline-primary test"
-                                                            for="{{ $service->id }}">{{ $service?->name }}</label>
+                                                            @endif
+                                                            <label style="font-size: 0.8rem"
+                                                                class="form-label btn btn-outline-primary test"
+                                                                for="{{ $service->id }}">{{ $service?->name }}</label>
+
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -120,7 +129,10 @@
                             <div class="row mb-3">
                                 <div class="col prova">
                                     <div class="">
-                                        <label for="address">Vuoi mettere in vendita subito il tuo appartamento</label><br>
+
+                                        <label for="address">Vuoi mettere in vendita subito il tuo
+                                            appartamento</label><br>
+
                                         <label for="true">Si, voglio inserirlo ora</label>
                                         <input type="radio" id="true" name="visible" value="1">
                                     </div>
