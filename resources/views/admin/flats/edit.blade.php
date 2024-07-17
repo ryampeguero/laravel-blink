@@ -32,13 +32,15 @@
                 <div class="my-3 col-12">
                     <label class="fomr-label" for="address">Cerca Indirizzo</label>
                     <input value="{{ old('address') ?? $flat->address }}" name="address" class="form-control" type="text" id="address">
+                    
+                     {{-- list suggestion  --}}
+                     <ul id="suggestions"></ul>
 
                     {{-- input hidden latitudine and longitude --}}
                     <input type="hidden" name="latitude" id="latitude" value="{{ $flat->latitude }}">
                     <input type="hidden" name="longitude" id="longitude" value="{{ $flat->longitude }}">
 
-                    {{-- list suggestion  --}}
-                    <ul id="suggestions"></ul>
+                   
                 </div>
 
                 {{-- rooms --}}
