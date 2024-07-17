@@ -11,23 +11,6 @@
                 <a class="ms_button" href="{{route('admin.flats.create')}}">&plus; Aggiungi</a>
             </div>
         </div>
-        <div class="justify-content-between mb-3 gap-3 stats">
-            <div class="container-fluid ms_border_inner p-4 ms_shadow">
-                <h4>Stats</h4>
-                <h1>5264</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-            </div>
-            <div class="container-fluid ms_border_inner p-4 ms_shadow">
-                <h4>Stats</h4>
-                <h1>1820</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-            </div>
-            <div class=" container-fluid ms_border_inner p-4 ms_shadow">
-                <h4>Stats</h4>
-                <h1>3212</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-            </div>
-        </div>
         <table class="ms_table">
             <thead>
                 <tr class="ms_tr">

@@ -40,8 +40,8 @@
 <body>
     <div id="app">
 
-        <header class="navbar ms_backC_primary d-md-none sticky-top bg-dark flex-md-nowrap p-2 shadow">
-            <div class="row justify-content-between">
+        <header class="ms_navbar ms_backC_primary d-md-none sticky-top bg-dark flex-md-nowrap p-2 ms_shadow">
+            {{-- <div class="row justify-content-between">
                 <div class="col-8">
                     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/"><img class="h-100"
                             src="{{ asset('Icons/blink-logo-white.svg') }}" alt=""></a>
@@ -63,41 +63,84 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </header>
 
         <div class="container-fluid vh-100 ">
-            <div class="row h-100">
+            <div class="row">
                 <!-- Definire solo parte del menu di navigazione inizialmente per poi
         aggiungere i link necessari giorno per giorno
         -->
                 <nav id="sidebarMenu"
-                    class="col-md-3 col-lg-2 d-md-block bg-dark navbar-dark sidebar collapse ms_backC_primary">
+                    class="sidebar_size col-md-3 col-lg-2 d-md-block bg-dark navbar-dark sidebar collapse ms_backC_tertiary vh-100 row ms_shadow3 ">
 
-                    <div class="position-sticky pt-3">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.dashboard' ? 'bg-secondary' : '' }}"
+                    <div class="mt-auto pt-3 h-100">
+                        <ul class="nav d-flex flex-column h-100 justify-content-start align-items-center ">
+
+                            <li class="ms_nav_item_logo">
+
+                                    <a class="" href="/"><img class="container sidebar_logo me-auto"
+                                            src="{{ asset('Icons/blink-logo-white.svg') }}" alt=""></a>
+                            </li>
+
+                            <li class="nav-item-li d-flex container-fluid align-items-center nav-link {{ Route::currentRouteName() == 'admin.flats.index' ? 'ms_backC_secondary_selected ' : '' }}">
+                                <a class="text-navbar "
+                                href="{{ route('admin.flats.index') }}">
+                                <div class="d-flex container-fluid align-items-center">
+                                        <img class="icon me-3" src="{{ asset('Icons/HomePage.svg') }}"
+                                            alt=""></img><span> HomePage</span>
+                                        </div>
+                                    </a>
+                            </li>
+
+                            <li class="  d-flex justify-content-start align-items-center nav-item-li nav-link {{ Route::currentRouteName() == 'admin.dashboard' ? 'ms_backC_secondary_selected ' : '' }}">
+                                <a class="text-navbar" 
                                     href="{{ route('admin.dashboard') }}">
-                                    <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> Dashboard
+                                <div class="d-flex container-fluid align-items-center">
+                                        <img class="icon me-3" src="{{ asset('Icons/Dashboard.svg') }}"
+                                            alt=""></img><span> Dashboard</span>
+                                        </div>
+                                    </a>
+                            </li>
+
+                            <li class="d-flex justify-content-start align-items-center nav-item-li nav-link text-navbar {{ Route::currentRouteName() == 'admin.flats.index' ? 'ms_backC_secondary_selected ' : '' }}">
+                                <a class="text-navbar"
+                                    href="{{ route('admin.flats.index') }}">
+                                    <div class="d-flex container-fluid align-items-center ">
+                                        <img class="icon me-3" src="{{ asset('Icons/Flats.svg') }}"
+                                            alt=""></img><span> Appartementi</span>
+                                    </div>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.flats.index' ? 'bg-secondary' : '' }}"
-                                    href="{{ route('admin.flats.index') }}">
-                                    Appartamenti
+
+                            <li class="d-flex justify-content-start align-items-center nav-item-li nav-link text-navbar {{ Route::currentRouteName() == 'admin.flats.create' ? 'ms_backC_secondary_selected ' : '' }}">
+                                <a class="text-navbar"
+                                    href="{{ route('admin.flats.create') }}">
+                                    <div class="d-flex container-fluid align-items-center ">
+                                        <img class="icon me-3" src="{{ asset('Icons/Add.svg') }}"
+                                            alt=""></img><span> Crea Appartemento</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="d-flex justify-content-start align-items-center nav-item-li mt-auto nav-link text-navbar {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
+                                <a class="text-navbar"
+                                    href="{{ route('logout') }}">
+                                    <div class="d-flex container-fluid align-items-center ">
+                                        <img class="icon me-3" src="{{ asset('Icons/exit.svg') }}"
+                                            alt=""></img><span> Esci</span>
+                                    </div>
                                 </a>
                             </li>
                         </ul>
 
-
-                    </div>
                 </nav>
 
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 overflow-auto vh-100" >
                     @yield('content')
                 </main>
             </div>
+
         </div>
 
     </div>

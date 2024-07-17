@@ -1,9 +1,8 @@
-
 @use "./partials/_variables" as *;
 @use "./partials/fonts" as *;
 @import "~bootstrap/scss/bootstrap";
 
-// ALL
+// RESET
 * {
     font-family: BlauerNue;
     font-variant: normal;
@@ -11,6 +10,22 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    button {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+    }
+}
+
+
+
+.container {
+    width: 80%;
 }
 
 .stats {
@@ -23,9 +38,105 @@ h1 {
     font-variant: normal;
     font-weight: bolder;
 }
+
+label {
+    font-family: BlauerNue;
+    font-variant: normal;
+    font-weight: 500;
+    font-size: 1.4rem;
+}
+
+
+
+.mt-auto {
+    margin-top: auto;
+
+}
+
 a {
     text-decoration: none;
 }
+
+.mt-100 {
+    margin-top: 100%;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.sidebar_logo {
+    width: 70%;
+    max-height: 65px;
+}
+
+.nav-item-li {
+    width: 100% !important;
+    height: 40px !important;
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+    box-shadow: $shadow2;
+    min-width: 100%;
+}
+
+.ms_nav_item_logo {
+    width: 100% !important;
+    height: 80px !important;
+    min-width: 235px;
+    display: flex;
+    justify-content: start;
+}
+
+// NAVBAR
+.icon {
+    width: 30px;
+}
+
+nav {
+    ul {
+        li {
+            // margin: 20px 0 0 0;
+            
+
+            span {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+// SIDEBAR
+.sidebar_size {
+    min-width: 17%;
+}
+
+.ms_navbar {
+    height: 80px;
+    
+}
+
+// CARD
+.ms_card {
+    box-shadow: $shadow2;
+    border-radius: 0.5rem;
+    color: #212529;
+    padding: 0.5rem;
+}
+
+.ms_card_shade {
+    box-shadow: $shadow2;
+    border-radius: 0.5rem;
+    color: #212529;
+    background-color: $primary-color-shade;
+    padding: 0.5rem;
+}
+
+
+// TEXT
+.text-navbar {
+    color: $primary-color;
+}
+
 
 // TABLES
 .ms_table {
@@ -35,9 +146,11 @@ a {
     border-spacing: 0;
     width: 100%;
     box-shadow: $shadow;
+
     thead {
         background-color: $primary-color;
         color: white;
+
         th {
             font-family: BlauerNue;
             font-variant: normal;
@@ -53,12 +166,15 @@ a {
             font-variant: normal;
             font-weight: bolder;
         }
+
         tr {
             border-bottom: 1px solid $primary-color;
-            &:hover{
+
+            &:hover {
                 background-color: $primary-color-shade;
             }
         }
+
         td {
             padding: 1rem;
         }
@@ -71,8 +187,19 @@ a {
 }
 
 .ms_backC_secondary {
-    background-color: $secondary-color  !important;
+    background-color: $secondary-color !important;
 }
+
+.ms_backC_secondary_selected {
+    background-color: $secondary-color !important;
+    color: white;
+    padding: 20px; 
+}
+
+.ms_backC_tertiary {
+    background-color: white !important;
+}
+
 
 // COLOR-TEXT
 .ms_t-white {
@@ -83,6 +210,9 @@ a {
     color: #212529;
 }
 
+.nav-link {
+    padding: 0 !important;
+}
 
 // BUTTONS
 .ms_button {
@@ -93,12 +223,26 @@ a {
     box-shadow: $shadow2;
 }
 
+.ms_button_secondary {
+    border: 1px solid $primary-color;
+    background-color: none;
+    padding: 0.5rem 1rem;
+    color: $primary-color;
+    border-radius: 0.5rem;
+    box-shadow: $shadow2;
+}
+
 // SHADOW
 .ms_shadow {
     box-shadow: $shadow;
 }
+
 .ms_shadow2 {
     box-shadow: $shadow2;
+}
+
+.ms_shadow3 {
+    box-shadow: $shadow3;
 }
 
 // BORDER
