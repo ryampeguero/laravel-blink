@@ -21,8 +21,8 @@ return new class extends Migration
             $table->unsignedTinyInteger('beds');
             $table->unsignedInteger('square_meters')->nullable();
             $table->string('address');
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->decimal('latitude', 10, 7);
+            $table->decimal('longitude', 10, 7);
             $table->string('img_path')->nullable();
             $table->unsignedTinyInteger('visible');
             $table->timestamps();

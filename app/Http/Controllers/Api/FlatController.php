@@ -11,7 +11,7 @@ class FlatController extends Controller
     public function index()
     {
 
-        $flats = Flat::with('services')->get();
+        $flats = Flat::with(['user', 'services'])->get();
 
         $data = [
             'success' => true,
@@ -20,17 +20,28 @@ class FlatController extends Controller
 
         return response()->json($data);
     }
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
 
         $latitude = $request->all()['latitude'];
         $longitude = $request->all()['longitude'];
 
-        $flats = Flat::with('services')->where('latitude', $latitude)->where('longitude', $longitude)->get();
+        $flats = Flat::with(['services', 'user'])
+            ->where('latitude', '>=', $latitude - 10000)
+            ->where('latitude', '<=', $latitude + 10000)
+            ->where('longitude', '>=', $longitude - 10000)
+            ->where('longitude', '<=', $longitude + 10000)
+            ->get();
 
         return  response()->json([
             'success' => true,
             'results' => $flats,
         ]);
+    }
 
+    public function createSquare($lat, $lon)
+    {
+        $center = [$lat, $lon];
+        $diagonale = sqrt(2 * 4000);
     }
 }
