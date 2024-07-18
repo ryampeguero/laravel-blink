@@ -32,8 +32,8 @@ class FlatController extends Controller
             'success' => true,
             'results' => $flats,
         ]);
+
         
     }
-
 
 }

@@ -18,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/flats', [FlatController::class, 'index']);
 
+
 Route::get('/flats/search', [FlatController::class, 'search']);
 
 
 Route::get('payment/token', [PaymentController::class, 'token']);
 Route::post('payment/checkout', [PaymentController::class, 'checkout']);
+
 
