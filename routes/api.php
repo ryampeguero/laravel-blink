@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/flats', [FlatController::class, 'index']);
+
+Route::get('/flats/search', [FlatController::class, 'search']);

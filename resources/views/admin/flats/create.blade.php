@@ -29,9 +29,9 @@
                                 @enderror
 
                                 <div id='rooms' class="ms_input">
-                                    <input id='input_value' type="hidden" name="rooms" value="{{ old('rooms', '0') }}">
+                                    <input id='input_value' type="hidden" name="rooms" value="{{ old('rooms', '1') }}">
                                     <button id="minus" class="input_btn">-</button>
-                                    <span id="ms_value">0</span>
+                                    <span id="ms_value"></span>
                                     <button id="plus" class="input_btn">+</button>
                                 </div>
                             </div>
@@ -42,9 +42,9 @@
 
                                     <div id='bathrooms' class="ms_input">
                                         <input id='input_value' type="hidden" name="bathrooms"
-                                            value="{{ old('bathrooms', '0') }}">
+                                            value="{{ old('bathrooms', '1') }}">
                                         <button id="minus" class="input_btn">-</button>
-                                        <span id="ms_value">0</span>
+                                        <span id="ms_value"></span>
                                         <button id="plus" class="input_btn">+</button>
                                     </div>
                                 </div>
