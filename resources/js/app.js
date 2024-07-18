@@ -64,9 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-
-
 if (document.getElementsByClassName('ms_table')) {
     setAddEventListenerTable();
 }

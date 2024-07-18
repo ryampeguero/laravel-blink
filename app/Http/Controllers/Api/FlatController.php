@@ -22,22 +22,29 @@ class FlatController extends Controller
     }
 
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
 
-        $latitude = $request->all()['latitude'];
-        $longitude = $request->all()['longitude'];
+        $data = $request->all();
+        $latitude = $data['latitude'];
+        $longitude = $data['longitude'];
+        $range = $data['range'] ? $data['range'] : 1;
+
+        $km = $latitude + ($range/111);
 
         $flats = Flat::with(['services', 'user'])
-            ->where('latitude', '>=', $latitude - 10000)
-            ->where('latitude', '<=', $latitude + 10000)
-            ->where('longitude', '>=', $longitude - 10000)
-            ->where('longitude', '<=', $longitude + 10000)
+            ->where('latitude', '>=', $latitude - $range)
+            ->where('latitude', '<=', $latitude + $range)
+
+            ->where('longitude', '>=', $longitude - $range)
+            ->where('longitude', '<=', $longitude + $range)
+
             ->get();
 
         return  response()->json([
             'success' => true,
             'results' => $flats,
+            'range' => $km
         ]);
     }
-
 }

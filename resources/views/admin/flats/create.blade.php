@@ -97,11 +97,11 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div id="map-create" class="col-12">
-                                <div id="map" class="map"></div>
+                            <div class="row">
+                                <div id="map-create" class="col-12">
+                                    <div id="map" class="map"></div>
+                                </div>
                             </div>
-                        </div>
 
                         <div class="row">
                             <div class="col">
