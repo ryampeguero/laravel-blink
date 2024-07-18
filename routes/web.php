@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FlatController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    
+
     return view('welcome');
 });
+
+
+
 
 
 Route::middleware('auth')
@@ -28,6 +32,9 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('flats', FlatController::class)->except(['destroy'])->parameters(['flats' => 'flat:slug']);
+
+        Route::get('/sponsor', [PaymentController::class, 'showSponsorPage'])->name('sponsor');
+       
     });
 
 

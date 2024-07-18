@@ -20,6 +20,7 @@ class FlatController extends Controller
 
         return response()->json($data);
     }
+
     public function search(Request $request) {
 
         $latitude = $request->all()['latitude'];
@@ -32,5 +33,7 @@ class FlatController extends Controller
             'results' => $flats,
         ]);
 
+        
     }
+
 }

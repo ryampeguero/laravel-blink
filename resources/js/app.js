@@ -3,6 +3,68 @@ import { formToValidate } from "./validateedit";
 import "~resources/scss/app.scss";
 import.meta.glob(["../img/**"]);
 import * as bootstrap from "bootstrap";
+import { data } from "autoprefixer";
+
+
+
+//PAYMENT
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Quando il documento è completamente caricato, esegui questo codice
+    // Step 1: Ottenere il token di autorizzazione da Laravel per Braintree
+    fetch('http://127.0.0.1:8000/api/payment/token')
+    .then(response => response.json())
+    .then(data => {
+        // Una volta ottenuto il token, crea l'interfaccia di pagamento con Braintree Drop-in
+        braintree.dropin.create({
+            authorization: data.token,
+            container: '#dropin-container', // Dove inserire l'interfaccia di pagamento
+            locale: 'it_IT',
+        }, function (createErr, instance) {
+            // Funzione di callback quando l'interfaccia di pagamento è stata creata con successo
+            document.getElementById('pay').addEventListener('click', function(){
+                console.log('click');
+                    // Step 2: Gestire il click sul pulsante di pagamento
+                    document.getElementById('amount').value = document.getElementById('sponsorship').value;
+                    console.log(document.getElementById('amount').value);
+                    // Ottenere l'importo selezionato dall'utente
+                    const amount = document.getElementById('sponsorship').value;
+
+                    // Step 3: Richiedere il metodo di pagamento a Braintree Drop-in
+                    instance.requestPaymentMethod(function (err, payload) {
+                        if (err) {
+                            console.error('Error requesting payment method:', err);
+                            return;
+                        }
+
+                        // Step 4: Effettuare la richiesta di pagamento a Laravel
+                        fetch('http://127.0.0.1:8000/api/payment/checkout', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
+                            },
+                            body: JSON.stringify({
+                                payment_method_nonce: payload.nonce, // Nonce del metodo di pagamento da Braintree
+                                amount: document.getElementById('amount').value // Importo da pagare
+                            })
+                        }).then(response => response.json()).then(data => {
+                            // Step 5: Gestire la risposta dal server
+
+                            if (data.success) {
+                                alert('Pagamento avvenuto con successo!');
+                            } else {
+                                alert('Errore nel pagamento: ' + data.message);
+                            }
+                        });
+                    });
+                });
+            });
+        });
+});
+
+
+
 
 
 if (document.getElementsByClassName('ms_table')) {
@@ -238,6 +300,8 @@ function updateSelection(items) {
         items[selectedIndex].classList.add('selected');
     }
 }
+
+
 
 
 
