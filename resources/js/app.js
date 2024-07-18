@@ -4,6 +4,7 @@ import "~resources/scss/app.scss";
 import.meta.glob(["../img/**"]);
 import * as bootstrap from "bootstrap";
 
+
 if (document.getElementsByClassName('ms_table')) {
     setAddEventListenerTable();
 }
@@ -15,6 +16,54 @@ if (document.getElementById('lat')) {
 
     setMap(latCoord, lonCoord);
 }
+
+//Create Validations
+if (document.getElementById("form-create")) {
+    const formSelect = document.getElementById("form-create");
+    formToValidate(formSelect);
+
+    const roomsContainer = document.querySelector('#rooms');
+    const bathroomsContainer = document.querySelector('#bathrooms');
+    console.log(bathroomsContainer);
+
+    myInputNumber(roomsContainer);
+    myInputNumber(bathroomsContainer);
+
+
+    document.getElementById('search').addEventListener('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        setMap(formSelect['latitude'].value, formSelect['longitude'].value)
+        formToValidate(formSelect)
+
+    });
+
+}
+
+
+//Edit Validations
+if (document.getElementById("form-edit")) {
+    const formSelect = document.getElementById("form-edit");
+    formToValidate(formSelect);
+
+    const roomsContainer = document.querySelector('#rooms');
+    const bathroomsContainer = document.querySelector('#bathrooms');
+    console.log(bathroomsContainer);
+
+    myInputNumber(roomsContainer);
+    myInputNumber(bathroomsContainer);
+
+
+    document.getElementById('search-btn').addEventListener('click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        setMap(formSelect['latitude'].value, formSelect['longitude'].value)
+        formToValidate(formSelect)
+    });
+
+}
+
+
 
 function setAddEventListenerTable() {
     const test = document.querySelectorAll(".flat");
@@ -32,24 +81,38 @@ function setAddEventListenerTable() {
     })
 }
 
-//Create Validations
-if (document.getElementById("form-create")) {
-    const formSelect = document.getElementById("form-create");
-    formToValidate(formSelect);
-    
-    document.getElementById('search').addEventListener('click', function (){
-        setMap(formSelect['latitude'].value, formSelect['longitude'].value)
-    });
+
+
+function myInputNumber(inputNumberContainer) {
+    // console.log(inputNumber.querySelector('#input_value'));
+    const inputValue = inputNumberContainer.querySelector('#input_value');
+    const msValue = inputNumberContainer.querySelector('#ms_value');
+    console.log(msValue);
+    const minusBtn = inputNumberContainer.querySelector('#minus');
+    const plusBtn = inputNumberContainer.querySelector('#plus');
+
+
+    msValue.innerHTML = inputValue.value;
+
+    minusBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        if (inputValue.value != 0) {
+            inputValue.value--;
+        }
+        msValue.innerHTML = inputValue.value;
+    })
+
+    plusBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (inputValue.value < 100) {
+            inputValue.value++;
+        }
+        msValue.innerHTML = inputValue.value;
+    })
 }
-
-//Edit Validations
-if (document.getElementById("form-edit")) {
-    const formSelect = document.getElementById("form-edit");
-    formToValidate(formSelect);
-
-}
-
-
 
 // Functions for TomTomAPI
 function setMap(latCoord, lonCoord) {
@@ -116,7 +179,7 @@ const apiKey = 'bKZHQIbuOQ0b5IXmQXQ2FTUOUR3u0a26';
 
 let selectedIndex = -1;
 
-document.getElementById('address').addEventListener('input', function() {
+document.getElementById('address').addEventListener('input', function () {
 
     const query = this.value;
     if (query.length > 2) {
@@ -125,14 +188,14 @@ document.getElementById('address').addEventListener('input', function() {
             .then(data => {
                 const suggestions = document.getElementById('suggestions');
                 suggestions.innerHTML = '';
-          
+
                 selectedIndex = -1;
                 data.results.forEach(result => {
                     const li = document.createElement('li');
                     li.textContent = result.address.freeformAddress;
                     li.dataset.lat = result.position.lat;
                     li.dataset.lon = result.position.lon;
-                  
+
                     li.addEventListener('click', () => {
                         document.getElementById('address').value = result.address.freeformAddress;
                         document.getElementById('latitude').value = result.position.lat;
@@ -148,7 +211,7 @@ document.getElementById('address').addEventListener('input', function() {
     }
 });
 
-document.getElementById('address').addEventListener('keydown', function(event) {
+document.getElementById('address').addEventListener('keydown', function (event) {
     const suggestions = document.getElementById('suggestions');
     const items = suggestions.getElementsByTagName('li');
     if (items.length > 0) {

@@ -4,6 +4,7 @@ function formToValidate(formSelect) {
         if (formSelect) {
             formSelect.addEventListener('submit', (e) => {
                 e.preventDefault();
+                console.log('sono qui');
                 if (validateFormEdit(formSelect)) {
                     formSelect.submit();
                 }

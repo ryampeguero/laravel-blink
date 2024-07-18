@@ -22,34 +22,49 @@ class UpdateFlatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:5'],
-            'slug' => ['required'],
-            'rooms' => ['required'],
-            'bathrooms' => ['required'],
-            'beds' => ['required'],
-            'square_meters' => ['required'],
-            'address' => ['required' , 'min:5'],
-            'img_path' => ['nullable'],
+            'name' => ['required', 'string', 'min:3', 'max:255 '],
+            'rooms' => 'required|integer|not_in:0|gt:-1 ',
+            'bathrooms' => 'required|integer|not_in:0|gt:-1 ',
+            'beds' => 'required|integer|not_in:0|gt:-1 ',
+            'square_meters' => 'required|integer|not_in:0|gt:-1',
+            'address' => 'required|string|min:3|max:255',
+            'latitude' => ' nullable',
+            'longitude' => 'nullable ',
+            'img_path' => 'nullable',
             'services'=> ['nullable', 'exists:services,id'],
-            'visible' => ['nullable'],
-            
+            'visible' => 'required|integer',
         ];
     }
-     /**
-     * Get custom messages for validator errors.
-     *
-     * @return array
-     */
-    public function messages() {
+
+    public function messages(): array
+    {
         return [
-            'name.required' => 'Il nome non può essere vuoto',
-            'name.min' => 'Il nome deve contenere almeno 5 caratteri',
-            'slug.required' => 'Slug non può essere vuoto',
-            'rooms' => 'Stanze non può essere vuoto',
-            'bathrooms' => 'Bagni non può essere vuoto',
-            'beds' => 'Letti non può essere vuoto',
-            'square_meters' => 'Metri quadrati non può essere vuoto',
-            'address' => 'Indirizzo non può essere vuoto',
+            'name.required' => 'Il nome dell\'appartamento è obbligatorio',
+            'name.string' => 'Il nome dell\'appartamento deve essre composto da una stringa',
+            'name.min' => 'Il nome dell\'appartamento deve avere almeno 3 caratteri',
+            'name.max' => 'Il nome dell\'appartamento non può superare i 255 caratteri',
+            'rooms.required' => 'Il numero delle camere è obligatorio',
+            'rooms.integer' => 'Il numero delle camere deve esseere un numero intero',
+            'rooms.not_in' => 'Il numero delle camere non può essere 0',
+            'rooms.gt' => 'Il numero delle camere non può essere negativo',
+            'beds.required' => 'Il numero di letti è obligatorio',
+            'beds.integer' => 'Il numero di letti deve esseere un numero intero',
+            'beds.not_in' => 'Il numero di letti non può essere 0',
+            'beds.gt' => 'Il numero di letti non può essere negativo',
+            'bathrooms.required' => 'Il numero di bagni è obligatorio',
+            'bathrooms.integer' => 'Il numero di bagni deve esseere un numero intero',
+            'bathrooms.not_in' => 'Il numero di bagni non può essere 0',
+            'bathrooms.gt' => 'Il numero di bagni non può essere negativo',
+            'square_meters.required' => 'I metri quadri è obligatorio',
+            'square_meters.integer' => 'I metri quadri deve esseere un numero intero',
+            'square_meters.not_in' => 'I metri quadri non può essere 0',
+            'square_meters.gt' => 'I metri quadri non può essere negativo',
+            'address.required' => 'L\'indirizzo è obbligatorio',
+            'address.string' => 'L\'indirizzo deve essre composto da una stringa',
+            'address.min' => 'L\'indirizzo deve avere almeno 3 caratteri',
+            'address.max' => 'L\'indirizzo non può superare i 255 caratteri',
+            'visible' => 'Devi scegliere se pubblicare o no la camera',
+
         ];
     }
 }

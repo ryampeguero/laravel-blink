@@ -108,7 +108,7 @@
                                 <a class="text-navbar" href="{{ route('admin.flats.index') }}">
                                     <div class="d-flex container-fluid align-items-center ">
                                         <img class="icon me-3" src="{{ asset('Icons/Flats.svg') }}"
-                                            alt=""></img><span> Appartementi</span>
+                                            alt=""></img><span> Appartamenti</span>
                                     </div>
                                 </a>
                             </li>
