@@ -170,15 +170,11 @@
                     </div>
             </div>
             </form>
+            
+            <div class="col-6 mt-5 ms_border_inner">
+                <img class="ms_img ms_border_inner" src="{{ asset('img/placeholder_img_fit.png') }}" alt="">
+            </div>
+            
         </div>
-
-        <div class="col-6 mt-5 ms_border_inner">
-            <img class="ms_img ms_border_inner" src="{{ asset('img/placeholder_img_fit.png') }}" alt="">
-        </div>
-
-    </div>
-
-    </div>
-
     </div>
 @endsection
