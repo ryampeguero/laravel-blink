@@ -20,8 +20,9 @@ class FlatController extends Controller
 
         return response()->json($data);
     }
-    public function search(Request $request)
-    {
+
+
+    public function search(Request $request) {
 
         $latitude = $request->all()['latitude'];
         $longitude = $request->all()['longitude'];
@@ -39,9 +40,4 @@ class FlatController extends Controller
         ]);
     }
 
-    public function createSquare($lat, $lon)
-    {
-        $center = [$lat, $lon];
-        $diagonale = sqrt(2 * 4000);
-    }
 }
