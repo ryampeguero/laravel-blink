@@ -18,47 +18,57 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <div class="col">
-                                <label for="rooms">Numero di stanze</label>
-                                <input type="number" id="rooms" name="rooms"
-                                    class="form-control @error('rooms') is-invalid @enderror" value="{{ old('rooms') }}">
-                                @error('rooms')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <div class="">
-                                <label for="bathrooms">Numero di bagni</label>
-                                <input type="number" id="bathrooms"
-                                    name="bathrooms"class="form-control @error('bathrooms') is-invalid @enderror"
-                                    value="{{ old('bathrooms') }}">
-                                @error('bathrooms')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
                         </div>
 
-                        <div class="col-6">
-                            <div class="">
-                                <label for="beds">Numero di letti</label>
-                                <input type="number" id="beds"
-                                    name="beds"class="form-control @error('beds') is-invalid @enderror"
-                                    value="{{ old('beds') }}">
-                                @error('beds')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-
-                            </div>
-                        </div>
 
                         <div class="row mb-3">
                             <div class="col">
+                                <label for="rooms">Numero di stanze</label>
+                                @error('rooms')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+
+                                <div id='rooms' class="ms_input">
+                                    <input id='input_value' type="hidden" name="rooms" value="{{ old('rooms', '0') }}">
+                                    <button id="minus" class="input_btn">-</button>
+                                    <span id="ms_value">0</span>
+                                    <button id="plus" class="input_btn">+</button>
+                                </div>
+                            </div>
+                            <div class="col-6">
                                 <div class="">
-                                    <label for="square_meters">Metri quadri</label>
+                                    <label for="bathrooms">Numero di bagni</label>
+
+
+                                    <div id='bathrooms' class="ms_input">
+                                        <input id='input_value' type="hidden" name="bathrooms"
+                                            value="{{ old('bathrooms', '0') }}">
+                                        <button id="minus" class="input_btn">-</button>
+                                        <span id="ms_value">0</span>
+                                        <button id="plus" class="input_btn">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+
+                            <div class="col-6">
+                                <div class="">
+                                    <label for="beds">Numero di letti</label>
+                                    <input type="number" id="beds"
+                                        name="beds"class="form-control @error('beds') is-invalid @enderror"
+                                        value="{{ old('beds') }}">
+                                    @error('beds')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="">
+                                    <label for="square_meters">Metri quadrati</label>
                                     <input type="number" id="square_meters" name="square_meters"
                                         class="form-control @error('square_meters') is-invalid @enderror"
                                         value="{{ old('square_meters') }}">
@@ -66,9 +76,15 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+
                                 <div class="">
                                     {{-- search-box for address --}}
-                                    <label class="fomr-label" for="address">Cerca Indirizzo</label>
+                                    <label class="form-label" for="address">Cerca Indirizzo</label>
                                     <input value="{{ old('address') }}" name="address" class="form-control" type="text"
                                         id="address" autocomplete="off">
                                     {{-- input hidden latitudine and longitude --}}
@@ -86,6 +102,7 @@
                                 <div id="map" class="map"></div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col">
                                 <h4>Filtra gli optional della tua stanza</h4>
@@ -146,9 +163,10 @@
                     </div>
                 </form>
             </div>
-
-            <div class="col-6 mt-5 ms_border_inner">
+            <div class="col-6 ms_border_inner">
                 <img class="ms_img ms_border_inner" src="{{ asset('img/placeholder_img_fit.png') }}" alt="">
+                
+            
             </div>
 
         </div>
