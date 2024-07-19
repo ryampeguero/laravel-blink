@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FlatController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    
+
     return view('welcome');
 });
-
 
 Route::middleware('auth')
     ->prefix('admin') // Prefisso nell'url delle rotte di questo gruppo
@@ -30,5 +28,4 @@ Route::middleware('auth')
         Route::resource('flats', FlatController::class)->except(['destroy'])->parameters(['flats' => 'flat:slug']);
     });
 
-
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
