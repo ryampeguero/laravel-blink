@@ -42,7 +42,7 @@ class LoginRequest extends FormRequest
             'password.string' => 'Dev\'essere una string alfanumerica'
         ];
     }
-}
+
 
     /**
      * Attempt to authenticate the request's credentials.
