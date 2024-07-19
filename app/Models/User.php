@@ -43,7 +43,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function flats () {
+    public function flats()
+    {
         return $this->hasMany(Flat::class);
     }
 }
