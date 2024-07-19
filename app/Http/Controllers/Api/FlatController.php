@@ -28,7 +28,7 @@ class FlatController extends Controller
         $data = $request->all();
         $latitude = $data['latitude'];
         $longitude = $data['longitude'];
-        $range = $data['range'] ? $data['range'] : 1;
+        $range = ($data['range'] ? $data['range'] : 1)/111;
 
         $km = $latitude + ($range/111);
 
