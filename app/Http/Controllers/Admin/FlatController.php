@@ -63,11 +63,10 @@ class FlatController extends Controller
     public function update(UpdateFlatRequest $request, Flat $flat)
     {
 
+        // dd($request);
         $data = $request->validated();
-        // dd($data);
 
-        // $data['slug'] = Str::slug($data);
-
+        $data['slug'] = Str::slug($data['name']);
 
         //controllo se nel request c'è il file dell'imaggine
         if ($request->hasFile('img_path')) {

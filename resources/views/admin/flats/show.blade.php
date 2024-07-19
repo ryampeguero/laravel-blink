@@ -34,8 +34,13 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <a href="{{ route('admin.flats.index') }}" class="btn btn-primary">Torna alla Lista</a>
+            <div class="card-footer d-flex justify-content-between">
+                <div class="">
+                    <a href="{{ route('admin.flats.index') }}" class="btn btn-primary">Torna alla Lista</a>
+                </div>
+                <div class="mt-2">
+                    <a href="{{ route('admin.flats.edit', ['flat' => $flat->slug]) }}" class="ms_button">Modifica</a>
+                </div>
             </div>
         </div>
     </div>
@@ -43,14 +48,14 @@
         let latCoord = parseFloat(@json($flat->latitude));
         let lonCoord = parseFloat(@json($flat->longitude));
 
-        console.log(latCoord,typeof(latCoord));
-        console.log(lonCoord,typeof(lonCoord));
+        console.log(latCoord, typeof(latCoord));
+        console.log(lonCoord, typeof(lonCoord));
         const position = {
             lat: latCoord,
             lon: lonCoord
         }
 
-        
+
         var map = tt.map({ //Setting coordinates to map in View
             key: 'bKZHQIbuOQ0b5IXmQXQ2FTUOUR3u0a26',
             container: 'map',

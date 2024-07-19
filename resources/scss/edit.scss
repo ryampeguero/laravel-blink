@@ -1,4 +1,13 @@
+form {
+    label {
+        font-size: 1.2rem;
+    }
+}
+
 #suggestions {
+    position: relative !important;
+    top: 0;
+    left: 0;
     list-style-type: none;
     padding: 0;
     border: 1px solid #ccc;
@@ -6,11 +15,42 @@
     background-color: #fff;
     overflow-y: auto;
     z-index: 1000;
+
+    li {
+        position: relative;
+        top:0;
+        left: 0;
+        padding: 10px;
+        z-index: 9999;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+
+        &.selected{
+            background-color: #f0f0f0;
+        }
+    }
 }
-#suggestions li {
-    padding: 10px;
-    cursor: pointer;
+
+#search-bar {
+    position: relative !important;
+    top: 0;
+    left: 0;
+    margin-bottom: 35px;
+    // border: 1px solid black;
+    input {
+        position: absolute;
+        top: 30px;
+        left: 0;
+    }
 }
-#suggestions li:hover, #suggestions li.selected {
-    background-color: #f0f0f0;
+
+#search-btn {
+    position: absolute;
+    top: 31px;
+    right: 0;
+    // max-width: 20px;
+    font-size: 0.8rem;
 }
