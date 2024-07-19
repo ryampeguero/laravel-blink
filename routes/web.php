@@ -22,10 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-
-
 Route::middleware('auth')
     ->prefix('admin') // Prefisso nell'url delle rotte di questo gruppo
     ->name('admin.') // inizio di ogni nome delle rotte del gruppo
@@ -37,5 +33,4 @@ Route::middleware('auth')
        
     });
 
-
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
