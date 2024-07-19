@@ -84,7 +84,7 @@
                             </li>
 
                             <li
-                                class="nav-item-li d-flex container-fluid align-items-center nav-link {{ 'http://localhost:5174/' == 'http://localhost:5174/' ? 'ms_backC_secondary_selected ' : '' }}">
+                                class="nav-item-li d-flex container-fluid align-items-center nav-link ">
                                 <a class="text-navbar " href="{{ url('http://localhost:5174/') }}">
                                     <div class="d-flex container-fluid align-items-center">
                                         <img class="icon me-3" src="{{ asset('Icons/HomePage.svg') }}"
