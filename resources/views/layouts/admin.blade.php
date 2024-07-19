@@ -84,8 +84,8 @@
                             </li>
 
                             <li
-                                class="nav-item-li d-flex container-fluid align-items-center nav-link {{ Route::currentRouteName() == 'admin.flats.index' ? 'ms_backC_secondary_selected ' : '' }}">
-                                <a class="text-navbar " href="{{ route('admin.flats.index') }}">
+                                class="nav-item-li d-flex container-fluid align-items-center nav-link {{ 'http://localhost:5174/' == 'http://localhost:5174/' ? 'ms_backC_secondary_selected ' : '' }}">
+                                <a class="text-navbar " href="{{ url('http://localhost:5174/') }}">
                                     <div class="d-flex container-fluid align-items-center">
                                         <img class="icon me-3" src="{{ asset('Icons/HomePage.svg') }}"
                                             alt=""></img><span> HomePage</span>
@@ -126,7 +126,7 @@
                             <li
                                 class="d-flex justify-content-start align-items-center nav-item-li mt-auto nav-link text-navbar {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
                                 <a class="text-navbar" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <img class="icon me-3" src="{{ asset('Icons/exit.svg') }}" alt="">
                                     Logout
                                 </a>
