@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\reader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class ReaderAuthController extends Controller
+class readerAuthController extends Controller
 {
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:readers',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -22,7 +22,7 @@ class ReaderAuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $reader = User::create([
+        $reader = reader::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -47,13 +47,11 @@ class ReaderAuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $reader = User::where('email', $request->email)->first();
+        $reader = Reader::where('email', $request->email)->first();
 
         if (! $reader || ! Hash::check($request->password, $reader->password)) {
-            return response()->json(['message' => 'Credenziali sbagliate'], 401);
+            return response()->json(['message' => 'Invalid credentials'], 401);
         }
-
-        $reader->tokens()->delete();
 
         $token = $reader->createToken('auth_token')->plainTextToken;
 

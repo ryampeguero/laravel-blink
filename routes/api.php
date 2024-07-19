@@ -1,12 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\FlatController;
-
-use App\Http\Controllers\Api\ReaderAuthController;
-use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Api\PaymentController;
-use App\Http\Controllers\Api\SearchController;
-
+use App\Http\Controllers\Api\ReaderAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,18 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/flats', [FlatController::class, 'index']);
 
-
 Route::post('register', [ReaderAuthController::class, 'register']);
-Route::post('login', [ReaderAuthController::class, 'login'])->name('login');
-Route::post('logout', [ReaderAuthController::class, 'logout'])->middleware('auth:sanctum');
-Route::middleware('auth:sanctum')->put('login', [UserAuthController::class, 'authenticateWithToken']);
-
-
+Route::post('login', [ReaderAuthController::class, 'login']);
+Route::middleware('auth:sanctum')->get('user', function (Request $request) {
+    return $request->user();
+});
 Route::get('/flats/search', [FlatController::class, 'search']);
-
 
 Route::get('payment/token', [PaymentController::class, 'token']);
 Route::post('payment/checkout', [PaymentController::class, 'checkout']);
-
-
-
