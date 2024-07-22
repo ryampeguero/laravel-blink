@@ -22,16 +22,14 @@ class FlatController extends Controller
         return response()->json($data);
     }
 
-
-    public function search(Request $request)
+    public function basicSearch(Request $request)
     {
-
         $data = $request->all();
         $latitude = $data['latitude'];
         $longitude = $data['longitude'];
-        $range = ($data['range'] ? $data['range'] : 1)/111;
+        $range = ($data['range'] ? $data['range'] : 1) / 111;
 
-        $km = $latitude + ($range/111);
+        $km = $latitude + $range;
 
         $flats = Flat::with(['services', 'user'])
             ->where('latitude', '>=', $latitude - $range)
@@ -42,7 +40,47 @@ class FlatController extends Controller
 
             ->get();
 
+        return [
+            'flats' => $flats,
+            'km' => $km
+        ];
+    }
+    public function search(Request $request)
+    {
+        
+        $resp = $this->basicSearch($request);
 
+        return  response()->json([
+            'success' => true,
+            'results' => $resp['flats'],
+            'range' => $resp['km']
+        ]);
+    }
+
+
+    public function searchAR(Request $request)
+    {
+        $data = $request->all();
+
+        $latitude = $data['latitude'];
+        $longitude = $data['longitude'];
+        $rooms = $data['rooms'];
+        $range = $data['range'] ? $data['range'] : 1;
+        $km = $latitude + $range/111;
+
+        // dd($request);
+
+        $flats = Flat::with(['services', 'user'])
+            ->where('latitude', '>=', $latitude - $range)
+            ->where('latitude', '<=', $latitude + $range)
+
+            ->where('longitude', '>=', $longitude - $range)
+            ->where('longitude', '<=', $longitude + $range)
+            ->where('rooms', '>=', $data['rooms'])
+            ->where('bathrooms', '>=', $data['bathrooms'])
+            
+            ->orderByDesc('rooms')
+            ->get();
 
         return  response()->json([
             'success' => true,
@@ -51,7 +89,8 @@ class FlatController extends Controller
         ]);
     }
 
-    public function info(Request $request) {
+    public function info(Request $request)
+    {
 
         $slug = $request->route('slug');
         $flat = Flat::where('slug', $slug)->first();
