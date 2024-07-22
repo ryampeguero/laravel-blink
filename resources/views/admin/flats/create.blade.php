@@ -111,8 +111,6 @@
                                         <div class="d-flex flex-wrap gap-2 ">
                                             @foreach ($services as $service)
                                                 <div class="p-1">
-
-
                                                     @if (old('services') != null)
                                                         <input @checked(in_array($service->id, old('services', []))) value="{{ $service->id }}"
                                                             class="btn-check" type="checkbox" name="services[]"

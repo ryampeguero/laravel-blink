@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -96,5 +97,13 @@ class FlatController extends Controller
         $flat = Flat::where('slug', $slug)->first();
 
         return view("infoShow", compact('flat'));
+    }
+
+    public function getAllServices(){
+        $services = Service::all();
+        return  response()->json([
+            'success' => true,
+            'results' => $services,
+        ]);
     }
 }
