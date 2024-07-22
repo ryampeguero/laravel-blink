@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Flat;
+use App\Models\Plan;
 use Braintree\Gateway;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
@@ -29,9 +33,21 @@ class PaymentController extends Controller
     //gestiamo la transazione
     public function checkout(Request $request)
     {
+
+        $validated = $request->all();
+
+        $plan = Plan::where('price', $validated['planId'])->first();
+
+        //  return dd($request);
+
         //recuperiamo dati 
-        $amount = $request->amount;
-        $nonce = $request->payment_method_nonce;
+        $amount = $validated['amount'];
+        $nonce = $validated['payment_method_nonce'];
+        $flatId = $validated['flatId'];
+        $planId = $plan->id;
+
+
+
 
         //creazione della transazione
         $result = $this->gateway->transaction()->sale([
@@ -42,12 +58,35 @@ class PaymentController extends Controller
             ]
         ]);
 
+        // return response()->json($result);
+        //  dd($result->success);
+
         //gestione della risposta 
         if ($result->success) {
-            return response()->json(['success' => true, 'transaction' => $result->transaction]);
+            $transactionId = $result->transaction->id;
+            $flat = Flat::where('id', $flatId)->first();
+
+            $now = Carbon::now();
+
+            $expireDate = $now->addDays(3);
+            $flat->plans()->attach($plan->id, ['date' => $now, 'expire_date' => $expireDate]);
+
+            session()->flash('success_message', 'Pagamento completato con successo.');
+
+            return response()->json([
+                'success' => true,
+                'redirect_url' => route('admin.flats.show', ['flat' => $flat->slug]),
+                'transaction' => $result->transaction
+            ]);
+
+           
+
         } else {
-            return response()->json(['success' => false, 'message' => $result->message]);
+            return response()->json([
+                'success' => false,
+                'message' => $result->message
+            ]);
         }
     }
-
 }
+
