@@ -8,10 +8,9 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-4 mb-md-0">
                         @if ($flat->img_path)
-                            <img src="{{ asset('storage/' . $flat->img_path) }}" class="img-fluid mt-3"
-                                alt="Immagine Appartamento">
+                            <img src="{{ asset('storage/' . $flat->img_path) }}" class="img-fluid" alt="Immagine Appartamento">
                         @else
                             <p>Immagine non disponibile</p>
                         @endif
@@ -26,7 +25,6 @@
                         <p><strong>Descrizione:</strong></p>
                         <p>{{ $flat->description }}</p>
                         {{-- Placeholders --}}
-                        {{-- @dd($flat->lat) --}}
                         <span id="lat" php-var={{ $flat->latitude }}></span>
                         <span id="lon" php-var={{ $flat->longitude }}></span>
 
@@ -34,8 +32,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer d-flex justify-content-between">
-                <div class="">
+            <div class="card-footer d-flex justify-content-between flex-wrap">
+                <div class="mb-2 mb-md-0">
                     <a href="{{ route('admin.flats.index') }}" class="btn btn-primary">Torna alla Lista</a>
                 </div>
                 <div class="mt-2">
@@ -54,7 +52,6 @@
             lat: latCoord,
             lon: lonCoord
         }
-
 
         var map = tt.map({ //Setting coordinates to map in View
             key: 'bKZHQIbuOQ0b5IXmQXQ2FTUOUR3u0a26',
