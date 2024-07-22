@@ -6,7 +6,6 @@ use App\Http\Controllers\Api\ReaderAuthController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\SearchController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
