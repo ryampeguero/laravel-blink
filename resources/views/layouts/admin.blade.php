@@ -79,8 +79,9 @@
 
                             <li class="ms_nav_item_logo">
 
-                                <a class="" href="/"><img class="container sidebar_logo me-auto"
-                                        src="{{ asset('Icons/blink-logo-white.svg') }}" alt=""></a>
+                                <div class="d-flex align-items-center ms-2 navbar-nav me-auto">
+                                    <img class="logo_blink" src="{{ asset('Icons/blink-logo-white.svg') }}" alt="">
+                                </div>
                             </li>
 
                             <li

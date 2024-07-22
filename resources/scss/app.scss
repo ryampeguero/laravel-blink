@@ -150,6 +150,12 @@ nav {
     
 }
 
+.logo_blink {
+    height: 80px;
+    width: 100%;
+
+}
+
 // CARD
 .ms_card {
     box-shadow: $shadow2;
@@ -256,6 +262,15 @@ nav {
     color: white;
     border-radius: 0.5rem;
     box-shadow: $shadow2;
+}
+
+.ms_button_login {
+    background-color: $secondary-color;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 0.5rem;
+    box-shadow: $shadow2;
+    width: 30%;
 }
 
 .ms_button_secondary {

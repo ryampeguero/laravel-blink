@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
@@ -41,10 +42,20 @@ class FlatController extends Controller
 
             ->get();
 
+
+
         return  response()->json([
             'success' => true,
             'results' => $flats,
             'range' => $km
         ]);
+    }
+
+    public function info(Request $request) {
+
+        $slug = $request->route('slug');
+        $flat = Flat::where('slug', $slug)->first();
+
+        return view("infoShow", compact('flat'));
     }
 }
