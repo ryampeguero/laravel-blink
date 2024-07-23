@@ -23,14 +23,8 @@ class PaymentController extends Controller
     //generiamo il token 
     public function token()
     {
-        $gateway = new Gateway([
-            'environment' => env('BRAINTREE_ENVIRONMENT'),
-            'merchantId' => env("BRAINTREE_MERCHANT_ID"),
-            'publicKey' => env("BRAINTREE_PUBLIC_KEY"),
-            'privateKey' => env("BRAINTREE_PRIVATE_KEY")
-        ]);
 
-        $token = $gateway->clientToken()->generate();
+        $token = $this->gateway->clientToken()->generate();
         // dd($token);
 
         return response()->json(['token' => $token]);
