@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\Sanctum;
 
 class readerAuthController extends Controller
 {
@@ -64,5 +65,13 @@ class readerAuthController extends Controller
         ]);
     }
 
+    /** @test */
+    public function access_user_endpoint()
+    {
+        Sanctum::actingAs(User::factory()->create());
 
+        $response = $this->get('/api/user');
+
+        $response->assertOk();
+    }
 }
