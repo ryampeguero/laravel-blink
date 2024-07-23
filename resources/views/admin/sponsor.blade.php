@@ -11,6 +11,7 @@
         <p>{{ $flat->address }}</p>
     </div>
 
+
     <form id="sponsorship-form">
         <label class="form-label" for="sponsorship">Seleziona il tipo di sponsorizzazione:</label>
         <select class="form-select" id="sponsorship" name="sponsorship">
@@ -22,10 +23,12 @@
         <input type="hidden" id="flatId" value="{{ $flat->id }}">
         <input type="hidden" id="planId" name="planId" value="">
     </form>
-    <div id="dropin-container"></div>
+    
+    <div id="dropin-container" class="mt-3"></div>
+    
     <button class="btn btn-primary mt-3" id="pay">Paga</button>
-
 </div>
+
 <script src="https://js.braintreegateway.com/web/dropin/1.30.0/js/dropin.min.js"></script>
 
 @endsection
