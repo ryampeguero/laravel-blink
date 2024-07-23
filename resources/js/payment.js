@@ -31,30 +31,30 @@ document.addEventListener('DOMContentLoaded', function () {
                             flatId: flatId,
                             planId: planId,
                         })
-                        .then(response => {
-                            const data = response.data;
-                            console.log(data);
-                            console.log(data.redirect_url);
-                            const message = document.getElementById('message');
-                            if (data.success) {
-                                alert('Pagamento avvenuto con successo!');
-                                window.location.href = data.redirect_url;
-                                // console.log(document.getElementById('message'));
-                                message.classList.remove('d-none');
-                                message.classList.add('alert alert-succes');
-                                message.innerHTML = "messaggio";
+                            .then(response => {
+                                const data = response.data;
+                                console.log(data);
+                                console.log(data.redirect_url);
+                                const message = document.getElementById('message');
+                                if (data.success) {
+                                    alert('Pagamento avvenuto con successo!');
+                                    window.location.href = data.redirect_url;
+                                    // console.log(document.getElementById('message'));
+                                    message.classList.remove('d-none');
+                                    message.classList.add('alert alert-succes');
+                                    message.innerHTML = "messaggio";
 
-                                setTimeout(function() {
-                                    message.classList.add('d-none');
-                                }, 4000);
-                               
-                            } else {
-                                alert('Errore nel pagamento: ' + data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Errore nella richiesta di pagamento:', error);
-                        });
+                                    setTimeout(function () {
+                                        message.classList.add('d-none');
+                                    }, 4000);
+
+                                } else {
+                                    alert('Errore nel pagamento: ' + data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Errore nella richiesta di pagamento:', error);
+                            });
                     });
                 });
             });

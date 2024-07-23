@@ -234,8 +234,10 @@ function myInputNumber(inputNumberContainer) {
     minusBtn.addEventListener('click', (event) => {
         event.stopPropagation();
         event.preventDefault();
-        if (inputValue.value != 0) {
+        if (inputValue.value <= 0) {
             inputValue.value--;
+        }else{
+            inputValue.value = 1;
         }
         msValue.innerHTML = inputValue.value;
     })
@@ -246,6 +248,8 @@ function myInputNumber(inputNumberContainer) {
 
         if (inputValue.value < 100) {
             inputValue.value++;
+        }else{
+            inputValue.value = 100
         }
         msValue.innerHTML = inputValue.value;
     })
