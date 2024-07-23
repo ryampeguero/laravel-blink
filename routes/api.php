@@ -38,3 +38,5 @@ Route::get('/flats/services',[FlatController::class, 'getAllServices']);
 
 Route::get('payment/token', [PaymentController::class, 'token']);
 Route::post('payment/checkout', [PaymentController::class, 'checkout']);
+
+Route::post('/contacts/{id}', [FlatController::class, 'storeMessage']);
