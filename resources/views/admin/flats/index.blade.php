@@ -20,6 +20,7 @@
                     <th scope="col">N° Letti</th>
                     <th class="tabs" scope="col">Indirizzo</th>
                     <th class="tabs" scope="col"></th>
+                    <th class="tabs" scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,9 @@
                             <td class="tabs">{{ $item->address }}</td>
                             <td class="tabs">
                                 <a href="{{ route('admin.flats.show', ['flat' => $item->slug]) }}">INFO</a>
+                            </td>
+                            <td class="tabs">
+                                <a href="{{ route('admin.sponsor', ['slug' => $item->slug]) }}">SPONSORIZZA</a>
                             </td>
                     </tr>
                 @endforeach

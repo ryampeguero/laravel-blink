@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\Api\FlatController;
 use App\Http\Controllers\Api\PaymentController;
+
+use App\Http\Controllers\Api\SearchController;
+
 use App\Http\Controllers\Api\ReaderAuthController;
 use App\Models\Flat;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
 
 /*

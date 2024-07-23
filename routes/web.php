@@ -29,7 +29,7 @@ Route::middleware('auth')
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('flats', FlatController::class)->except(['destroy'])->parameters(['flats' => 'flat:slug']);
 
-        Route::get('/sponsor', [PaymentController::class, 'showSponsorPage'])->name('sponsor');
+        Route::get('/sponsor/{slug}', [FlatController::class, 'showSponsorPage'])->name('sponsor');
        
     });
 

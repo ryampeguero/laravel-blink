@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFlatRequest;
 use App\Http\Requests\UpdateFlatRequest;
 use App\Models\Flat;
+use App\Models\Plan;
 use App\Models\Service;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -50,7 +52,8 @@ class FlatController extends Controller
 
     public function show(Flat $flat)
     {
-        return view('admin.flats.show', compact('flat'));
+        $slug = $flat->slug;
+        return view('admin.flats.show', compact('flat', 'slug'));
     }
 
 
@@ -96,5 +99,26 @@ class FlatController extends Controller
         $flat->update($data);
 
         return redirect()->route('admin.flats.show', ['flat' => $flat->slug])->with('message', 'Appartamento ' . $flat->name . ' è stato modificato');
+    }
+
+    public function showSponsorPage(String $slug)
+    {
+        // dd($flat);
+        // dd($slug);
+
+        
+
+        $flat = Flat::where('slug', $slug)->first();
+        // dd($flat);
+
+        $sponsorships = Plan::all();
+        
+
+        // return view('admin.sponsor', compact('sponsorships', 'flat', 'slug'));
+        return view('admin.sponsor', [
+            'sponsorships' => $sponsorships,
+            'flat' => $flat,
+            'slug' => $slug
+        ]);
     }
 }
