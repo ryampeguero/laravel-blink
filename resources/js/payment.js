@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     axios.get('http://127.0.0.1:8000/api/payment/token')
         .then(response => {
             const token = response.data.token;
-
             braintree.dropin.create({
                 authorization: token,
                 container: '#dropin-container',
