@@ -95,17 +95,23 @@
                             </div>
                         </div>
 
-                        <!-- Optional -->
-                        <div class="row mb-3">
-                            <div class="col">
-                                <h4>Filtra gli optional della tua stanza</h4>
-                                <div class="btn-group d-flex flex-wrap gap-2" role="group">
-                                    @foreach ($services as $service)
-                                        <div class="p-1">
-                                            <input @checked(in_array($service->id, old('services', []))) value="{{ $service->id }}" class="btn-check" type="checkbox" name="services[]" id="{{ $service->id }}">
-                                            <label class="form-label btn btn-outline-primary test" for="{{ $service->id }}">{{ $service?->name }}</label>
-                                        </div>
-                                    @endforeach
+
+                                                @if (old('services') != null)
+                                                    <input @checked(in_array($service->id, old('services', []))) value="{{ $service->id }}"
+                                                        class="btn-check" type="checkbox" name="services[]"
+                                                        id="{{ $service->id }}">
+                                                @else
+                                                    <input @checked($flat->services->contains($service->id)) value="{{ $service->id }}"
+                                                        class="btn-check" type="checkbox" name="services[]"
+                                                        id="{{ $service->id }}">
+                                                @endif
+                                                <label style="font-size: 0.8rem"
+                                                    class="form-label btn btn-outline-primary test"
+                                                    for="{{ $service->id }}">{{ $service?->name }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

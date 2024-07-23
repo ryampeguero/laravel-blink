@@ -4,11 +4,20 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
+use App\Models\Service;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
+    private $latitude;
+    private $longitude;
+    private $rooms;
+    private $bathrooms;
+    private $range;
+    private $km;
+    private $services;
     public function index()
     {
 
@@ -22,16 +31,14 @@ class FlatController extends Controller
         return response()->json($data);
     }
 
-
-    public function search(Request $request)
+    public function basicSearch(Request $request)
     {
-
         $data = $request->all();
         $latitude = $data['latitude'];
         $longitude = $data['longitude'];
-        $range = ($data['range'] ? $data['range'] : 1)/111;
+        $range = ($data['range'] ? $data['range'] : 1) / 111;
 
-        $km = $latitude + ($range/111);
+        $km = $latitude + $range;
 
         $flats = Flat::with(['services', 'user'])
             ->where('latitude', '>=', $latitude - $range)
@@ -42,20 +49,74 @@ class FlatController extends Controller
 
             ->get();
 
+        return [
+            'flats' => $flats,
+            'km' => $km
+        ];
+    }
+    public function search(Request $request)
+    {
 
+        $resp = $this->basicSearch($request);
+
+        return  response()->json([
+            'success' => true,
+            'results' => $resp['flats'],
+            'range' => $resp['km']
+        ]);
+    }
+
+
+    public function searchAR(Request $request)
+    {
+        $data = $request->all();
+
+        $this->latitude = $data['latitude'];
+        $this->longitude = $data['longitude'];
+        $this->rooms = $data['rooms'] ? $data['rooms'] : 1;
+        $this->bathrooms = $data['bathrooms'] ? $data['bathrooms'] : 1;
+        $this->services = $data['services'];
+        $this->range = $data['range'] ? $data['range'] : 1;
+        $this->km = $this->latitude + $this->range / 111;
+
+
+
+
+        $flats = Flat::with(['services', 'user'])
+            ->where('latitude', '>=', $this->latitude - $this->range)
+            ->where('latitude', '<=', $this->latitude + $this->range)
+
+            ->where('longitude', '>=', $this->longitude - $this->range)
+            ->where('longitude', '<=', $this->longitude + $this->range)
+            ->where('rooms', '>=', $this->rooms)
+            ->where('bathrooms', '>=', $this->bathrooms)
+
+            ->orderByDesc('rooms')
+            ->get();
 
         return  response()->json([
             'success' => true,
             'results' => $flats,
-            'range' => $km
+            'range' => $this->km,
+            'services' => $data['services']
         ]);
     }
 
-    public function info(Request $request) {
+    public function info(Request $request)
+    {
 
         $slug = $request->route('slug');
         $flat = Flat::where('slug', $slug)->first();
 
         return view("infoShow", compact('flat'));
+    }
+
+    public function getAllServices()
+    {
+        $services = Service::all();
+        return  response()->json([
+            'success' => true,
+            'results' => $services,
+        ]);
     }
 }
