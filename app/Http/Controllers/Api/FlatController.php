@@ -54,8 +54,8 @@ class FlatController extends Controller
     public function info(Request $request) {
 
         $slug = $request->route('slug');
-        $flat = Flat::where('slug', $slug)->first();
-
-        return view("infoShow", compact('flat'));
+        $flat = Flat::with(["user"])->where('slug', $slug)->first();
+        
+        return response()->json($flat);
     }
 }
