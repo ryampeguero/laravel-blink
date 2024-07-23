@@ -4,24 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
-
 use App\Models\Message;
-
 use App\Models\Service;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
     private $latitude;
+
     private $longitude;
+
     private $rooms;
+
     private $bathrooms;
+
     private $range;
+
     private $km;
+
     private $services;
+
     public function index()
     {
 
@@ -55,21 +57,21 @@ class FlatController extends Controller
 
         return [
             'flats' => $flats,
-            'km' => $km
+            'km' => $km,
         ];
     }
+
     public function search(Request $request)
     {
 
         $resp = $this->basicSearch($request);
 
-        return  response()->json([
+        return response()->json([
             'success' => true,
             'results' => $resp['flats'],
-            'range' => $resp['km']
+            'range' => $resp['km'],
         ]);
     }
-
 
     public function searchAR(Request $request)
     {
@@ -83,9 +85,6 @@ class FlatController extends Controller
         $this->range = $data['range'] ? $data['range'] : 1;
         $this->km = $this->latitude + $this->range / 111;
 
-
-
-
         $flats = Flat::with(['services', 'user'])
             ->where('latitude', '>=', $this->latitude - $this->range)
             ->where('latitude', '<=', $this->latitude + $this->range)
@@ -97,12 +96,12 @@ class FlatController extends Controller
 
             ->orderByDesc('rooms')
             ->get();
-        
-        return  response()->json([
+
+        return response()->json([
             'success' => true,
             'results' => $flats,
             'range' => $this->km,
-            'services' => $data['services']
+            'services' => $data['services'],
         ]);
     }
 
@@ -110,21 +109,23 @@ class FlatController extends Controller
     {
 
         $slug = $request->route('slug');
-        $flat = Flat::with(["user"])->where('slug', $slug)->first();
-        
+        $flat = Flat::with(['user'])->where('slug', $slug)->first();
+
         return response()->json($flat);
     }
 
     public function getAllServices()
     {
         $services = Service::all();
-        return  response()->json([
+
+        return response()->json([
             'success' => true,
             'results' => $services,
         ]);
-}
+    }
 
-    public function storeMessage(Request $request) {
+    public function storeMessage(Request $request)
+    {
 
         //validazioni
         $validated = $request->validate([
@@ -132,7 +133,7 @@ class FlatController extends Controller
             'message' => 'required',
         ]);
 
-        //creazione del nuovo messaggio 
+        //creazione del nuovo messaggio
         $newMessage = new Message();
         $newMessage->fill($validated);
         $newMessage->save();
