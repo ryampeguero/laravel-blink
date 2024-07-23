@@ -93,7 +93,7 @@ class FlatController extends Controller
 
             ->orderByDesc('rooms')
             ->get();
-
+        
         return  response()->json([
             'success' => true,
             'results' => $flats,
@@ -118,5 +118,5 @@ class FlatController extends Controller
             'success' => true,
             'results' => $services,
         ]);
-    }
+}
 }

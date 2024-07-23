@@ -31,6 +31,7 @@ class StoreFlatRequest extends FormRequest
             'latitude' => ' nullable',
             'longitude' => 'nullable ',
             'img_path' => 'nullable',
+            'services'=> ['nullable', 'exists:services,id'],
             'visible' => 'required|integer',
         ];
     }

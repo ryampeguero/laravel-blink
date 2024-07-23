@@ -41,11 +41,18 @@ class FlatController extends Controller
             $image_path = Storage::put('img_path', $request->file('img_path'));
             $data['img_path'] = $image_path;
         }
+
+        
         $data['slug'] = Str::slug($data['name']) . auth()->id();
         $data['user_id'] = auth()->id();
         $flat = new Flat();
         $flat->fill($data);
         $flat->save();
+        
+        //services
+        if ($request->has('services')) {
+            $flat->services()->sync($data['services']);
+        }
 
         return redirect()->route('admin.flats.show', $flat->slug);
     }
