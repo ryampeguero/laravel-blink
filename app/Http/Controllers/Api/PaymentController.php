@@ -23,6 +23,7 @@ class PaymentController extends Controller
     //generiamo il token 
     public function token()
     {
+
         $token = $this->gateway->clientToken()->generate();
         // dd($token);
 
