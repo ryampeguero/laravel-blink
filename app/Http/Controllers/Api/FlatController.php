@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
+
+use App\Models\Message;
+
 use App\Models\Service;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -117,6 +121,26 @@ class FlatController extends Controller
         return  response()->json([
             'success' => true,
             'results' => $services,
+        ]);
+    }
+
+    public function storeMessage(Request $request) {
+
+        //validazioni
+        $validated = $request->validate([
+            'email' => 'required',
+            'message' => 'required',
+        ]);
+
+        //creazione del nuovo messaggio 
+        $newMessage = new Message();
+        $newMessage->fill($validated);
+        $newMessage->save();
+
+        //risposta JSON
+        return response()->json([
+            'success' => true,
+            'result' => $newMessage,
         ]);
     }
 }
