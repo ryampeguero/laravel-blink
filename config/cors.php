@@ -15,9 +15,9 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
-    'allowed_methods' => ['*'],
-    'allowed_origins' => ['*'],
+    'paths' => ['api/*', 'api/login'],
+    'allowed_methods' => ['POST', 'GET', 'DELETE', 'PUT', '*'],
+    'allowed_origins' => ['http://localhost:5174', 'https://client.myapp.com'],
     'allowed_headers' => ['*'],
     'exposed_headers' => ['*'],
     'max_age' => 0,

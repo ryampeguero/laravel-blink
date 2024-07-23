@@ -3,18 +3,25 @@
 @section('content')
 
 <div class="container mt-3">
-    <h2>Pagamento</h2>
+    <h2>Sponsorizza Appartamento</h2>
+    
+    <div class="container mt-3">
+        <h2>Dettagli Appartamento</h2>
+        <p>{{ $flat->name }}</p>
+        <p>{{ $flat->address }}</p>
+    </div>
 
-    <form id="sponsorship-form" class="mt-3">
-        <div class="mb-3">
-            <label class="form-label" for="sponsorship">Seleziona il tipo di sponsorizzazione:</label>
-            <select class="form-select" id="sponsorship" name="sponsorship">
-                @foreach ($sponsorships as $type => $price)
-                    <option value="{{ $price }}">{{ ucfirst($type) }} - €{{ $price }}</option>
-                @endforeach
-            </select>
-            <input type="hidden" id="amount" value="">
-        </div>
+
+    <form id="sponsorship-form">
+        <label class="form-label" for="sponsorship">Seleziona il tipo di sponsorizzazione:</label>
+        <select class="form-select" id="sponsorship" name="sponsorship">
+            @foreach ($sponsorships as $sponsor)
+                <option value="{{ $sponsor->price }}">{{ $sponsor->name }} - €{{ $sponsor->price }}</option>
+            @endforeach
+        </select>
+        <input type="hidden" id="amount" value="">
+        <input type="hidden" id="flatId" value="{{ $flat->id }}">
+        <input type="hidden" id="planId" name="planId" value="">
     </form>
     
     <div id="dropin-container" class="mt-3"></div>

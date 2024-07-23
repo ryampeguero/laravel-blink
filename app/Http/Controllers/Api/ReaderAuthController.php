@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\reader;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -47,17 +49,20 @@ class readerAuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $reader = Reader::where('email', $request->email)->first();
+        $reader = User::where('email', $request->email)->first();
 
         if (! $reader || ! Hash::check($request->password, $reader->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
         $token = $reader->createToken('auth_token')->plainTextToken;
+        // Auth::login($reader);
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
     }
+
+
 }

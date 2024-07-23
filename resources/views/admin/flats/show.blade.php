@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container mt-4">
+
+        
+            <div class="d-none" id="message">
+               
+            </div>
+      
+
         <div class="card">
             <div class="card-header">
                 <h2 class="card-title">{{ $flat->name }}</h2>
@@ -39,6 +46,9 @@
                 <div class="mt-2">
                     <a href="{{ route('admin.flats.edit', ['flat' => $flat->slug]) }}" class="ms_button">Modifica</a>
                 </div>
+                <div class="mt-2">
+                    <a href="{{ route('admin.sponsor', ['slug' => $slug]) }}">SPONSORIZZA</a>
+                </div>
             </div>
         </div>
     </div>
@@ -60,4 +70,6 @@
             zoom: 12
         });
     </script>
+
+    
 @endsection
