@@ -159,14 +159,12 @@ class FlatController extends Controller
         $this->range = $data['range'] ? $data['range'] : 1;
         $this->km = $this->latitude + $this->range / 111;
 
-
         $currentDateTime = Carbon::now();
         $flatIdsWithReceipts = DB::table('receipts')
             ->where('expire_date', '>', $currentDateTime)
             ->orderBy('flat_id', 'desc')
             ->pluck('flat_id');
 
-        // Filtra i flat in base ai criteri esistenti e aggiungi il filtro per i flat presenti in receipts
         $flats = Flat::with(['services', 'user'])
             ->where('latitude', '>=', $this->latitude - $this->range)
             ->where('latitude', '<=', $this->latitude + $this->range)
