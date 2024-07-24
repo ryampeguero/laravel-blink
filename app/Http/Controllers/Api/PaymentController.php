@@ -61,6 +61,8 @@ class PaymentController extends Controller
         // return response()->json($result);
         //  dd($result->success);
 
+
+
         //gestione della risposta 
         if ($result->success) {
             $transactionId = $result->transaction->id;
@@ -71,17 +73,13 @@ class PaymentController extends Controller
             $expireDate = $now->addDays(3);
             $flat->plans()->attach($plan->id, ['date' => $now, 'expire_date' => $expireDate]);
 
-            session()->flash('success_message', 'Pagamento completato con successo.');
-
             return response()->json([
                 'success' => true,
                 'redirect_url' => route('admin.flats.show', ['flat' => $flat->slug]),
                 'transaction' => $result->transaction
             ]);
-
-           
-
         } else {
+
             return response()->json([
                 'success' => false,
                 'message' => $result->message
