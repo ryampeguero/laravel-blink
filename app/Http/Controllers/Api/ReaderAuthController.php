@@ -17,7 +17,7 @@ class readerAuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:readers',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -25,13 +25,13 @@ class readerAuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $reader = reader::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $reader->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
@@ -50,14 +50,13 @@ class readerAuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $reader = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
-        if (! $reader || ! Hash::check($request->password, $reader->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $token = $reader->createToken('auth_token')->plainTextToken;
-        // Auth::login($reader);
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
