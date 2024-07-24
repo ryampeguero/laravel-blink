@@ -12,12 +12,9 @@ class DashboardController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $flatIds = Flat::where('user_id', $user_id)->pluck('id')->toArray();
-
-        $messageArray = Message::where('flat_id', $flatIds)->paginate(5);
-
-        // dd($flatsArray);
-        return view('admin.dashboard', compact('messageArray'));
+        $flats = Flat::with(['messages'])->where('user_id', $user_id)->paginate(5);
+        // dd();
+        return view('admin.dashboard', compact('flats'));
     }
 
     public function destroy($id)
