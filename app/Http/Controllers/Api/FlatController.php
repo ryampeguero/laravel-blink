@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
+    private $flatAR = [];
+    private $idServ;
     private $latitude;
     private $longitude;
     private $rooms;
@@ -75,28 +77,53 @@ class FlatController extends Controller
         $this->longitude = $data['longitude'];
         $this->rooms = $data['rooms'] ? $data['rooms'] : 1;
         $this->bathrooms = $data['bathrooms'] ? $data['bathrooms'] : 1;
-        $this->services = $data['services'];
+        $this->services = $data['services'] ? $data['services'] : 0;
         $this->range = $data['range'] ? $data['range'] : 1;
         $this->km = $this->latitude + $this->range / 111;
 
 
 
+        if ($this->services == 0) {
 
-        $flats = Flat::with(['services', 'user'])
-            ->where('latitude', '>=', $this->latitude - $this->range)
-            ->where('latitude', '<=', $this->latitude + $this->range)
+            $this->flatAR = Flat::with(['services', 'user'])
+                ->where('latitude', '>=', $this->latitude - $this->range)
+                ->where('latitude', '<=', $this->latitude + $this->range)
 
-            ->where('longitude', '>=', $this->longitude - $this->range)
-            ->where('longitude', '<=', $this->longitude + $this->range)
-            ->where('rooms', '>=', $this->rooms)
-            ->where('bathrooms', '>=', $this->bathrooms)
+                ->where('longitude', '>=', $this->longitude - $this->range)
+                ->where('longitude', '<=', $this->longitude + $this->range)
+                ->where('rooms', '>=', $this->rooms)
+                ->where('bathrooms', '>=', $this->bathrooms)
 
-            ->orderByDesc('rooms')
-            ->get();
+                ->orderByDesc('rooms')
+                ->get();
+        } else {
+
+            foreach ($this->services as $key => $idServ) {
+                $this->idServ = $idServ;
+                $flat = Service::query()->joinRelation('flats', function ($join, $pivot) {
+                    $pivot->where('service_id', $this->idServ);
+                })
+                    ->where('latitude', '>=', $this->latitude - $this->range)
+                    ->where('latitude', '<=', $this->latitude + $this->range)
+
+                    ->where('longitude', '>=', $this->longitude - $this->range)
+                    ->where('longitude', '<=', $this->longitude + $this->range)
+                    ->where('rooms', '>=', $this->rooms)
+                    ->where('bathrooms', '>=', $this->bathrooms)
+
+                    ->with('flats')->get();
+
+                if (count($this->flatAR) == 0) {
+                    $this->flatAR = $flat;
+                } else {
+                    $this->flatAR = $flat->merge($this->flatAR);
+                }
+            }
+        }
 
         return  response()->json([
             'success' => true,
-            'results' => $flats,
+            'results' => $this->flatAR,
             'range' => $this->km,
             'services' => $data['services']
         ]);
@@ -107,7 +134,7 @@ class FlatController extends Controller
 
         $slug = $request->route('slug');
         $flat = Flat::with(["user"])->where('slug', $slug)->first();
-        
+
         return response()->json($flat);
     }
 

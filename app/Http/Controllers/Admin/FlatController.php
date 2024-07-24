@@ -88,6 +88,8 @@ class FlatController extends Controller
         //services
         if ($request->has('services')) {
             $flat->services()->sync($data['services']);
+        }else{
+            $flat->services()->detach();
         }
 
         // coordinate
