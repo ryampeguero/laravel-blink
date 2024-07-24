@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Flat;
 use App\Models\Message;
 use App\Models\Service;
+use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
 
 class FlatController extends Controller
@@ -176,6 +178,43 @@ class FlatController extends Controller
         return response()->json([
             'success' => true,
             'result' => $newMessage,
+        ]);
+    }
+
+    public function searchPremium(Request $request)
+    {
+        $data = $request->all();
+
+        $this->latitude = $data['latitude'];
+        $this->longitude = $data['longitude'];
+        $this->rooms = $data['rooms'] ? $data['rooms'] : 1;
+        $this->bathrooms = $data['bathrooms'] ? $data['bathrooms'] : 1;
+        $this->services = $data['services'];
+        $this->range = $data['range'] ? $data['range'] : 1;
+        $this->km = $this->latitude + $this->range / 111;
+
+        $currentDateTime = Carbon::now();
+        $flatIdsWithReceipts = DB::table('receipts')
+            ->where('expire_date', '>', $currentDateTime)
+            ->orderBy('flat_id', 'desc')
+            ->pluck('flat_id');
+
+        $flats = Flat::with(['services', 'user'])
+            ->where('latitude', '>=', $this->latitude - $this->range)
+            ->where('latitude', '<=', $this->latitude + $this->range)
+            ->where('longitude', '>=', $this->longitude - $this->range)
+            ->where('longitude', '<=', $this->longitude + $this->range)
+            ->where('rooms', '>=', $this->rooms)
+            ->where('bathrooms', '>=', $this->bathrooms)
+            ->whereIn('id', $flatIdsWithReceipts)
+            ->orderByDesc('rooms')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'results' => $flats,
+            'range' => $this->km,
+            'services' => $data['services'],
         ]);
     }
 }
