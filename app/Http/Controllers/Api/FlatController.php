@@ -4,22 +4,28 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
+use App\Models\Message;
 use App\Models\Service;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
     private $flatAR = [];
     private $idServ;
     private $latitude;
+
     private $longitude;
+
     private $rooms;
+
     private $bathrooms;
+
     private $range;
+
     private $km;
+
     private $services;
+
     public function index()
     {
 
@@ -53,21 +59,21 @@ class FlatController extends Controller
 
         return [
             'flats' => $flats,
-            'km' => $km
+            'km' => $km,
         ];
     }
+
     public function search(Request $request)
     {
 
         $resp = $this->basicSearch($request);
 
-        return  response()->json([
+        return response()->json([
             'success' => true,
             'results' => $resp['flats'],
-            'range' => $resp['km']
+            'range' => $resp['km'],
         ]);
     }
-
 
     public function searchAR(Request $request)
     {
@@ -83,11 +89,13 @@ class FlatController extends Controller
 
 
 
+
         if ($this->services == 0) {
 
             $this->flatAR = Flat::with(['services', 'user'])
                 ->where('latitude', '>=', $this->latitude - $this->range)
                 ->where('latitude', '<=', $this->latitude + $this->range)
+
 
                 ->where('longitude', '>=', $this->longitude - $this->range)
                 ->where('longitude', '<=', $this->longitude + $this->range)
@@ -121,11 +129,11 @@ class FlatController extends Controller
             }
         }
 
-        return  response()->json([
+        return response()->json([
             'success' => true,
             'results' => $this->flatAR,
             'range' => $this->km,
-            'services' => $data['services']
+            'services' => $data['services'],
         ]);
     }
 
@@ -133,7 +141,9 @@ class FlatController extends Controller
     {
 
         $slug = $request->route('slug');
+
         $flat = Flat::with(["user"])->where('slug', $slug)->first();
+
 
         return response()->json($flat);
     }
@@ -141,9 +151,31 @@ class FlatController extends Controller
     public function getAllServices()
     {
         $services = Service::all();
-        return  response()->json([
+
+        return response()->json([
             'success' => true,
             'results' => $services,
+        ]);
+    }
+
+    public function storeMessage(Request $request)
+    {
+
+        //validazioni
+        $validated = $request->validate([
+            'email' => 'required',
+            'message' => 'required',
+        ]);
+
+        //creazione del nuovo messaggio
+        $newMessage = new Message();
+        $newMessage->fill($validated);
+        $newMessage->save();
+
+        //risposta JSON
+        return response()->json([
+            'success' => true,
+            'result' => $newMessage,
         ]);
     }
 }

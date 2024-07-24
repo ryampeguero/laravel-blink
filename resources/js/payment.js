@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     axios.get('http://127.0.0.1:8000/api/payment/token')
         .then(response => {
             const token = response.data.token;
-
             braintree.dropin.create({
                 authorization: token,
                 container: '#dropin-container',
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             return;
                         }
 
-                        console.log(payload);
+                        console.log('dati della tranzazione', payload);
                         axios.post('http://127.0.0.1:8000/api/payment/checkout', {
                             payment_method_nonce: payload.nonce,
                             amount: amount,
@@ -32,24 +31,17 @@ document.addEventListener('DOMContentLoaded', function () {
                             planId: planId,
                         })
                             .then(response => {
+                                localStorage.removeItem('payment_success');
                                 const data = response.data;
                                 console.log(data);
-                                console.log(data.redirect_url);
-                                const message = document.getElementById('message');
+                                // console.log(data.redirect_url);
+                                console.log(data.succes_message);
                                 if (data.success) {
-                                    alert('Pagamento avvenuto con successo!');
+                                    localStorage.setItem('payment_success', true);
                                     window.location.href = data.redirect_url;
-                                    // console.log(document.getElementById('message'));
-                                    message.classList.remove('d-none');
-                                    message.classList.add('alert alert-succes');
-                                    message.innerHTML = "messaggio";
-
-                                    setTimeout(function () {
-                                        message.classList.add('d-none');
-                                    }, 4000);
-
                                 } else {
-                                    alert('Errore nel pagamento: ' + data.message);
+                                    localStorage.setItem('payment_success', false);
+                                    window.location.href = data.redirect_url;
                                 }
                             })
                             .catch(error => {

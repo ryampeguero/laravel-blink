@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use Session;
 
 class FlatController extends Controller
 {
@@ -41,11 +41,18 @@ class FlatController extends Controller
             $image_path = Storage::put('img_path', $request->file('img_path'));
             $data['img_path'] = $image_path;
         }
+
+
         $data['slug'] = Str::slug($data['name']) . auth()->id();
         $data['user_id'] = auth()->id();
         $flat = new Flat();
         $flat->fill($data);
         $flat->save();
+
+        //services
+        if ($request->has('services')) {
+            $flat->services()->sync($data['services']);
+        }
 
         return redirect()->route('admin.flats.show', $flat->slug);
     }
@@ -108,13 +115,13 @@ class FlatController extends Controller
         // dd($flat);
         // dd($slug);
 
-        
+
 
         $flat = Flat::where('slug', $slug)->first();
         // dd($flat);
 
         $sponsorships = Plan::all();
-        
+
 
         // return view('admin.sponsor', compact('sponsorships', 'flat', 'slug'));
         return view('admin.sponsor', [
