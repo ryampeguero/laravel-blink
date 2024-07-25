@@ -154,7 +154,7 @@
                                 <select class="form-select" name="visible" id="visible">
                                     <option value="">Seleziona</option>
                                     <option @selected(old('visible', $flat->visible) == '1') value="1">Si</option>
-                                    <option @selected(old('visible', $flat->visible) == '0')value="0">No</option>
+                                    <option @selected(old('visible', $flat->visible) == '0') value="0">No</option>
                                 </select>
 
                             </div>
