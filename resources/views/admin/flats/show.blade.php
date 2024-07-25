@@ -3,22 +3,23 @@
 @section('content')
     <div class="container mt-4">
 
-        
-            <div class="d-none" id="message">
-               
-            </div>
-      
+
+        <div class="d-none" id="message">
+
+        </div>
+
 
         <div class="card">
             <div class="card-header">
                 <h2 class="card-title">{{ $flat->name }}</h2>
-                <h3>Visite: <span>{{$views}}</span></h3>
+                <h3>Visite: <span>{{ $views }}</span></h3>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 mb-4 mb-md-0">
                         @if ($flat->img_path)
-                            <img src="{{ asset('storage/' . $flat->img_path) }}" class="img-fluid" alt="Immagine Appartamento">
+                            <img src="{{ asset('storage/' . $flat->img_path) }}" class="img-fluid"
+                                alt="Immagine Appartamento">
                         @else
                             <p>Immagine non disponibile</p>
                         @endif
@@ -30,13 +31,22 @@
                         <p><strong>Indirizzo:</strong> {{ $flat->address }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Descrizione:</strong></p>
-                        <p>{{ $flat->description }}</p>
-                        {{-- Placeholders --}}
+                        <div>
+                            <p><strong>Descrizione:</strong></p>
+                            <p>{{ $flat->description }}</p>
+                        </div>
+                        <div class="">
+                            @foreach ($flat->services as $service)
+                            <i class="fa-solid {{$service->icon}}"></i>
+                            @endforeach
+                        </div>
+
                         <span id="lat" php-var={{ $flat->latitude }}></span>
                         <span id="lon" php-var={{ $flat->longitude }}></span>
-
                         <div id="map" class="map"></div>
+
+                        {{-- Placeholders --}}
+
                     </div>
                 </div>
             </div>
@@ -71,6 +81,4 @@
             zoom: 12
         });
     </script>
-
-    
 @endsection

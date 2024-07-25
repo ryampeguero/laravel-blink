@@ -62,6 +62,7 @@ class FlatController extends Controller
     {
         $slug = $flat->slug;
         $views = View::where('flat_id', $flat->id)->count();
+        
         return view('admin.flats.show', compact('flat', 'slug', 'views'));
     }
 
