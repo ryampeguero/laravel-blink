@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\View;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -17,7 +18,10 @@ class StatsController extends Controller
         $ip = $request->all()['ip'];
         $flatId = $request->all()['flatId'];
 
-        $view = View::where('ip_address', $ip)->get();
+        $todayDate = Carbon::now();
+        
+        // dd($todayDate);
+        $view = View::where('ip_address', $ip)->where('flat_id', $flatId)->where('created_at', '<', $todayDate)->get();
 
         if (count($view) == 0) {
             $newView = new View();

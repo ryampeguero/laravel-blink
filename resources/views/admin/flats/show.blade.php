@@ -12,6 +12,7 @@
         <div class="card">
             <div class="card-header">
                 <h2 class="card-title">{{ $flat->name }}</h2>
+                <h3>Visite: <span>{{$views}}</span></h3>
             </div>
             <div class="card-body">
                 <div class="row">

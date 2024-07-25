@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateFlatRequest;
 use App\Models\Flat;
 use App\Models\Plan;
 use App\Models\Service;
+use App\Models\View;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,8 @@ class FlatController extends Controller
     public function show(Flat $flat)
     {
         $slug = $flat->slug;
-        return view('admin.flats.show', compact('flat', 'slug'));
+        $views = View::where('flat_id', $flat->id)->count();
+        return view('admin.flats.show', compact('flat', 'slug', 'views'));
     }
 
 

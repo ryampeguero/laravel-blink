@@ -8,15 +8,15 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
             <div class="col">
                 <div class="container-fluid ms_card p-4 h-100">
-                    <h4>Stats</h4>
-                    <h1>5264</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <h4>Visualizzazioni Totali</h4>
+                    <h1>{{ count($views) }}</h1>
+                    <p>Dato che viene aggiornato ad ogni visita da parte di utenti esterni</p>
                 </div>
             </div>
             <div class="col">
                 <div class="container-fluid ms_card p-4 h-100">
-                    <h4>Stats</h4>
-                    <h1>1820</h1>
+                    <h4>Messaggi Ricevuti</h4>
+                    <h1>ciao</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                 </div>
             </div>
@@ -47,7 +47,7 @@
             </div>
         @endif
         <div class="">
-            {{$flats->links()}}
+            {{ $flats->links() }}
         </div>
         <table class="ms_table">
             <thead>
@@ -60,7 +60,7 @@
             </thead>
             <tbody>
                 @foreach ($flats as $item)
-                    @foreach ($item->messages as $key=>$message)
+                    @foreach ($item->messages as $key => $message)
                         <tr>
                             <td>{{ $item->name }}</td>
                             <td>{{ $message->email }}</td>
