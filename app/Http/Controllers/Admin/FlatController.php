@@ -107,10 +107,31 @@ class FlatController extends Controller
             $data['latitude'] = $request->latitude;
             $data['longitude'] = $request->longitude;
         }
-
+        
         $flat->update($data);
-
+        
         return redirect()->route('admin.flats.show', ['flat' => $flat->slug])->with('message', 'Appartamento ' . $flat->name . ' è stato modificato');
+    }
+    
+    public function destroy(Flat $flat)
+    {   
+        // dd('ciao');
+
+        //controllo user 
+        if ($flat->user_id !== Auth::id()) {
+            abort(404);
+        }
+
+        //controllo img
+        if ( $flat->img_path) {
+            Storage::delete($flat->img_path);
+        }
+
+
+        $flat->services()->detach();
+        $flat->delete();
+
+        return redirect()->route('admin.flats.index')->with('message', 'Appartamento ' . $flat->name . ' è stato eliminato');
     }
 
     public function showSponsorPage(String $slug)
@@ -135,4 +156,5 @@ class FlatController extends Controller
             'user' => $user,
         ]);
     }
+
 }

@@ -10,7 +10,6 @@ import './payment';
 
 
 
-
 //PAYMENT
 
 // document.addEventListener('DOMContentLoaded', function () {
