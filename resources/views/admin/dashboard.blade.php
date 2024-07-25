@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="ms_shadow mt-4 container ms_border p-4">
-        <div class="">{{ $flats->links() }}</div>
+        {{-- <div class="">{{ $flats->links() }}</div> --}}
         <div class=" mb-5 d-flex justify-content-between align-items-center">
             <div>
                 <h1>Messaggi</h1>
@@ -46,23 +46,23 @@
                 {{ session('error') }}
             </div>
         @endif
+        <div class="">
+            {{$flats->links()}}
+        </div>
         <table class="ms_table">
             <thead>
                 <tr class="ms_tr">
+                    <th>Nome Appartamento</th>
                     <th scope="col">Email</th>
                     <th scope="col">Messaggio</th>
                     <th scope="col"></th>
-
                 </tr>
             </thead>
             <tbody>
                 @foreach ($flats as $item)
                     @foreach ($item->messages as $key=>$message)
-                    @if ($key < 1)
-                        
-                    <h3>{{ $item->name }}</h3>
-                    @endif
                         <tr>
+                            <td>{{ $item->name }}</td>
                             <td>{{ $message->email }}</td>
                             <td>{{ $message->message }}</td>
                             <td>

@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $flats = Flat::with(['messages'])->where('user_id', $user_id)->paginate(5);
+        $flats = Flat::with(['messages'])->where('user_id', $user_id)->paginate(6);
         // dd();
         return view('admin.dashboard', compact('flats'));
     }

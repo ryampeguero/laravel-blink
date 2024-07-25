@@ -18,9 +18,13 @@ function validateFormEdit(form) {
 
     function addInvalidFeedback(field, message) {
         // console.log(field.classList);
+        const errorDiv = document.createElement('div');
+        errorDiv.classList.add('invalid-feedback');
+        errorDiv.innerHTML = message;
+        console.log(errorDiv);
         field.classList.add('is-invalid');
         if (!field.parentElement.querySelector('.invalid-feedback')) {
-            field.parentElement.innerHTML += `<div class="invalid-feedback">${message}</div>`;
+            field.parentElement.append(errorDiv);
         }
     }
 
