@@ -23,15 +23,17 @@ class FlatController extends Controller
         $user_id = Auth::id();
         $flatsArray = Flat::where('user_id', $user_id)->get();
         // dd($flatsArray);
-        return view('admin.flats.index', compact('flatsArray'));
+        $user = Auth::user();
+        return view('admin.flats.index', compact('flatsArray', 'user'));
     }
 
     public function create()
     {
         $flat = Flat::all();
         $services = Service::all();
+        $user = Auth::user();
 
-        return view(' admin.flats.create', compact('flat', 'services'));
+        return view(' admin.flats.create', compact('flat', 'services', 'user'));
     }
 
     public function store(StoreFlatRequest $request)
@@ -60,14 +62,17 @@ class FlatController extends Controller
     public function show(Flat $flat)
     {
         $slug = $flat->slug;
-        return view('admin.flats.show', compact('flat', 'slug'));
+        $user = Auth::user();
+        return view('admin.flats.show', compact('flat', 'slug', 'user'));
     }
 
 
     public function edit(Flat $flat)
     {
         $services = Service::all();
-        return view('admin.flats.edit', compact('flat', 'services'));
+        $user = Auth::user();
+
+        return view('admin.flats.edit', compact('flat', 'services', 'user'));
     }
 
     public function update(UpdateFlatRequest $request, Flat $flat)
@@ -119,13 +124,15 @@ class FlatController extends Controller
         // dd($flat);
 
         $sponsorships = Plan::all();
+        $user = Auth::user();
         
 
         // return view('admin.sponsor', compact('sponsorships', 'flat', 'slug'));
         return view('admin.sponsor', [
             'sponsorships' => $sponsorships,
             'flat' => $flat,
-            'slug' => $slug
+            'slug' => $slug,
+            'user' => $user,
         ]);
     }
 }
