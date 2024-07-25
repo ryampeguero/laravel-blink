@@ -34,6 +34,8 @@ namespace App\Models{
  * @property-read int|null $messages_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Plan> $plans
  * @property-read int|null $plans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Receipt> $receipts
+ * @property-read int|null $receipts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Service> $services
  * @property-read int|null $services_count
  * @property-read \App\Models\User $user
@@ -137,6 +139,32 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereUpdatedAt($value)
  */
 	class Plan extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $plan_id
+ * @property string $date
+ * @property int $flat_id
+ * @property string $expire_date
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Flat $flat
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt whereExpireDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt whereFlatId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt wherePlanId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Receipt whereUpdatedAt($value)
+ */
+	class Receipt extends \Eloquent {}
 }
 
 namespace App\Models{
