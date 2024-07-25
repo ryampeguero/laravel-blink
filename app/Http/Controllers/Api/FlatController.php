@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
-use App\Models\Message;
 use App\Models\Service;
 use Carbon\Carbon;
 use DB;
@@ -13,7 +12,9 @@ use Illuminate\Http\Request;
 class FlatController extends Controller
 {
     private $flatAR = [];
+
     private $idServ;
+
     private $latitude;
 
     private $longitude;
@@ -89,15 +90,11 @@ class FlatController extends Controller
         $this->range = $data['range'] ? $data['range'] : 1;
         $this->km = $this->latitude + $this->range / 111;
 
-
-
-
         if ($this->services == 0) {
 
             $this->flatAR = Flat::with(['services', 'user'])
                 ->where('latitude', '>=', $this->latitude - $this->range)
                 ->where('latitude', '<=', $this->latitude + $this->range)
-
 
                 ->where('longitude', '>=', $this->longitude - $this->range)
                 ->where('longitude', '<=', $this->longitude + $this->range)
@@ -144,8 +141,7 @@ class FlatController extends Controller
 
         $slug = $request->route('slug');
 
-        $flat = Flat::with(["user"])->where('slug', $slug)->first();
-
+        $flat = Flat::with(['user'])->where('slug', $slug)->first();
 
         return response()->json($flat);
     }
@@ -160,61 +156,38 @@ class FlatController extends Controller
         ]);
     }
 
-    public function storeMessage(Request $request)
-    {
-
-        //validazioni
-        $validated = $request->validate([
-            'email' => 'required',
-            'message' => 'required',
-        ]);
-
-        //creazione del nuovo messaggio
-        $newMessage = new Message();
-        $newMessage->fill($validated);
-        $newMessage->save();
-
-        //risposta JSON
-        return response()->json([
-            'success' => true,
-            'result' => $newMessage,
-        ]);
-    }
-
     public function searchPremium(Request $request)
     {
         $data = $request->all();
 
         $this->latitude = $data['latitude'];
         $this->longitude = $data['longitude'];
-        $this->rooms = $data['rooms'] ? $data['rooms'] : 1;
-        $this->bathrooms = $data['bathrooms'] ? $data['bathrooms'] : 1;
-        $this->services = $data['services'];
         $this->range = $data['range'] ? $data['range'] : 1;
+
+        // Calcola il raggio in chilometri
         $this->km = $this->latitude + $this->range / 111;
 
         $currentDateTime = Carbon::now();
-        $flatIdsWithReceipts = DB::table('receipts')
-            ->where('expire_date', '>', $currentDateTime)
-            ->orderBy('flat_id', 'desc')
-            ->pluck('flat_id');
 
-        $flats = Flat::with(['services', 'user'])
+        $planIds = DB::table('receipts')
+            ->where('expire_date', '>', $currentDateTime)
+            ->pluck('plan_id');
+
+        $flats = Flat::with(['services', 'user', 'receipts'])
             ->where('latitude', '>=', $this->latitude - $this->range)
             ->where('latitude', '<=', $this->latitude + $this->range)
             ->where('longitude', '>=', $this->longitude - $this->range)
             ->where('longitude', '<=', $this->longitude + $this->range)
-            ->where('rooms', '>=', $this->rooms)
-            ->where('bathrooms', '>=', $this->bathrooms)
-            ->whereIn('id', $flatIdsWithReceipts)
-            ->orderByDesc('rooms')
-            ->get();
+            ->whereIn('id', function ($query) use ($planIds) {
+                $query->select('flat_id')
+                    ->from('receipts')
+                    ->whereIn('plan_id', $planIds)->groupBy('plan_id')->orderBy('plan_id');
+
+            })->get();
 
         return response()->json([
             'success' => true,
             'results' => $flats,
-            'range' => $this->km,
-            'services' => $data['services'],
         ]);
     }
 }

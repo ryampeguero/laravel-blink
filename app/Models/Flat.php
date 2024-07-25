@@ -9,12 +9,10 @@ class Flat extends Model
 {
     use HasFactory;
 
-
     protected $fillable = ['id', 'user_id', 'name', 'slug', 'rooms', 'bathrooms', 'beds', 'square_meters', 'address', 'latitude', 'longitude', 'img_path', 'visible'];
 
     public function views()
     {
-
 
         return $this->hasMany(View::class);
     }
@@ -37,5 +35,10 @@ class Flat extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function receipts()
+    {
+        return $this->hasMany(Receipt::class);
     }
 }
