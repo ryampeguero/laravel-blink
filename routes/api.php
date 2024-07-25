@@ -30,6 +30,7 @@ Route::post('login', [ReaderAuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('user', function (Request $request) {
     return Auth::user();
+    Route::post('logout', [ReaderAuthController::class, 'logout']);
 });
 
 Route::get('/flats/search', [FlatController::class, 'search']);

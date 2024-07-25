@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\reader;
 use App\Models\User;
+use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -58,10 +59,12 @@ class readerAuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        $cookie = cookie('jwt', $token, 60 * 24 ); // 1 giorno 
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-        ]);
+        ])->withCookie($cookie);
     }
 
     /** @test */
@@ -72,5 +75,14 @@ class readerAuthController extends Controller
         $response = $this->get('/api/user');
 
         $response->assertOk();
+    }
+
+    public function logout() {
+
+        $cookie = Cookie::forget('jwt');
+
+        return response([
+            'message' => 'success',
+        ])->withCookie($cookie);
     }
 }
