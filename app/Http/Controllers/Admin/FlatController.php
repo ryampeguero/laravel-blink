@@ -39,7 +39,7 @@ class FlatController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('img_path')) {
-            $image_path = Storage::put('img_path', $request->file('img_path'));
+            $image_path = Storage::put('flat_img', $request->file('img_path'));
             $data['img_path'] = $image_path;
         }
 
