@@ -8,7 +8,7 @@
                 <div class="card-header">Registrati</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" novalidate>
+                    <form id="registerForm" method="POST" action="{{ route('register') }}" enctype="multipart/form-data" novalidate>
                         {{ csrf_field() }}
                         <div class="mb-4 row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Nome</label>
@@ -28,7 +28,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">Email*</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="off">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="off">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -68,7 +68,6 @@
                                 <input class="form-control" type="file" name="img_path" id="img_path">
                             </div>
                         </div>
-                        
 
                         <div class="mb-4 row mb-0">
                             <div class="col-md-6 offset-md-4">
