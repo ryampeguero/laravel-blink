@@ -5,11 +5,12 @@
 <div class="container mt-3">
     <h2>Sponsorizza Appartamento</h2>
     
-    <div class="container mt-3">
-        <h2>Dettagli Appartamento</h2>
-        <p>{{ $flat->name }}</p>
-        <p>{{ $flat->address }}</p>
-    </div>
+        <div class="row">
+            <div class="col">
+                <p>{{ $flat->name }}</p>
+                <p>{{ $flat->address }}</p>
+            </div>
+        </div>
 
 
     <form id="sponsorship-form">
