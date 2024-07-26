@@ -14,7 +14,7 @@
                     <img class="w-25 rounded-4" src="{{ asset('img/user_placeholder.png') }}" alt="">
                     @endif
                     <div class="card-body">
-                        <h2>Benvenuto/a {{ ucwords($user->name) }}!</h2>
+                        <h2>Benvenut* {{ ucwords($user->name) }}!</h2>
                         {{-- <p class="card-text"><strong>Email: </strong>{{ $user->email }}</p> --}}
                     </div>
                 </div>
