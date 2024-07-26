@@ -8,7 +8,6 @@ use App\Models\Plan;
 use Braintree\Gateway;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
@@ -20,7 +19,7 @@ class PaymentController extends Controller
         $this->gateway = $gateway;
     }
 
-    //generiamo il token 
+    //generiamo il token
     public function token()
     {
 
@@ -40,51 +39,50 @@ class PaymentController extends Controller
 
         //  return dd($request);
 
-        //recuperiamo dati 
+        //recuperiamo dati
         $amount = $validated['amount'];
         $nonce = $validated['payment_method_nonce'];
         $flatId = $validated['flatId'];
         $planId = $plan->id;
-
-
-
 
         //creazione della transazione
         $result = $this->gateway->transaction()->sale([
             'amount' => $amount,
             'paymentMethodNonce' => $nonce,
             'options' => [
-                'submitForSettlement' => true
-            ]
+                'submitForSettlement' => true,
+            ],
         ]);
 
         // return response()->json($result);
         //  dd($result->success);
 
-
-
-        //gestione della risposta 
+        //gestione della risposta
         if ($result->success) {
             $transactionId = $result->transaction->id;
             $flat = Flat::where('id', $flatId)->first();
 
             $now = Carbon::now();
-
-            $expireDate = $now->addDays(3);
+            if ($planId == 1) {
+                $expireDate = $now->addDays(3);
+            } elseif ($planId == 2) {
+                $expireDate = $now->addDays(7);
+            } elseif ($planId == 3) {
+                $expireDate = $now->addDays(30);
+            }
             $flat->plans()->attach($plan->id, ['date' => $now, 'expire_date' => $expireDate]);
 
             return response()->json([
                 'success' => true,
                 'redirect_url' => route('admin.flats.show', ['flat' => $flat->slug]),
-                'transaction' => $result->transaction
+                'transaction' => $result->transaction,
             ]);
         } else {
 
             return response()->json([
                 'success' => false,
-                'message' => $result->message
+                'message' => $result->message,
             ]);
         }
     }
 }
-
