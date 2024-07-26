@@ -71,16 +71,19 @@
                     <th>Nome Appartamento</th>
                     <th scope="col">Email</th>
                     <th scope="col">Messaggio</th>
+                    <th scope="col">Data Messaggio</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($flats as $item)
                     @foreach ($item->messages as $key => $message)
+                    {{-- @dd($message) --}}
                         <tr>
                             <td>{{ $item->name }}</td>
                             <td>{{ $message->email }}</td>
                             <td>{{ $message->message }}</td>
+                            <td>{{ $message->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <form action="{{ route('admin.dashboard.destroy', ['id' => $message->id]) }}" method="POST">
                                     @csrf
