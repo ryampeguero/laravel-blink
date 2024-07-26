@@ -5,10 +5,14 @@
         <h1>Dashboard</h1>
     </div>
     <div class="container mt-4">
-    <div class="rox mb-4">
+        <div class="rox mb-4">
             <div class="col">
                 <div class="card border-0 d-flex align-items-center">
+                    @if ($user->img_path)
                     <img class="w-25 rounded-4" src="{{ asset('storage/' . $user->img_path) }}" alt="...">
+                    @else
+                    <img class="w-25 rounded-4" src="{{ asset('img/user_placeholder.png') }}" alt="">
+                    @endif
                     <div class="card-body">
                         <h2>Benvenuto/a {{ ucwords($user->name) }}!</h2>
                         {{-- <p class="card-text"><strong>Email: </strong>{{ $user->email }}</p> --}}

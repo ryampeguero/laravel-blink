@@ -129,8 +129,13 @@
                             <li class="d-flex  align-items-center mt-auto nav-link text-navbar ">
                                 <div class="d-flex align-items-center ms-2 navbar-nav me-auto">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle w-25 text-center "
-                                            src="{{ asset('storage/' . $user->img_path) }}" alt="user_avatar">
+                                        @if ($user->img_path)
+                                            <img class="w-25 rounded-4" src="{{ asset('storage/' . $user->img_path) }}"
+                                                alt="...">
+                                        @else
+                                            <img class="w-25 rounded-4" src="{{ asset('img/user_placeholder.png') }}"
+                                                alt="">
+                                        @endif
                                         <div class="p-2 text-dark">
                                             Ciao, {{ ucwords($user->name) }}
                                         </div>
