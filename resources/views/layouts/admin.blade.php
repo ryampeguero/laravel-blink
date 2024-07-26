@@ -77,15 +77,16 @@
                     <div class="mt-auto pt-3 h-100">
                         <ul class="nav d-flex flex-column h-100 justify-content-start align-items-center ">
 
+
                             <li class="ms_nav_item_logo">
 
                                 <div class="d-flex align-items-center ms-2 navbar-nav me-auto">
-                                    <img class="logo_blink" src="{{ asset('Icons/blink-logo-white.svg') }}" alt="">
+                                    <img class="logo_blink" src="{{ asset('Icons/blink-logo-white.svg') }}"
+                                        alt="">
                                 </div>
                             </li>
 
-                            <li
-                                class="nav-item-li d-flex container-fluid align-items-center nav-link ">
+                            <li class="nav-item-li d-flex container-fluid align-items-center">
                                 <a class="text-navbar " href="{{ url('http://localhost:5174/') }}">
                                     <div class="d-flex container-fluid align-items-center">
                                         <img class="icon me-3" src="{{ asset('Icons/HomePage.svg') }}"
@@ -124,16 +125,30 @@
                                 </a>
                             </li>
 
+                            {{-- user avatar --}}
+                            <li class="d-flex  align-items-center mt-auto nav-link text-navbar ">
+                                <div class="d-flex align-items-center ms-2 navbar-nav me-auto">
+                                    <div class="d-flex align-items-center">
+                                        <img class="rounded-circle w-25 text-center "
+                                            src="{{ asset('storage/' . $user->img_path) }}" alt="user_avatar">
+                                        <div class="p-2 text-dark">
+                                            Ciao, {{ ucwords($user->name) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
                             <li
-                                class="d-flex justify-content-start align-items-center nav-item-li mt-auto nav-link text-navbar {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
+                                class="d-flex justify-content-start align-items-center nav-item-li  nav-link text-navbar {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
                                 <a class="text-navbar" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <img class="icon me-3" src="{{ asset('Icons/exit.svg') }}" alt="">
                                     Logout
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                <form id="logout-form" action="{{ route('logout') }}" method="GET" class="d-none">
                                     @csrf
+                                    @method('GET')
                                 </form>
 
                             </li>

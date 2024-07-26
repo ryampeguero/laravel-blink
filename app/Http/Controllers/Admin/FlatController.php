@@ -24,15 +24,17 @@ class FlatController extends Controller
         $user_id = Auth::id();
         $flatsArray = Flat::where('user_id', $user_id)->get();
         // dd($flatsArray);
-        return view('admin.flats.index', compact('flatsArray'));
+        $user = Auth::user();
+        return view('admin.flats.index', compact('flatsArray', 'user'));
     }
 
     public function create()
     {
         $flat = Flat::all();
         $services = Service::all();
+        $user = Auth::user();
 
-        return view(' admin.flats.create', compact('flat', 'services'));
+        return view(' admin.flats.create', compact('flat', 'services', 'user'));
     }
 
     public function store(StoreFlatRequest $request)
@@ -61,16 +63,21 @@ class FlatController extends Controller
     public function show(Flat $flat)
     {
         $slug = $flat->slug;
+
+        $user = Auth::user();
+
         $views = View::where('flat_id', $flat->id)->count();
         
-        return view('admin.flats.show', compact('flat', 'slug', 'views'));
+        return view('admin.flats.show', compact('flat', 'slug', 'views','user'));
     }
 
 
     public function edit(Flat $flat)
     {
         $services = Service::all();
-        return view('admin.flats.edit', compact('flat', 'services'));
+        $user = Auth::user();
+
+        return view('admin.flats.edit', compact('flat', 'services', 'user'));
     }
 
     public function update(UpdateFlatRequest $request, Flat $flat)
@@ -107,10 +114,31 @@ class FlatController extends Controller
             $data['latitude'] = $request->latitude;
             $data['longitude'] = $request->longitude;
         }
-
+        
         $flat->update($data);
-
+        
         return redirect()->route('admin.flats.show', ['flat' => $flat->slug])->with('message', 'Appartamento ' . $flat->name . ' è stato modificato');
+    }
+    
+    public function destroy(Flat $flat)
+    {   
+        // dd('ciao');
+
+        //controllo user 
+        if ($flat->user_id !== Auth::id()) {
+            abort(404);
+        }
+
+        //controllo img
+        if ( $flat->img_path) {
+            Storage::delete($flat->img_path);
+        }
+
+
+        $flat->services()->detach();
+        $flat->delete();
+
+        return redirect()->route('admin.flats.index')->with('message', 'Appartamento ' . $flat->name . ' è stato eliminato');
     }
 
     public function showSponsorPage(String $slug)
@@ -124,13 +152,16 @@ class FlatController extends Controller
         // dd($flat);
 
         $sponsorships = Plan::all();
-
+        $user = Auth::user();
+        
 
         // return view('admin.sponsor', compact('sponsorships', 'flat', 'slug'));
         return view('admin.sponsor', [
             'sponsorships' => $sponsorships,
             'flat' => $flat,
-            'slug' => $slug
+            'slug' => $slug,
+            'user' => $user,
         ]);
     }
+
 }

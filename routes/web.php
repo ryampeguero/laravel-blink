@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FlatController;
+
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
+use App\Models\Flat;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +30,12 @@ Route::middleware('auth')
     ->name('admin.') // inizio di ogni nome delle rotte del gruppo
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::resource('flats', FlatController::class)->parameters(['flats' => 'flat:slug']);
+        Route::get('/sponsor/{slug}', [FlatController::class, 'showSponsorPage'])->name('sponsor');
+
         Route::delete('/{id}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
-        Route::resource('flats', FlatController::class)->except(['destroy'])->parameters(['flats' => 'flat:slug']);
+ 
 
         Route::get('/sponsor/{slug}', [FlatController::class, 'showSponsorPage'])->name('sponsor');
 

@@ -16,9 +16,11 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6 mb-4 mb-md-0">
+                    <div class="col-md-6">
                         @if ($flat->img_path)
-                            <img src="{{ asset('storage/' . $flat->img_path) }}" class="img-fluid"
+
+                            <img src="{{ asset('storage/' . $flat->img_path) }}" class="img-fluid mt-3"
+
                                 alt="Immagine Appartamento">
                         @else
                             <p>Immagine non disponibile</p>
@@ -31,6 +33,7 @@
                         <p><strong>Indirizzo:</strong> {{ $flat->address }}</p>
                     </div>
                     <div class="col-md-6">
+
                         <div>
                             <p><strong>Descrizione:</strong></p>
                             <p>{{ $flat->description }}</p>
@@ -50,8 +53,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer d-flex justify-content-between flex-wrap">
-                <div class="mb-2 mb-md-0">
+            <div class="card-footer d-flex justify-content-between">
+                <div class="">
                     <a href="{{ route('admin.flats.index') }}" class="btn btn-primary">Torna alla Lista</a>
                 </div>
                 <div class="mt-2">
@@ -59,6 +62,9 @@
                 </div>
                 <div class="mt-2">
                     <a href="{{ route('admin.sponsor', ['slug' => $slug]) }}">SPONSORIZZA</a>
+                </div>
+                <div class="mb-2 mb-md-0">
+                    @include('partials.delete_flat_form')
                 </div>
             </div>
         </div>
@@ -73,6 +79,7 @@
             lat: latCoord,
             lon: lonCoord
         }
+
 
         var map = tt.map({ //Setting coordinates to map in View
             key: 'bKZHQIbuOQ0b5IXmQXQ2FTUOUR3u0a26',

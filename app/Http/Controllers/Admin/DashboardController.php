@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Flat;
 use App\Models\Message;
 use App\Models\View;
@@ -13,10 +14,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
+       $user = Auth::user();
         $user_id = Auth::id();
         $flats = Flat::with(['messages'])->where('user_id', $user_id)->paginate(6);
         $views = View::all();
-        return view('admin.dashboard', compact('flats', 'views'));
+        return view('admin.dashboard', compact('flats', 'views','user'));
     }
 
     public function destroy($id)
@@ -28,4 +30,6 @@ class DashboardController extends Controller
 
         return redirect()->route('admin.dashboard')->with('success', 'Messaggio eliminato con successo.');
     }
+
+    
 }

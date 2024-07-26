@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\reader;
 use App\Models\User;
+use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class readerAuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:readers',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -25,13 +26,13 @@ class readerAuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $reader = reader::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $reader->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
@@ -50,19 +51,20 @@ class readerAuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $reader = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
-        if (! $reader || ! Hash::check($request->password, $reader->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $token = $reader->createToken('auth_token')->plainTextToken;
-        // Auth::login($reader);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $cookie = cookie('jwt', $token, 60 * 24 ); // 1 giorno 
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-        ]);
+        ])->withCookie($cookie);
     }
 
     /** @test */
@@ -73,5 +75,14 @@ class readerAuthController extends Controller
         $response = $this->get('/api/user');
 
         $response->assertOk();
+    }
+
+    public function logout() {
+
+        $cookie = Cookie::forget('jwt');
+
+        return response([
+            'message' => 'success',
+        ])->withCookie($cookie);
     }
 }
