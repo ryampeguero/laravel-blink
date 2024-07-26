@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\BraintreeServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Reedware\LaravelRelationJoins\LaravelRelationJoinServiceProvider::class,
     ])->toArray(),
 
     /*

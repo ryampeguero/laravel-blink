@@ -8,7 +8,52 @@ import axios from 'axios';
 import './payment';
 
 
+// -------localStorage for payment.js----------//
 
+document.addEventListener('DOMContentLoaded', function () {
+    if (localStorage.getItem('payment_success')) {
+        console.log('ok');
+        const message = document.getElementById('message');
+
+        console.log(message);
+
+        message.classList.remove('d-none');
+        message.classList.add('d-block');
+        message.classList.add('alert');
+        message.classList.add('alert-success');
+        message.innerHTML = 'Pagamento avvenuto con successo';
+
+        setTimeout(function () {
+            message.classList.remove('d-block');
+            message.classList.add('d-none');
+            localStorage.removeItem('payment_success');
+        }, 4000);
+    } else if(localStorage.getItem('payment_success') == false) {
+
+
+        console.log('non è ok');
+
+        const message = document.getElementById('message');
+
+        console.log(message);
+
+        message.classList.remove('d-none');
+        message.classList.add('d-block');
+        message.classList.add('alert');
+        message.classList.add('alert-danger');
+        message.innerHTML = 'Pagamento non è andato a buon fine';
+
+
+        setTimeout(function () {
+            message.classList.remove('d-block');
+            message.classList.add('d-none');
+            localStorage.removeItem('payment_success');
+        }, 4000);
+
+    }
+})
+
+//------------------------------------------------------------//
 
 //PAYMENT
 
@@ -235,7 +280,7 @@ function myInputNumber(inputNumberContainer) {
         event.preventDefault();
         if (inputValue.value <= 0) {
             inputValue.value--;
-        }else{
+        } else {
             inputValue.value = 1;
         }
         msValue.innerHTML = inputValue.value;
@@ -247,7 +292,7 @@ function myInputNumber(inputNumberContainer) {
 
         if (inputValue.value < 100) {
             inputValue.value++;
-        }else{
+        } else {
             inputValue.value = 100
         }
         msValue.innerHTML = inputValue.value;

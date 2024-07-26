@@ -8,13 +8,14 @@ use App\Http\Requests\UpdateFlatRequest;
 use App\Models\Flat;
 use App\Models\Plan;
 use App\Models\Service;
+use App\Models\View;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use Session;
 
 class FlatController extends Controller
 {
@@ -40,17 +41,17 @@ class FlatController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('img_path')) {
-            $image_path = Storage::put('img_path', $request->file('img_path'));
+            $image_path = Storage::put('flat_img', $request->file('img_path'));
             $data['img_path'] = $image_path;
         }
 
-        
+
         $data['slug'] = Str::slug($data['name']) . auth()->id();
         $data['user_id'] = auth()->id();
         $flat = new Flat();
         $flat->fill($data);
         $flat->save();
-        
+
         //services
         if ($request->has('services')) {
             $flat->services()->sync($data['services']);
@@ -62,8 +63,12 @@ class FlatController extends Controller
     public function show(Flat $flat)
     {
         $slug = $flat->slug;
+
         $user = Auth::user();
-        return view('admin.flats.show', compact('flat', 'slug', 'user'));
+
+        $views = View::where('flat_id', $flat->id)->count();
+        
+        return view('admin.flats.show', compact('flat', 'slug', 'views','user'));
     }
 
 
@@ -100,6 +105,8 @@ class FlatController extends Controller
         //services
         if ($request->has('services')) {
             $flat->services()->sync($data['services']);
+        }else{
+            $flat->services()->detach();
         }
 
         // coordinate
@@ -139,7 +146,7 @@ class FlatController extends Controller
         // dd($flat);
         // dd($slug);
 
-        
+
 
         $flat = Flat::where('slug', $slug)->first();
         // dd($flat);

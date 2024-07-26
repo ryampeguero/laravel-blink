@@ -4,24 +4,31 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Flat;
-
-use App\Models\Message;
-
 use App\Models\Service;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-
+use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
+    private $flatAR = [];
+
+    private $idServ;
+
     private $latitude;
+
     private $longitude;
+
     private $rooms;
+
     private $bathrooms;
+
     private $range;
+
     private $km;
+
     private $services;
+
     public function index()
     {
 
@@ -55,21 +62,21 @@ class FlatController extends Controller
 
         return [
             'flats' => $flats,
-            'km' => $km
+            'km' => $km,
         ];
     }
+
     public function search(Request $request)
     {
 
         $resp = $this->basicSearch($request);
 
-        return  response()->json([
+        return response()->json([
             'success' => true,
             'results' => $resp['flats'],
-            'range' => $resp['km']
+            'range' => $resp['km'],
         ]);
     }
-
 
     public function searchAR(Request $request)
     {
@@ -79,30 +86,53 @@ class FlatController extends Controller
         $this->longitude = $data['longitude'];
         $this->rooms = $data['rooms'] ? $data['rooms'] : 1;
         $this->bathrooms = $data['bathrooms'] ? $data['bathrooms'] : 1;
-        $this->services = $data['services'];
+        $this->services = $data['services'] ? $data['services'] : 0;
         $this->range = $data['range'] ? $data['range'] : 1;
         $this->km = $this->latitude + $this->range / 111;
 
+        if ($this->services == 0) {
 
+            $this->flatAR = Flat::with(['services', 'user'])
+                ->where('latitude', '>=', $this->latitude - $this->range)
+                ->where('latitude', '<=', $this->latitude + $this->range)
 
+                ->where('longitude', '>=', $this->longitude - $this->range)
+                ->where('longitude', '<=', $this->longitude + $this->range)
+                ->where('rooms', '>=', $this->rooms)
+                ->where('bathrooms', '>=', $this->bathrooms)
 
-        $flats = Flat::with(['services', 'user'])
-            ->where('latitude', '>=', $this->latitude - $this->range)
-            ->where('latitude', '<=', $this->latitude + $this->range)
+                ->orderByDesc('rooms')
+                ->get();
+        } else {
 
-            ->where('longitude', '>=', $this->longitude - $this->range)
-            ->where('longitude', '<=', $this->longitude + $this->range)
-            ->where('rooms', '>=', $this->rooms)
-            ->where('bathrooms', '>=', $this->bathrooms)
+            foreach ($this->services as $key => $idServ) {
+                $this->idServ = $idServ;
+                $flat = Service::query()->joinRelation('flats', function ($join, $pivot) {
+                    $pivot->where('service_id', $this->idServ);
+                })
+                    ->where('latitude', '>=', $this->latitude - $this->range)
+                    ->where('latitude', '<=', $this->latitude + $this->range)
 
-            ->orderByDesc('rooms')
-            ->get();
-        
-        return  response()->json([
+                    ->where('longitude', '>=', $this->longitude - $this->range)
+                    ->where('longitude', '<=', $this->longitude + $this->range)
+                    ->where('rooms', '>=', $this->rooms)
+                    ->where('bathrooms', '>=', $this->bathrooms)
+
+                    ->with('flats')->get();
+
+                if (count($this->flatAR) == 0) {
+                    $this->flatAR = $flat;
+                } else {
+                    $this->flatAR = $flat->merge($this->flatAR);
+                }
+            }
+        }
+
+        return response()->json([
             'success' => true,
-            'results' => $flats,
+            'results' => $this->flatAR,
             'range' => $this->km,
-            'services' => $data['services']
+            'services' => $data['services'],
         ]);
     }
 
@@ -110,37 +140,54 @@ class FlatController extends Controller
     {
 
         $slug = $request->route('slug');
-        $flat = Flat::with(["user"])->where('slug', $slug)->first();
-        
+
+        $flat = Flat::with(['user'])->where('slug', $slug)->first();
+
         return response()->json($flat);
     }
 
     public function getAllServices()
     {
         $services = Service::all();
-        return  response()->json([
+
+        return response()->json([
             'success' => true,
             'results' => $services,
         ]);
-}
+    }
 
-    public function storeMessage(Request $request) {
+    public function searchPremium(Request $request)
+    {
+        $data = $request->all();
 
-        //validazioni
-        $validated = $request->validate([
-            'email' => 'required',
-            'message' => 'required',
-        ]);
+        $this->latitude = $data['latitude'];
+        $this->longitude = $data['longitude'];
+        $this->range = $data['range'] ? $data['range'] : 1;
 
-        //creazione del nuovo messaggio 
-        $newMessage = new Message();
-        $newMessage->fill($validated);
-        $newMessage->save();
+        // Calcola il raggio in chilometri
+        $this->km = $this->latitude + $this->range / 111;
 
-        //risposta JSON
+        $currentDateTime = Carbon::now();
+
+        $planIds = DB::table('receipts')
+            ->where('expire_date', '>', $currentDateTime)
+            ->pluck('plan_id');
+
+        $flats = Flat::with(['services', 'user', 'receipts'])
+            ->where('latitude', '>=', $this->latitude - $this->range)
+            ->where('latitude', '<=', $this->latitude + $this->range)
+            ->where('longitude', '>=', $this->longitude - $this->range)
+            ->where('longitude', '<=', $this->longitude + $this->range)
+            ->whereIn('id', function ($query) use ($planIds) {
+                $query->select('flat_id')
+                    ->from('receipts')
+                    ->whereIn('plan_id', $planIds)->groupBy('plan_id')->orderBy('plan_id');
+
+            })->get();
+
         return response()->json([
             'success' => true,
-            'result' => $newMessage,
+            'results' => $flats,
         ]);
     }
 }
