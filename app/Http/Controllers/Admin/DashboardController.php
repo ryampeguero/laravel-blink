@@ -14,24 +14,22 @@ class DashboardController extends Controller
 {
     public function index()
     {
-       $user = Auth::user();
+        $user = Auth::user();
         $user_id = Auth::id();
         $flats = Flat::with(['messages'])->where('user_id', $user_id)->get();
-        $views = DB::table('views')->rightJoin('flats', 'flats.id', '=', 'flat_id')->where('user_id',$user_id)
-        ->get();
+        $views = DB::table('views')->rightJoin('flats', 'flats.id', '=', 'flat_id')->where('user_id', $user_id)
+            ->get();
 
-        return view('admin.dashboard', compact('flats', 'views','user'));
+        return view('admin.dashboard', compact('flats', 'views', 'user'));
     }
 
     public function destroy($id)
     {
-
         $message = Message::findOrFail($id);
+        // dd($message);
 
         $message->delete();
 
         return redirect()->route('admin.dashboard')->with('success', 'Messaggio eliminato con successo.');
     }
-
-    
 }

@@ -134,7 +134,6 @@ class FlatController extends Controller
             Storage::delete($flat->img_path);
         }
 
-
         $flat->services()->detach();
         $flat->delete();
 

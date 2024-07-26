@@ -9,9 +9,9 @@
             <div class="col">
                 <div class="card border-0 d-flex align-items-center">
                     @if ($user->img_path)
-                    <img class="w-25 rounded-4" src="{{ asset('storage/' . $user->img_path) }}" alt="...">
+                        <img class="w-25 rounded-4" src="{{ asset('storage/' . $user->img_path) }}" alt="...">
                     @else
-                    <img class="w-25 rounded-4" src="{{ asset('img/user_placeholder.png') }}" alt="">
+                        <img class="w-25 rounded-4" src="{{ asset('img/user_placeholder.png') }}" alt="">
                     @endif
                     <div class="card-body">
                         <h2>Benvenuto/a {{ ucwords($user->name) }}!</h2>
@@ -82,7 +82,7 @@
                             <td>{{ $message->email }}</td>
                             <td>{{ $message->message }}</td>
                             <td>
-                                <form action="{{ route('admin.dashboard.destroy', $item->id) }}" method="POST">
+                                <form action="{{ route('admin.dashboard.destroy', ['id' => $message->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Elimina</button>

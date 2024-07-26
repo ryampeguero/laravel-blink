@@ -35,7 +35,7 @@ Route::middleware('auth')
         Route::get('/sponsor/{slug}', [FlatController::class, 'showSponsorPage'])->name('sponsor');
 
         Route::delete('/{id}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
- 
+
 
         Route::get('/sponsor/{slug}', [FlatController::class, 'showSponsorPage'])->name('sponsor');
 
