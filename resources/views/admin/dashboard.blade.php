@@ -31,7 +31,7 @@
             <div class="col">
                 <div class="container-fluid ms_card p-4 h-100">
                     <h4>Messaggi Ricevuti</h4>
-                    <h1>ciao</h1>
+                    <h1>99</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                 </div>
             </div>
@@ -63,7 +63,7 @@
             </div>
         @endif
         <div class="">
-            {{ $flats->links() }}
+            {{-- {{ $flats->links() }} --}}
         </div>
         <table class="ms_table">
             <thead>
