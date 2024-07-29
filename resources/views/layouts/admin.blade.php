@@ -43,16 +43,16 @@
 
         <header class="d-lg-none  sticky-bottom flex-md-wrap ms_shadow">
             <div class="px-3 py-2 ms_backC_tertiary border-bottom">
-                <div class="container-fluid">
-                    <div class="row justify-content-lg-start">
-                        <div class="col-2">
+                <div class="container-fluid " id="header_top">
+                    <div class="row justify-content-lg-start extern_container">
+                        <div class="col-2 logo_container">
                             <a href="/"
                                 class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
                                 <img class="logo_blink" src="{{ asset('Icons/blink-ico.svg') }}" alt="">
                             </a>
                         </div>
-                        <div class="col-8">
-                            <ul id="header_sidebar" class="sidebar_header">
+                        <div class="col-xs-12  col-sm-8 p-0">
+                            <ul id="header_sidebar" class="sidebar_header p-0">
 
                                 <li class="">
                                     <a class="text-navbar " href="{{ url('http://localhost:5174/') }}">
@@ -93,6 +93,22 @@
                                     </a>
                                 </li>
 
+                                <li
+                                    class="d-flex align-items-center my-lg-0 me-lg-auto text-white text-decoration-none logout_button_header">
+                                    <div id="logout"
+                                        class="ms_border_inner {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
+                                        <a class="text-navbar" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <img class="icon filter_white" src="{{ asset('Icons/exit.svg') }}" alt="">
+                                        </a>
+        
+                                        <form id="logout-form" action="{{ route('logout') }}" method="GET" class="d-none">
+                                            @csrf
+                                            @method('GET')
+                                        </form>
+        
+                                    </div>
+                                </li>
 
                             </ul>
 
@@ -100,9 +116,9 @@
                         </div>
 
                         <div
-                            class="col-2 d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                            class="col-2 d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none logout_container">
                             <div id="logout"
-                                class="m-2 ms_border_inner p-3 {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
+                                class="ms_border_inner p-3 {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
                                 <a class="text-navbar" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <img class="icon filter_white" src="{{ asset('Icons/exit.svg') }}" alt="">
@@ -125,7 +141,7 @@
                 <!-- Definire solo parte del menu di navigazione inizialmente per poi
         <-- aggiungere i link necessari giorno per giorno -->
 
-        {{-- sidebarSin --}}
+                {{-- sidebarSin --}}
                 <div class="d-none d-lg-block col-lg-3  ms_shadow3">
                     <nav id="sidebarMenu" class="sidebar_size ms_backC_tertiary vh-100 ">
 

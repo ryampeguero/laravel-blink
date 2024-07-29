@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container p-5 ms_shadow mt-4 ms_border p-4 mb-5">
+    <div class="container p-3 ms_shadow mt-4 ms_border p-4 mb-5">
         <h1>Aggiungi un nuovo appartamento</h1>
         <div class="row">
             <!-- Colonna del modulo -->
-            <div class=" mt-5">
-                <form class="px-4" id='form-create' action="{{ route('admin.flats.store') }}" method="POST"
+            <div class=" mt-5 p-0">
+                <form class="px-2" id='form-create' action="{{ route('admin.flats.store') }}" method="POST"
                     enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="container-fluid p-0 m-0">
@@ -94,7 +94,7 @@
                             <div class="col">
                                 <h4>Optional</h4>
 
-                                <div class="btn-group" role="group">
+                                <div class="btn-group " role="group">
                                     <div class="">
                                         <div class="d-flex flex-wrap gap-2 ">
                                             @foreach ($services as $service)
@@ -108,8 +108,8 @@
                                                             type="checkbox" name="services[]" id="{{ $service->id }}">
                                                     @endif
                                                     <label style="font-size: 0.8rem"
-                                                        class="form-label btn btn-outline-primary test"
-                                                        for="{{ $service->id }}">{{ $service?->name }}</label>
+                                                        class="form-label btn btn-outline-primary test "
+                                                        for="{{ $service->id }}"><i class="fa-solid {{$service->icon}}"></i></label>
                                                 </div>
                                             @endforeach
 
@@ -140,9 +140,9 @@
 
                             <!-- Pulsanti -->
                             <div class="row">
-                                <div class="col d-flex justify-content-between">
-                                    <a class="ms_button_secondary" href="{{ route('admin.dashboard') }}">Annulla</a>
-                                    <button class="ms_button" type="submit">Aggiungi appartamento</button>
+                                <div class="col d-flex justify-content-between gap-1">
+                                    <a class="ms_button_secondary " href="{{ route('admin.dashboard') }}">Annulla</a>
+                                    <button class="ms_button" type="submit">Aggiungi</button>
                                 </div>
                             </div>
                         </div>
