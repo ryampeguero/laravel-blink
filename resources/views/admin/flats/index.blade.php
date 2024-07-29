@@ -18,7 +18,7 @@
                 <a class="ms_button" href="{{route('admin.flats.create')}}">&plus; Aggiungi</a>
             </div>
         </div>
-        <table class="ms_table">
+        <table class="ms_table table_flats">
             <thead>
                 <tr class="ms_tr">
                     <th scope="col">Nome</th>
@@ -40,10 +40,10 @@
                             <td>{{ $item->beds }}</td>
                             <td class="tabs">{{ $item->address }}</td>
                             <td class="tabs">
-                                <a href="{{ route('admin.flats.show', ['flat' => $item->slug]) }}">INFO</a>
+                                <a href="{{ route('admin.flats.show', ['flat' => $item->slug]) }}"><i class="fa-solid fa-info info ms_button_info d-flex justify-content-center"></i></a>
                             </td>
                             <td class="tabs">
-                                <a href="{{ route('admin.sponsor', ['slug' => $item->slug]) }}">SPONSORIZZA</a>
+                                <a href="{{ route('admin.sponsor', ['slug' => $item->slug]) }}"><img class="spons ms_button icon" src="{{ asset('Icons/spons.svg') }}" alt=""></a>
                             </td>
                     </tr>
                 @endforeach

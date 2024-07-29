@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css"
         href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps.css" />
     <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/maps/maps-web.min.js"></script>
+
     <style>
         #map {
             width: 100%;
@@ -40,115 +41,71 @@
 <body>
     <div id="app">
 
-        <header class="ms_navbar ms_backC_primary d-md-none sticky-top bg-dark flex-md-nowrap p-2 ms_shadow">
-            {{-- <div class="row justify-content-between">
-                <div class="col-8">
-                    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/"><img class="h-100"
-                            src="{{ asset('Icons/blink-logo-white.svg') }}" alt=""></a>
-                    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="navbar-nav col-4">
-                    <div class="nav-item text-nowrap ms-2 ">
-                        <a class="nav-link ms_t-white" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </div>
-            </div> --}}
-        </header>
+        <header class="d-lg-none  sticky-bottom flex-md-wrap ms_shadow">
+            <div class="px-3 py-2 ms_backC_tertiary border-bottom">
+                <div class="container-fluid">
+                    <div class="row justify-content-lg-start">
+                        <div class="col-2">
+                            <a href="/"
+                                class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                                <img class="logo_blink" src="{{ asset('Icons/blink-ico.svg') }}" alt="">
+                            </a>
+                        </div>
+                        <div class="col-8">
+                            <ul id="header_sidebar" class="sidebar_header">
 
-        <div class="container-fluid vh-100 ">
-            <div class="row">
-                <!-- Definire solo parte del menu di navigazione inizialmente per poi
-        aggiungere i link necessari giorno per giorno
-        -->
-                <nav id="sidebarMenu"
-                    class="sidebar_size col-md-3 col-lg-2 d-md-block bg-dark navbar-dark sidebar collapse ms_backC_tertiary vh-100 row ms_shadow3 ">
-
-                    <div class="mt-auto pt-3 h-100">
-                        <ul class="nav d-flex flex-column h-100 justify-content-start align-items-center ">
-
-
-                            <li class="ms_nav_item_logo">
-
-                                <div class="d-flex align-items-center ms-2 navbar-nav me-auto">
-                                    <img class="logo_blink" src="{{ asset('Icons/blink-logo-white.svg') }}"
-                                        alt="">
-                                </div>
-                            </li>
-
-                            <li class="nav-item-li d-flex container-fluid align-items-center">
-                                <a class="text-navbar " href="{{ url('http://localhost:5174/') }}">
-                                    <div class="d-flex container-fluid align-items-center">
-                                        <img class="icon me-3" src="{{ asset('Icons/HomePage.svg') }}"
-                                            alt=""></img><span> HomePage</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li
-                                class="  d-flex justify-content-start align-items-center nav-item-li nav-link {{ Route::currentRouteName() == 'admin.dashboard' ? 'ms_backC_secondary_selected ' : '' }}">
-                                <a class="text-navbar" href="{{ route('admin.dashboard') }}">
-                                    <div class="d-flex container-fluid align-items-center">
-                                        <img class="icon me-3" src="{{ asset('Icons/Dashboard.svg') }}"
-                                            alt=""></img><span> Dashboard</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li
-                                class="d-flex justify-content-start align-items-center nav-item-li nav-link text-navbar {{ Route::currentRouteName() == 'admin.flats.index' ? 'ms_backC_secondary_selected ' : '' }}">
-                                <a class="text-navbar" href="{{ route('admin.flats.index') }}">
-                                    <div class="d-flex container-fluid align-items-center ">
-                                        <img class="icon me-3" src="{{ asset('Icons/Flats.svg') }}"
-                                            alt=""></img><span> Appartamenti</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li
-                                class="d-flex justify-content-start align-items-center nav-item-li nav-link text-navbar {{ Route::currentRouteName() == 'admin.flats.create' ? 'ms_backC_secondary_selected ' : '' }}">
-                                <a class="text-navbar" href="{{ route('admin.flats.create') }}">
-                                    <div class="d-flex container-fluid align-items-center ">
-                                        <img class="icon me-3" src="{{ asset('Icons/Add.svg') }}"
-                                            alt=""></img><span> Crea Appartemento</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            {{-- user avatar --}}
-                            <li class="d-flex  align-items-center mt-auto nav-link text-navbar ">
-                                <div class="d-flex align-items-center ms-2 navbar-nav me-auto">
-                                    <div class="d-flex align-items-center">
-                                        @if ($user->img_path)
-                                            <img class="w-25 rounded-4" src="{{ asset('storage/' . $user->img_path) }}"
-                                                alt="...">
-                                        @else
-                                            <img class="w-25 rounded-4" src="{{ asset('img/user_placeholder.png') }}"
-                                                alt="">
-                                        @endif
-                                        <div class="p-2 text-dark">
-                                            Ciao, {{ ucwords($user->name) }}
+                                <li class="">
+                                    <a class="text-navbar " href="{{ url('http://localhost:5174/') }}">
+                                        <div class="d-flex container-fluid align-items-center">
+                                            <img class="icon" src="{{ asset('Icons/HomePage.svg') }}"
+                                                alt=""></img>
                                         </div>
-                                    </div>
-                                </div>
-                            </li>
+                                    </a>
+                                </li>
 
-                            <li
-                                class="d-flex justify-content-start align-items-center nav-item-li  nav-link text-navbar {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
+                                <li
+                                    class="m-2 ms_border_inner p-3 {{ Route::currentRouteName() == 'admin.dashboard' ? 'ms_backC_secondary_selected ' : '' }}">
+                                    <a class="text-navbar" href="{{ route('admin.dashboard') }}">
+                                        <div class="d-flex align-items-center">
+                                            <img class="icon {{ Route::currentRouteName() == 'admin.dashboard' ? 'filter_white ' : '' }}"
+                                                src="{{ asset('Icons/Dashboard.svg') }}" alt=""></img>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="m-2 ms_border_inner p-3 {{ Route::currentRouteName() == 'admin.flats.index' ? 'ms_backC_secondary_selected ' : '' }}">
+                                    <a class="text-navbar" href="{{ route('admin.flats.index') }}">
+                                        <div class="d-flex align-items-center">
+                                            <img class="icon {{ Route::currentRouteName() == 'admin.flats.index' ? 'filter_white ' : '' }}"
+                                                src="{{ asset('Icons/Flats.svg') }}" alt=""></img>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="m-2 ms_border_inner p-3 {{ Route::currentRouteName() == 'admin.flats.create' ? 'ms_backC_secondary_selected ' : '' }}">
+                                    <a class="text-navbar" href="{{ route('admin.flats.create') }}">
+                                        <div class="d-flex align-items-center ">
+                                            <img class="icon {{ Route::currentRouteName() == 'admin.flats.create' ? 'filter_white ' : '' }}"
+                                                src="{{ asset('Icons/Add.svg') }}" alt=""></img>
+                                        </div>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+
+
+                        </div>
+
+                        <div
+                            class="col-2 d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                            <div id="logout"
+                                class="m-2 ms_border_inner p-3 {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
                                 <a class="text-navbar" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <img class="icon me-3" src="{{ asset('Icons/exit.svg') }}" alt="">
-                                    Logout
+                                    <img class="icon filter_white" src="{{ asset('Icons/exit.svg') }}" alt="">
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="GET" class="d-none">
@@ -156,17 +113,113 @@
                                     @method('GET')
                                 </form>
 
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
-
-                </nav>
-
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 overflow-auto vh-100">
-                    @yield('content')
-                </main>
+                </div>
             </div>
+        </header>
 
+        <div class="container-fluid vh-100">
+            <div class="row">
+                <!-- Definire solo parte del menu di navigazione inizialmente per poi
+        <-- aggiungere i link necessari giorno per giorno -->
+
+        {{-- sidebarSin --}}
+                <div class="d-none d-lg-block col-lg-3  ms_shadow3">
+                    <nav id="sidebarMenu" class="sidebar_size ms_backC_tertiary vh-100 ">
+
+                        <div class=" pt-3 h-100">
+                            <ul class="d-flex flex-column h-100 justify-content-start align-items-center p-0">
+
+                                <li class="d-flex align-items-center navbar-nav justify-content-start">
+                                    <img class="logo_blink" src="{{ asset('Icons/blink-logo-white.svg') }}"
+                                        alt="">
+                                </li>
+
+                                <li class="mt-3  d-flex justify-content-start align-items-center nav-item-li">
+                                    <a class="text-navbar " href="{{ url('http://localhost:5174/') }}">
+                                        <div class="d-flex container-fluid align-items-center">
+                                            <img class="icon me-3" src="{{ asset('Icons/HomePage.svg') }}"
+                                                alt=""></img><span> HomePage</span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li
+                                    class=" d-flex justify-content-start align-items-center nav-item-li nav-link {{ Route::currentRouteName() == 'admin.dashboard' ? 'ms_backC_secondary_selected ' : '' }}">
+                                    <a class="text-navbar" href="{{ route('admin.dashboard') }}">
+                                        <div class="d-flex container-fluid align-items-center">
+                                            <img class="icon me-3" src="{{ asset('Icons/Dashboard.svg') }}"
+                                                alt=""></img><span> Dashboard</span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="d-flex justify-content-start align-items-center nav-item-li nav-link text-navbar {{ Route::currentRouteName() == 'admin.flats.index' ? 'ms_backC_secondary_selected ' : '' }}">
+                                    <a class="text-navbar" href="{{ route('admin.flats.index') }}">
+                                        <div class="d-flex container-fluid align-items-center ">
+                                            <img class="icon me-3" src="{{ asset('Icons/Flats.svg') }}"
+                                                alt=""></img><span> Appartamenti</span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="d-flex justify-content-start align-items-center nav-item-li nav-link text-navbar {{ Route::currentRouteName() == 'admin.flats.create' ? 'ms_backC_secondary_selected ' : '' }}">
+                                    <a class="text-navbar" href="{{ route('admin.flats.create') }}">
+                                        <div class="d-flex container-fluid align-items-center ">
+                                            <img class="icon me-3" src="{{ asset('Icons/Add.svg') }}"
+                                                alt=""></img><span> Crea Appartemento</span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                {{-- user avatar --}}
+                                <li class="d-flex mt-auto justify-content-start nav-item-li">
+                                    <div class="d-flex align-items-start ms-2">
+                                        <div class="d-flex align-items-start">
+                                            @if ($user->img_path)
+                                                <img class="icon_profile"
+                                                    src="{{ asset('storage/' . $user->img_path) }}" alt="...">
+                                            @else
+                                                <img class="icon_profile"
+                                                    src="{{ asset('img/user_placeholder.png') }}" alt="">
+                                            @endif
+                                            <div class="p-2 text-dark">
+                                                Ciao, {{ ucwords($user->name) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li
+                                    class="d-flex justify-content-start align-items-center nav-item-li  nav-link text-navbar {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
+                                    <a class="text-navbar" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <img class="icon me-3" src="{{ asset('Icons/exit.svg') }}" alt="">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="GET"
+                                        class="d-none">
+                                        @csrf
+                                        @method('GET')
+                                    </form>
+
+                                </li>
+                            </ul>
+                        </div>
+
+                    </nav>
+                </div>
+                <div class="col-xs-12 col-md-12 col-lg-9">
+                    <main class="overflow-auto vh-100">
+                        @yield('content')
+                    </main>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -179,6 +232,8 @@
             container: "map",
         })
     </script>
+
+    <script></script>
 </body>
 
 </html>
