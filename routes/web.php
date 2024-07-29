@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FlatController;
-
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Flat;
@@ -31,6 +31,7 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+        Route::get('/chart', [ChartController::class, 'show']);
         Route::resource('flats', FlatController::class)->parameters(['flats' => 'flat:slug']);
         Route::get('/sponsor/{slug}', [FlatController::class, 'showSponsorPage'])->name('sponsor');
 
@@ -38,7 +39,6 @@ Route::middleware('auth')
 
 
         Route::get('/sponsor/{slug}', [FlatController::class, 'showSponsorPage'])->name('sponsor');
-
     });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

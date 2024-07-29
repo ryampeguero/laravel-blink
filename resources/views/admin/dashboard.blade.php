@@ -31,10 +31,13 @@
             <div class="col">
                 <div class="container-fluid ms_card p-4 h-100">
                     <h4>Messaggi Ricevuti</h4>
-                    <h1>{{count($messages)}}</h1>
+                    <h1>{{ count($messages) }}</h1>
                     <p>Viene aggiornato ad ogni messaggio ricevuto</p>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
         </div>
     </div>
     <div class="ms_shadow mt-4 container ms_border p-4">
@@ -58,7 +61,7 @@
         <div class="">
             {{ $messages->links() }}
         </div>
-        
+
         <div class="scroller">
 
             <table class="ms_table table_mex">
@@ -71,20 +74,21 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                   <tbody>
-                @foreach ($messages as $message)
-                    <tr>
-                        <td>{{ $message->flat->name }}</td>
-                        <td>{{ $message->email }}</td>
-                        <td>{{ $message->message }}</td>
-                        <td>{{ $message->created_at->format('d/m/Y') }}</td>
-                        <td>
-                            <form action="{{ route('admin.dashboard.destroy', ['id' => $message->id]) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Elimina</button>
-                            </form>
-                        </td>
+                <tbody>
+                    @foreach ($messages as $message)
+                        <tr>
+                            <td>{{ $message->flat->name }}</td>
+                            <td>{{ $message->email }}</td>
+                            <td>{{ $message->message }}</td>
+                            <td>{{ $message->created_at->format('d/m/Y') }}</td>
+                            <td>
+                                <form action="{{ route('admin.dashboard.destroy', ['id' => $message->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Elimina</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
