@@ -47,7 +47,7 @@
                     <div class="row justify-content-lg-start extern_container">
                         <div class="col-2 logo_container">
                             <a href="/"
-                                class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                                class="w-25 d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
                                 <img class="logo_blink" src="{{ asset('Icons/blink-ico.svg') }}" alt="">
                             </a>
                         </div>
@@ -57,8 +57,7 @@
                                 <li class="">
                                     <a class="text-navbar " href="{{ url('http://localhost:5174/') }}">
                                         <div class="d-flex container-fluid align-items-center">
-                                            <img class="icon" src="{{ asset('Icons/HomePage.svg') }}"
-                                                alt=""></img>
+                                            <img class="icon" src="{{ asset('Icons/HomePage.svg') }}"alt="">
                                         </div>
                                     </a>
                                 </li>
@@ -68,7 +67,7 @@
                                     <a class="text-navbar" href="{{ route('admin.dashboard') }}">
                                         <div class="d-flex align-items-center">
                                             <img class="icon {{ Route::currentRouteName() == 'admin.dashboard' ? 'filter_white ' : '' }}"
-                                                src="{{ asset('Icons/Dashboard.svg') }}" alt=""></img>
+                                                src="{{ asset('Icons/Dashboard.svg') }}" alt="">
                                         </div>
                                     </a>
                                 </li>
@@ -78,7 +77,7 @@
                                     <a class="text-navbar" href="{{ route('admin.flats.index') }}">
                                         <div class="d-flex align-items-center">
                                             <img class="icon {{ Route::currentRouteName() == 'admin.flats.index' ? 'filter_white ' : '' }}"
-                                                src="{{ asset('Icons/Flats.svg') }}" alt=""></img>
+                                                src="{{ asset('Icons/Flats.svg') }}" alt="">
                                         </div>
                                     </a>
                                 </li>
@@ -88,7 +87,7 @@
                                     <a class="text-navbar" href="{{ route('admin.flats.create') }}">
                                         <div class="d-flex align-items-center ">
                                             <img class="icon {{ Route::currentRouteName() == 'admin.flats.create' ? 'filter_white ' : '' }}"
-                                                src="{{ asset('Icons/Add.svg') }}" alt=""></img>
+                                                src="{{ asset('Icons/Add.svg') }}" alt="">
                                         </div>
                                     </a>
                                 </li>
@@ -99,14 +98,16 @@
                                         class="ms_border_inner {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
                                         <a class="text-navbar" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <img class="icon filter_white" src="{{ asset('Icons/exit.svg') }}" alt="">
+                                            <img class="icon filter_white" src="{{ asset('Icons/exit.svg') }}"
+                                                alt="">
                                         </a>
-        
-                                        <form id="logout-form" action="{{ route('logout') }}" method="GET" class="d-none">
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="GET"
+                                            class="d-none">
                                             @csrf
                                             @method('GET')
                                         </form>
-        
+
                                     </div>
                                 </li>
 
@@ -148,9 +149,11 @@
                         <div class=" pt-3 h-100">
                             <ul class="d-flex flex-column h-100 justify-content-start align-items-center p-0">
 
-                                <li class="d-flex align-items-center navbar-nav justify-content-start">
-                                    <img class="logo_blink" src="{{ asset('Icons/blink-logo-white.svg') }}"
-                                        alt="">
+                                <li class="w-100">
+                                    <a href="{{ route('admin.dashboard') }}">
+                                        <img class="logo_blink" src="{{ asset('Icons/blink-logo-white.svg') }}"
+                                            alt="">
+                                    </a>
                                 </li>
 
                                 <li class="mt-3  d-flex justify-content-start align-items-center nav-item-li">
@@ -214,8 +217,11 @@
                                     class="d-flex justify-content-start align-items-center nav-item-li  nav-link text-navbar {{ Route::currentRouteName() == 'admin.logout' ? 'ms_backC_secondary_selected ' : '' }}">
                                     <a class="text-navbar" href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <img class="icon me-3" src="{{ asset('Icons/exit.svg') }}" alt="">
-                                        Logout
+                                        <div class="d-flex container-fluid align-items-center ">
+                                            <img class="icon me-3" src="{{ asset('Icons/exit.svg') }}"
+                                                alt="">
+                                            Logout
+                                        </div>
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="GET"

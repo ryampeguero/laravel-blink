@@ -37,24 +37,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
 
-                            <div class="d-flex align-items-center ms-2 navbar-nav me-auto">
-                                <img class="logo_blink" src="{{ asset('Icons/blink-logo-white.svg') }}" alt="">
-                            </div>
+                    <div class="w-50">
+                        <a href="{{ route('welcome') }}">
+                            <img class="logo_blink" src="{{ asset('Icons/blink-logo-white.svg') }}" alt="">
+                        </a>
+                    </div>
 
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto d-flex gap-4">
                         <!-- Authentication Links -->
-                        @guest
-                            {{-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li> --}}
-                            @if (Route::has('register'))
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li> --}}
-                            @endif
-                        @else
+                        @auth
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -74,7 +67,8 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+                            
+                        @endauth
                     </ul>
                 </div>
             </div>

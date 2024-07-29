@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     return view('welcome');
-});
+})->name('welcome');
 
 Route::middleware('auth')
     ->prefix('admin') // Prefisso nell'url delle rotte di questo gruppo
