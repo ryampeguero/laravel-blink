@@ -12,11 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            //rimuivere chiave esterna 
-            $table->dropForeign(['flat_id']);
-
-            $table->foreign(['flat_id'])->references('id')->on('flats')->cascadeOnDelete();
-
+            $table->foreign('flat_id')->references('id')->on('flats')->cascadeOnDelete();
         });
     }
 
