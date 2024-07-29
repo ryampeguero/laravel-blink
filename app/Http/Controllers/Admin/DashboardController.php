@@ -16,11 +16,11 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $user_id = Auth::id();
-        $messages = Message::with(['flat'])->where('user_id', $user_id)->orderByDesc('id')->get();
+        $messages = Message::with(['flat'])->where('user_id', $user_id)->orderByDesc('id')->paginate(5);
         $views = DB::table('views')->rightJoin('flats', 'flats.id', '=', 'flat_id')->where('user_id', $user_id)
             ->get();
 
-        return view('admin.dashboard', compact('views', 'user','messages'));
+        return view('admin.dashboard', compact('views', 'user', 'messages'));
     }
 
     public function destroy($id)

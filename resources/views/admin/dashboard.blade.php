@@ -63,7 +63,7 @@
             </div>
         @endif
         <div class="">
-            {{-- {{ $flats->links() }} --}}
+            {{ $messages->links() }}
         </div>
         <table class="ms_table table_mex">
             <thead>
