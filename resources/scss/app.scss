@@ -115,6 +115,7 @@ a {
     align-items: center;
     height: 100%;
     width: 100%;
+    
 }
 
 .icon_profile {
@@ -223,6 +224,7 @@ nav {
 // TEXT
 .text-navbar {
     color: $primary-color;
+    min-width: 100%;
 }
 
 
