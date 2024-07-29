@@ -58,7 +58,10 @@ h1 {
     font-family: BlauerNue;
     font-variant: normal;
     font-weight: bolder;
+    
 }
+
+// FONT-SIZE
 
 h4 {
     font-family: BlauerNue;
@@ -89,7 +92,6 @@ label {
 
 .mt-auto {
     margin-top: auto;
-
 }
 
 a {
@@ -140,7 +142,7 @@ a {
 
 #logout {
     background-color: $secondary-color;
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     color: white;
     border-radius: 0.5rem;
     box-shadow: $shadow2;
@@ -228,6 +230,7 @@ nav {
 }
 
 
+
 // TABLES
 .ms_table {
     border-radius: 0.5rem;
@@ -236,6 +239,7 @@ nav {
     border-spacing: 0;
     width: 100%;
     box-shadow: $shadow;
+    text-overflow: ellipsis;
 
     thead {
         background-color: $primary-color;
@@ -246,6 +250,8 @@ nav {
             font-variant: normal;
             font-weight: bolder;
             padding: 10px;
+            text-overflow: ellipsis;
+            
         }
     }
 
@@ -267,6 +273,7 @@ nav {
 
         td {
             padding: 1rem;
+            text-overflow: ellipsis;
         }
     }
 }
@@ -319,8 +326,8 @@ nav {
 // BUTTONS
 .ms_button {
     background-color: $secondary-color;
-    padding: 1rem;
     color: white;
+    padding: 1rem;
     border-radius: 0.5rem;
     box-shadow: $shadow2;
 

@@ -1,12 +1,47 @@
+@media screen and (min-width: 575px) {
+
+
+    .logout_button_header {
+        display: none !important;
+    }
+
+}
+
+@media screen and (max-width: 575px) {
+
+    #header_top {
+
+        .logo_container {
+            display: none;
+        }
+
+
+        .logout_container {
+            display: none !important;
+        }
+
+        .extern_container {
+            justify-content: center !important;
+        }
+
+        .icon {
+            padding: 5px;
+            margin: 0, 5rem;
+        }
+
+
+    }
+
+}
 
 @media screen and (max-width: 500px) {
     .table_mex {
         th:nth-child(1) {
-            display:none;
+            display: none;
         }
 
         td:nth-child(1) {
-            display:none;
+            display: none;
         }
     }
 }
@@ -14,61 +49,64 @@
 @media screen and (max-width: 650px) {
     .table_flats {
         th:nth-child(1) {
-            display:none;
+            display: none;
         }
 
         td:nth-child(2) {
-            display:none;
+            display: none;
         }
     }
 }
 
 @media screen and (max-width: 768px) {
     .stats {
-        display: block ;
+        display: block;
     }
-
 
 }
 
 @media screen and (max-width: 1200px) {
 
-    .table_mex {
-        th:nth-child(2) {
-            display:none;
-        }
-
-        td:nth-child(2) {
-            display:none;
-        }
-    }
 
     .table_flats {
 
         th:nth-child(2) {
-            display:none;
+            display: none;
         }
 
         td:nth-child(3) {
-            display:none;
+            display: none;
         }
-        
+
         th:nth-child(3) {
-            display:none;
+            display: none;
         }
-        
+
         td:nth-child(4) {
-            display:none;
+            display: none;
         }
-        
+
         th:nth-child(4) {
-            display:none;
+            display: none;
         }
-        
+
         td:nth-child(5) {
-            display:none;
+            display: none;
         }
-        
+
     }
+
 }
 
+@media screen and (max-width: 1600px) {
+
+    .scroller {
+        overflow-x: scroll;
+    }
+
+    .font_size_smaller {
+        font-size: 1.5rem;
+    }
+    
+
+}
