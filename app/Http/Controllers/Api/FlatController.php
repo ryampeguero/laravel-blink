@@ -182,12 +182,21 @@ class FlatController extends Controller
                 $query->select('flat_id')
                     ->from('receipts')
                     ->whereIn('plan_id', $planIds)->groupBy('plan_id')->orderBy('plan_id');
-
             })->get();
 
         return response()->json([
             'success' => true,
             'results' => $flats,
+        ]);
+    }
+
+    public function premiumFlats()
+    {
+        $flatsPrem = DB::table('flats')->rightJoin('receipts', 'flats.id', '=', 'receipts.flat_id')->where('plan_id', 3)->get();
+
+        return response()->json([
+            'success' => true,
+            'results' => $flatsPrem,
         ]);
     }
 }

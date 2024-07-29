@@ -28,7 +28,8 @@ Route::post('login', [ReaderAuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('user', function (Request $request) {
     return Auth::user();
-    Route::post('logout', [ReaderAuthController::class, 'logout']);
+
+    // Route::post('logout', [ReaderAuthController::class, 'logout']);
 });
 
 //Ricerca appartamenti
@@ -36,7 +37,7 @@ Route::get('/flats/search', [FlatController::class, 'search']);
 Route::get('/flats/searchAR', [FlatController::class, 'searchAR']);
 Route::get('/flats/services', [FlatController::class, 'getAllServices']);
 Route::get('/flats/searchpremium', [FlatController::class, 'searchPremium']);
-
+Route::get('/flats/premium', [FlatController::class, 'premiumFlats']);
 //Pagamenti
 Route::get('payment/token', [PaymentController::class, 'token']);
 Route::post('payment/checkout', [PaymentController::class, 'checkout']);

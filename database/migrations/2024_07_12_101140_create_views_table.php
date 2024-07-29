@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('ip_address');
             $table->unsignedBigInteger('flat_id');
-            $table->foreign('flat_id')->references('id')->on('flats');
+            $table->foreign('flat_id')->references('id')->on('flats')->cascadeOnDelete();
             $table->timestamps();
         });
     }
