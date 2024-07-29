@@ -43,7 +43,9 @@
                                 <a href="{{ route('admin.flats.show', ['flat' => $item->slug]) }}"><i class="fa-solid fa-info info ms_button_info d-flex justify-content-center"></i></a>
                             </td>
                             <td class="tabs">
-                                <a href="{{ route('admin.sponsor', ['slug' => $item->slug]) }}"><img class="spons ms_button icon" src="{{ asset('Icons/spons.svg') }}" alt=""></a>
+                                <a href="{{ route('admin.sponsor', ['slug' => $item->slug]) }}">
+                                    <img class="spons ms_button icon" src="{{ asset('Icons/spons.svg') }}" alt="">
+                                </a>
                             </td>
                     </tr>
                 @endforeach

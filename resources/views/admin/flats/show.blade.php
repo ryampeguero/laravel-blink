@@ -14,8 +14,20 @@
                 <div class="d-flex justify-content-between">
                     <h2 class="card-title">{{ $flat->name }}</h2>
                     <div class="d-flex gap-3">
-                        <a href="{{ route('admin.flats.edit', ['flat' => $flat->slug]) }}" class="ms_button"><i class="fa-solid fa-pen"></i></a>
-                        @include('partials.delete_flat_form')
+                        <div class="">
+                            <a href="{{ route('admin.flats.edit', ['flat' => $flat->slug]) }}" class="btn btn-warning"><i
+                                    class="fa-solid fa-pen"></i>
+                            </a>
+                        </div>
+                        <div class="">
+                            <form class="delete-form" action="{{ route('admin.flats.destroy', ['flat' => $flat->slug]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button id="btnDeleteFlat" data-flat-name="{{ $flat->name }}" type="submit"
+                                    class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <h3>Visite: <span>{{ $views }}</span></h3>
@@ -27,7 +39,8 @@
                             <img src="{{ asset('storage/' . $flat->img_path) }}" class="img-fluid mt-3"
                                 alt="Immagine Appartamento">
                         @else
-                            <img src="https://www.italianofishingshop.com/pimages/RETE-MT-5-IDROSOLUBILE-NERA-small-4632.jpg" alt="imgNotAvailable">
+                            <img src="https://www.italianofishingshop.com/pimages/RETE-MT-5-IDROSOLUBILE-NERA-small-4632.jpg"
+                                alt="imgNotAvailable">
                         @endif
 
                         <p><strong>Numero di Stanze:</strong> {{ $flat->rooms }}</p>
@@ -59,12 +72,15 @@
             </div>
             <div class="card-footer d-flex justify-content-between">
                 <div class="">
-                    <a href="{{ route('admin.flats.index') }}" class="btn btn-light"><i
-                            class="fa-solid fa-arrow-left"></i></a>
-
+                    <a href="{{ route('admin.flats.index') }}">
+                        <img class="spons ms_button_secondary icon" src="{{ asset('Icons/chevron-left.svg') }}"
+                            alt="">
+                    </a>
                 </div>
                 <div class="">
-                    <a class="btn btn-primary" href="{{ route('admin.sponsor', ['slug' => $flat->slug]) }}">SPONSORIZZA</a>
+                    <a href="{{ route('admin.sponsor', ['slug' => $flat->slug]) }}">
+                        <img class="spons ms_button icon" src="{{ asset('Icons/spons.svg') }}" alt="">
+                    </a>
                 </div>
             </div>
         </div>
