@@ -5,7 +5,7 @@
         <h1>Aggiungi un nuovo appartamento</h1>
         <div class="row">
             <!-- Colonna del modulo -->
-            <div class="col-xl-6 col-lg-7 col-md-12 mt-5">
+            <div class=" mt-5">
                 <form class="px-4" id='form-create' action="{{ route('admin.flats.store') }}" method="POST"
                     enctype="multipart/form-data" autocomplete="off">
                     @csrf
@@ -151,9 +151,6 @@
         </div>
 
         <!-- Colonna dell'immagine -->
-        <div class="col-xl-6 col-lg-5 col-md-12 mt-5">
-            <img class="ms_img ms_border_inner" src="{{ asset('img/placeholder_img_fit.png') }}" alt="">
-        </div>
     </div>
     </div>
 @endsection

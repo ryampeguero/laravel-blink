@@ -9,9 +9,9 @@
             <div class="col">
                 <div class="card border-0 d-flex align-items-center">
                     @if ($user->img_path)
-                        <img class="w-25 rounded-4" src="{{ asset('storage/' . $user->img_path) }}" alt="...">
+                        <img class="icon_profile" src="{{ asset('storage/' . $user->img_path) }}" alt="...">
                     @else
-                        <img class="w-25 rounded-4" src="{{ asset('img/user_placeholder.png') }}" alt="">
+                        <img class="icon_profile" src="{{ asset('img/user_placeholder.png') }}" alt="">
                     @endif
                     <div class="card-body">
                         <h2>Benvenut* {{ ucwords($user->name) }}!</h2>
@@ -32,7 +32,7 @@
                 <div class="container-fluid ms_card p-4 h-100">
                     <h4>Messaggi Ricevuti</h4>
                     <h1>99</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <p>Dato che viene aggiornato ad ogni messaggio ricevuto</p>
                 </div>
             </div>
             <div class="col">
@@ -46,7 +46,7 @@
     </div>
     <div class="ms_shadow mt-4 container ms_border p-4">
         {{-- <div class="">{{ $flats->links() }}</div> --}}
-        <div class=" mb-5 d-flex justify-content-between align-items-center">
+        <div class=" mb-1 d-flex justify-content-between align-items-center">
             <div>
                 <h1>Messaggi</h1>
             </div>
@@ -65,7 +65,7 @@
         <div class="">
             {{-- {{ $flats->links() }} --}}
         </div>
-        <table class="ms_table">
+        <table class="ms_table table_mex">
             <thead>
                 <tr class="ms_tr">
                     <th>Nome Appartamento</th>
