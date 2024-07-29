@@ -117,6 +117,7 @@ a {
     align-items: center;
     height: 100%;
     width: 100%;
+
 }
 
 .icon_profile {
@@ -225,6 +226,7 @@ nav {
 // TEXT
 .text-navbar {
     color: $primary-color;
+    min-width: 100%;
 }
 
 
@@ -328,6 +330,10 @@ nav {
     padding: 1rem;
     border-radius: 0.5rem;
     box-shadow: $shadow2;
+
+    &:hover {
+        background-color: $secondary-color-hover;
+    }
 }
 
 .ms_button_delete {
@@ -346,6 +352,10 @@ nav {
     box-shadow: $shadow2;
     max-width: 50px;
     max-height: 50px;
+
+    &:hover {
+        background-color: $primary-color-hover;
+    }
 }
 
 .ms_button_login {
@@ -359,11 +369,16 @@ nav {
 
 .ms_button_secondary {
     border: 1px solid $primary-color;
+
     background-color: none;
     padding: 1rem;
     color: $primary-color;
     border-radius: 0.5rem;
     box-shadow: $shadow2;
+
+    &:hover {
+        border: 2px solid $primary-color-hover;
+    }
 }
 
 // SHADOW

@@ -4,7 +4,7 @@
     <div class="container p-5 ms_shadow mt-4 ms_border p-4 mb-5">
         <h1>Modifica appartamento</h1>
         <div class="row">
-            <div class="col-6 mt-5">
+            <div class="col-12 mt-5">
                 <form class="px-4" id='form-edit' action="{{ route('admin.flats.update', ['flat' => $flat->slug]) }}"
                     method="POST" enctype="multipart/form-data" autocomplete="off" name="theForm">
                     @method('PUT')
@@ -169,11 +169,6 @@
                     </div>
             </div>
             </form>
-            
-            <div class="col-6 mt-5 ms_border_inner">
-                <img class="ms_img ms_border_inner" src="{{ asset('img/placeholder_img_fit.png') }}" alt="">
-            </div>
-            
         </div>
     </div>
 @endsection
