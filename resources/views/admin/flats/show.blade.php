@@ -44,7 +44,7 @@
                                 @endif
                                 <h5><strong>Indirizzo:</strong> {{ $flat->address }}</h5>
                             </div>
-                            <div class="">
+                            <div class="scroller">
                                 <table class="ms_table">
                                     <thead>
                                         <tr class="ms_tr">
