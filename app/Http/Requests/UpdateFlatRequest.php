@@ -22,7 +22,7 @@ class UpdateFlatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:3', 'max:255 ','unique:flats,name'],
+            'name' => ['required', 'string', 'min:3', 'max:255 '],
             'rooms' => 'required|integer|not_in:0|gt:-1 ',
             'bathrooms' => 'required|integer|not_in:0|gt:-1 ',
             'beds' => 'required|integer|not_in:0|gt:-1 ',
@@ -43,9 +43,8 @@ class UpdateFlatRequest extends FormRequest
             'name.string' => 'Il nome dell\'appartamento deve essre composto da una stringa',
             'name.min' => 'Il nome dell\'appartamento deve avere almeno 3 caratteri',
             'name.max' => 'Il nome dell\'appartamento non può superare i 255 caratteri',
-            'name.unique' => 'Il nome dell\'appartamento è già presente nel sito',
             'rooms.required' => 'Il numero delle camere è obligatorio',
-            'rooms.integer' => 'Il numero delle camere deve esseere un numero intero',
+            'rooms.integer' => 'Il numero delle camere deve essere un numero intero',
             'rooms.not_in' => 'Il numero delle camere non può essere 0',
             'rooms.gt' => 'Il numero delle camere non può essere negativo',
             'beds.required' => 'Il numero di letti è obligatorio',

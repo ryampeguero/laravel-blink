@@ -192,6 +192,7 @@ if (document.getElementsByClassName('ms_table')) {
 
 
 if (document.getElementById('lat')) {
+    
     const latCoord = parseFloat(document.getElementById('lat').getAttribute('php-var'));
     const lonCoord = parseFloat(document.getElementById('lon').getAttribute('php-var'));
 
@@ -314,6 +315,7 @@ function setMap(latCoord, lonCoord) {
         zoom: 15
     });
 
+    console.log(map);
     var marker = new tt.Marker().setLngLat(position).addTo(map)
     return map;
 }

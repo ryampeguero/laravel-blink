@@ -26,6 +26,24 @@
     }
 }
 
+.border-gray {
+    border: 0.5px solid rgb(194, 193, 193);
+    border-radius: 10px;
+    // padding: 5px;
+}
+
+.map-show {
+    min-width: 100% !important;
+    min-height: 200px;
+    // border: 1px solid black;
+}
+
+
+.sm-text {
+    font-size: 0.8rem;
+
+}
+
 //input
 .ms_input {
     display: flex;
@@ -58,7 +76,7 @@ h1 {
     font-family: BlauerNue;
     font-variant: normal;
     font-weight: bolder;
-    
+
 }
 
 // FONT-SIZE
@@ -235,7 +253,7 @@ nav {
     border-collapse: separate;
     overflow: hidden;
     border-spacing: 0;
-    width: 100%;
+    min-width: 100%;
     box-shadow: $shadow;
     text-overflow: ellipsis;
 
@@ -249,11 +267,18 @@ nav {
             font-weight: bolder;
             padding: 10px;
             text-overflow: ellipsis;
-            
+
         }
     }
 
     tbody {
+
+        .overflow {
+            overflow-y: scroll;
+            max-height: 40px;
+            border: 2px solid red;
+        }
+
         th {
             padding: 1rem;
             font-family: BlauerNue;
@@ -294,7 +319,7 @@ nav {
 .ms_bg {
     background-image: url("../../public/img/background_login.jpg");
     background-repeat: no-repeat;
-    background-attachment: fixed; 
+    background-attachment: fixed;
     background-size: 100% 100%;
 }
 
@@ -303,7 +328,7 @@ nav {
 }
 
 .vh-100 {
-    height:calc(100vh - 100px);
+    height: calc(100vh - 100px);
 }
 
 .ms_backC_tertiary {
@@ -339,6 +364,7 @@ nav {
     padding: 1rem;
     border-radius: 0.5rem;
     box-shadow: $shadow2;
+    cursor: pointer;
 
     &:hover {
         background-color: $secondary-color-hover;

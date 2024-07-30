@@ -78,7 +78,9 @@
                                 <input type="hidden" name="latitude" id="latitude">
                                 <input type="hidden" name="longitude" id="longitude">
                                 <ul id="suggestions"></ul>
-                                <div id="search" class="btn btn-primary">Mostra nella mappa</div>
+                                <div class="w-25 text-center">
+                                    <div id="search" class="ms_button">Mostra nella mappa</div>
+                                </div>
                             </div>
                         </div>
 
