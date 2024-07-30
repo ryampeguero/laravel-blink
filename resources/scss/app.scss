@@ -26,6 +26,24 @@
     }
 }
 
+.border-gray{
+    border: 0.5px solid rgb(194, 193, 193);
+    border-radius: 10px;
+    // padding: 5px;
+}
+
+.map-show {
+    min-width: 100% !important;
+    min-height: 200px;
+    // border: 1px solid black;
+}
+
+
+.sm-text{
+    font-size: 0.8rem;
+
+}
+
 //input
 .ms_input {
     display: flex;
@@ -235,7 +253,7 @@ nav {
     border-collapse: separate;
     overflow: hidden;
     border-spacing: 0;
-    width: 100%;
+    min-width: 100%;
     box-shadow: $shadow;
     text-overflow: ellipsis;
 
@@ -254,6 +272,13 @@ nav {
     }
 
     tbody {
+        
+        .overflow{
+            overflow-y: scroll;
+            max-height: 40px;
+            border: 2px solid red;
+        }
+        
         th {
             padding: 1rem;
             font-family: BlauerNue;

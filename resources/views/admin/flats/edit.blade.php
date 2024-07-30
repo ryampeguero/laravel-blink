@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container p-5 ms_shadow mt-4 ms_border p-4 mb-5">
+    <div class="container p-5 ms_shadow mt-4 ms_border mb-5">
         <h1>Modifica appartamento</h1>
         <div class="row">
             <div class="col-12 mt-5">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFlatRequest;
 use App\Http\Requests\UpdateFlatRequest;
 use App\Models\Flat;
+use App\Models\Message;
 use App\Models\Plan;
 use App\Models\Service;
 use App\Models\View;
@@ -67,8 +68,10 @@ class FlatController extends Controller
         $user = Auth::user();
 
         $views = View::where('flat_id', $flat->id)->count();
-        
-        return view('admin.flats.show', compact('flat', 'slug', 'views','user'));
+
+        $messages = Message::where('flat_id', $flat->id)->paginate(2);
+        // dd($messages);
+        return view('admin.flats.show', compact('flat', 'slug', 'views','user','messages'));
     }
 
 
