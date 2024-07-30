@@ -19,7 +19,7 @@
     @vite(['resources/js/app.js'])
 </head>
 
-<body>
+<body class="ms_bg">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">

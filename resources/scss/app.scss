@@ -293,8 +293,19 @@ nav {
     padding: 20px;
 }
 
+.ms_bg {
+    background-image: url("../../public/img/background_login.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+}
+
 .filter_white {
     filter: invert(100%) sepia(2%) saturate(310%) hue-rotate(342deg) brightness(118%) contrast(100%);
+}
+
+.vh-100 {
+    height:calc(100vh - 100px);
 }
 
 .ms_backC_tertiary {
