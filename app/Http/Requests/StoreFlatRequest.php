@@ -22,7 +22,7 @@ class StoreFlatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:3', 'max:255 '],
+            'name' => ['required', 'string', 'min:3', 'max:255 ', 'unique:flats,name'],
             'rooms' => 'required|integer|not_in:0|gt:-1 ',
             'bathrooms' => 'required|integer|not_in:0|gt:-1 ',
             'beds' => 'required|integer|not_in:0|gt:-1 ',
@@ -43,6 +43,7 @@ class StoreFlatRequest extends FormRequest
             'name.string' => 'Il nome dell\'appartamento deve essre composto da una stringa',
             'name.min' => 'Il nome dell\'appartamento deve avere almeno 3 caratteri',
             'name.max' => 'Il nome dell\'appartamento non può superare i 255 caratteri',
+            'name.unique' => 'Il nome dell\'appartamento è già preso',
             'rooms.required' => 'Il numero delle camere è obligatorio',
             'rooms.integer' => 'Il numero delle camere deve esseere un numero intero',
             'rooms.not_in' => 'Il numero delle camere non può essere 0',
