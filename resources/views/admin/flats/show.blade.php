@@ -11,18 +11,19 @@
                     <div class="d-flex justify-content-between">
                         <h2 class="card-title">{{ $flat->name }}</h2>
                         <div class="d-flex gap-3">
+                            <a href="{{ route('admin.flats.edit', ['flat' => $flat->slug]) }}"
+                                class="ms_button_secondary">
                             <div class="">
-                                <a href="{{ route('admin.flats.edit', ['flat' => $flat->slug]) }}"
-                                    class="btn btn-warning"><i class="fa-solid fa-pen"></i>
-                                </a>
-                            </div>
+                                    <i class="fa-solid fa-pen"></i>
+                                </div>
+                            </a>
                             <div class="">
-                                <form class="delete-form"
+                                <form class=""
                                     action="{{ route('admin.flats.destroy', ['flat' => $flat->slug]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button id="btnDeleteFlat" data-flat-name="{{ $flat->name }}" type="submit"
-                                        class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        class="ms_button_secondary"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </div>
                         </div>
