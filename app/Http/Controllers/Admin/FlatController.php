@@ -71,7 +71,7 @@ class FlatController extends Controller
 
         $messages = Message::where('flat_id', $flat->id)->paginate(2);
         // dd($messages);
-        return view('admin.flats.show', compact('flat', 'slug', 'views','user','messages'));
+        return view('admin.flats.show', compact('flat', 'slug', 'views', 'user', 'messages'));
     }
 
 
@@ -108,7 +108,7 @@ class FlatController extends Controller
         //services
         if ($request->has('services')) {
             $flat->services()->sync($data['services']);
-        }else{
+        } else {
             $flat->services()->detach();
         }
 
@@ -117,14 +117,14 @@ class FlatController extends Controller
             $data['latitude'] = $request->latitude;
             $data['longitude'] = $request->longitude;
         }
-        
+
         $flat->update($data);
-        
+
         return redirect()->route('admin.flats.show', ['flat' => $flat->slug])->with('message', 'Appartamento ' . $flat->name . ' è stato modificato');
     }
-    
+
     public function destroy(Flat $flat)
-    {   
+    {
         // dd('ciao');
 
         //controllo user 
@@ -133,7 +133,7 @@ class FlatController extends Controller
         }
 
         //controllo img
-        if ( $flat->img_path) {
+        if ($flat->img_path) {
             Storage::delete($flat->img_path);
         }
 
@@ -145,25 +145,15 @@ class FlatController extends Controller
 
     public function showSponsorPage(String $slug)
     {
-        // dd($flat);
-        // dd($slug);
-
-
 
         $flat = Flat::where('slug', $slug)->first();
-        // dd($flat);
 
         $sponsorships = Plan::all();
         $user = Auth::user();
-        
 
-        // return view('admin.sponsor', compact('sponsorships', 'flat', 'slug'));
-        return view('admin.sponsor', [
-            'sponsorships' => $sponsorships,
-            'flat' => $flat,
-            'slug' => $slug,
-            'user' => $user,
-        ]);
+        $plansInfo = [
+            '1'=>'',
+        ];
+        return view('admin.sponsor', compact('sponsorships', 'flat', 'slug', 'user'));
     }
-
 }
