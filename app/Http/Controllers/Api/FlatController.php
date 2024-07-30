@@ -141,7 +141,7 @@ class FlatController extends Controller
 
         $slug = $request->route('slug');
 
-        $flat = Flat::with(['user'])->where('slug', $slug)->first();
+        $flat = Flat::with(['user','services'])->where('slug', $slug)->first();
 
         return response()->json($flat);
     }
