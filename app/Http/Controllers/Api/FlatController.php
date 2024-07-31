@@ -57,7 +57,7 @@ class FlatController extends Controller
 
             ->where('longitude', '>=', $longitude - $range)
             ->where('longitude', '<=', $longitude + $range)
-
+            ->where('visible', 1)
             ->get();
 
         return [
@@ -100,7 +100,7 @@ class FlatController extends Controller
                 ->where('longitude', '<=', $this->longitude + $this->range)
                 ->where('rooms', '>=', $this->rooms)
                 ->where('bathrooms', '>=', $this->bathrooms)
-
+                ->where('visible', 1)
                 ->orderByDesc('rooms')
                 ->get();
         } else {
@@ -117,6 +117,7 @@ class FlatController extends Controller
                     ->where('longitude', '<=', $this->longitude + $this->range)
                     ->where('rooms', '>=', $this->rooms)
                     ->where('bathrooms', '>=', $this->bathrooms)
+                    ->where('visible', 1)
 
                     ->with('flats')->get();
 
